@@ -5,6 +5,6 @@ export function getPost(): Promise<any> {
     return new Promise((resolve) => {
       resolve(post);
     })
-
+    console.log('halu')
   }
   
