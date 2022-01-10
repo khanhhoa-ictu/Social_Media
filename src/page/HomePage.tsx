@@ -6,17 +6,17 @@ import Home from '../conponents/home/Home'
 
 function HomePage() {
     const dispatch = useDispatch()
-    let post  = useSelector((state:any) =>state.HomeReducer.post.data)
+    let post = useSelector((state: any) => state.HomeReducer.post.data)
     console.log(post)
-    
+
     useEffect(() => {
-        getPost().then((post)=>{
-           dispatch(setPost(post))
+        getPost().then((post) => {
+            dispatch(setPost(post))
         })
     }, [])
     return (
         <div>
-            <Home/>
+            <Home />
         </div>
     )
 }
