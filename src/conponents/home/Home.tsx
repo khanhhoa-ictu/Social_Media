@@ -5,6 +5,9 @@ function Home() {
     return (
         <div>
             <Navigation/>
+            <div className='container'>
+                
+            </div>
         </div>
     )
 }
