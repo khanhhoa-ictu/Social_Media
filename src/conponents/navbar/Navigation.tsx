@@ -2,16 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-import logo from './logo.png'
 
-function Navigation() {
+import logo from '../../assets/image/logo.png'
+import { home } from '../../assets/icon/home'
 
+
+interface Props {
+    logout: () => void
+}
+// function Navigation(props : Props) {
+//     const {logout} = props
+
+
+function Navigation(props: Props) {
+    let { logout } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
+
 
     return (
         <NavigationStyled className="d-flex justify-content-center">
@@ -41,6 +52,8 @@ function Navigation() {
                                             <svg aria-label="Trang chủ" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M22 23h-6.001a1 1 0 01-1-1v-5.455a2.997 2.997 0 10-5.993 0V22a1 1 0 01-1 1H2a1 1 0 01-1-1V11.543a1.002 1.002 0 01.31-.724l10-9.543a1.001 1.001 0 011.38 0l10 9.543a1.002 1.002 0 01.31.724V22a1 1 0 01-1 1z"></path>
                                             </svg>
+                                            // <>{home}</>
+                                            // <img src={home} alt="Home" />
                                             :
                                             <svg aria-label="Trang chủ" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M9.005 16.545a2.997 2.997 0 012.997-2.997h0A2.997 2.997 0 0115 16.545V22h7V11.543L12 2 2 11.543V22h7.005z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
@@ -70,6 +83,7 @@ function Navigation() {
                                             <svg aria-label="Bài viết mới" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M12.003 5.545l-.117.006-.112.02a1 1 0 00-.764.857l-.007.117V11H6.544l-.116.007a1 1 0 00-.877.876L5.545 12l.007.117a1 1 0 00.877.876l.116.007h4.457l.001 4.454.007.116a1 1 0 00.876.877l.117.007.117-.007a1 1 0 00.876-.877l.007-.116V13h4.452l.116-.007a1 1 0 00.877-.876l.007-.117-.007-.117a1 1 0 00-.877-.876L17.455 11h-4.453l.001-4.455-.007-.117a1 1 0 00-.876-.877zM8.552.999h6.896c2.754 0 4.285.579 5.664 1.912 1.255 1.297 1.838 2.758 1.885 5.302L23 8.55v6.898c0 2.755-.578 4.286-1.912 5.664-1.298 1.255-2.759 1.838-5.302 1.885l-.338.003H8.552c-2.754 0-4.285-.579-5.664-1.912-1.255-1.297-1.839-2.758-1.885-5.302L1 15.45V8.551c0-2.754.579-4.286 1.912-5.664C4.21 1.633 5.67 1.05 8.214 1.002L8.552 1z"></path>
                                             </svg>
+                                            // <>{home}</>
                                             :
                                             <svg aria-label="Bài viết mới" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
@@ -99,10 +113,12 @@ function Navigation() {
                                         </NavLink>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem>
+
+                                    <DropdownItem onClick={logout}>
                                         <TextNavStyled className='mx-1'>Đăng xuất</TextNavStyled>
                                     </DropdownItem>
                                 </DropdownMenuStyled>
+
                             </UncontrolledDropdown>
                         </Nav>
 
@@ -115,8 +131,11 @@ function Navigation() {
 
 const NavigationStyled = styled.div`
     background-color:rgb(248,249,250);
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
     .navigation{
-        width:75%;
         .avatar{
             width:24px;
             height:24px;
