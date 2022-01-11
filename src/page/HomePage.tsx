@@ -9,6 +9,7 @@ import Home from '../conponents/home/Home'
 
 function HomePage() {
     const dispatch = useDispatch()
+
     const history = useHistory()
 
     let post  = useSelector((state:any) =>state.HomeReducer.post.data)
@@ -33,15 +34,20 @@ function HomePage() {
     
     console.log('homepage1', isLogin);
 
+    let post = useSelector((state: any) => state.HomeReducer.post.data)
+    console.log(post)
+
+
     useEffect(() => {
-        getPost().then((post)=>{
-           dispatch(setPost(post))
+        getPost().then((post) => {
+            dispatch(setPost(post))
         })
         dispatch(auth())
     }, [])
     return (
         <div>
             <Home logout = {logout}/>
+
         </div>
     )
 }
