@@ -2,17 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
+
 import logo from '../../assets/image/logo.png'
 import { home } from '../../assets/icon/home'
 
-function Navigation() {
 
+interface Props {
+    logout: () => void
+}
+// function Navigation(props : Props) {
+//     const {logout} = props
+
+
+function Navigation(props: Props) {
+    let { logout } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
+
 
     return (
         <NavigationStyled className="d-flex justify-content-center">
@@ -103,10 +113,12 @@ function Navigation() {
                                         </NavLink>
                                     </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem>
+
+                                    <DropdownItem onClick={logout}>
                                         <TextNavStyled className='mx-1'>Đăng xuất</TextNavStyled>
                                     </DropdownItem>
                                 </DropdownMenuStyled>
+
                             </UncontrolledDropdown>
                         </Nav>
 
