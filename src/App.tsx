@@ -9,6 +9,7 @@ import RegisterPage from './page/login/RegisterPage';
 import ForgotPage from './page/login/ForgotPage';
 import FooterPage from './page/FooterPage';
 import ConfirmPage from './page/login/ConfirmPage'
+import SettingPage from './page/SettingPage';
 
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/confirm/:id" component={ConfirmPage} />
         <Route exact path="/forgot" component={ForgotPage} />
+        <Route  path="/account/setting" component={SettingPage} />
+        <Route  path="/account/changepassword" component={SettingPage} />
+        <Route  path="/account/setting" component={SettingPage} />
+        
       </Switch>
       <FooterPage /> 
     </BrowserRouter>
