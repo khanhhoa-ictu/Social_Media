@@ -1,10 +1,16 @@
 import React from 'react'
 import Navigation from '../navbar/Navigation'
 
-function Home() {
+interface Props {
+    logout : () => void
+}
+
+function Home(props : Props) {
+    const {logout} = props
+
     return (
         <div>
-            <Navigation/>
+            <Navigation logout = {logout}/>
         </div>
     )
 }

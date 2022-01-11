@@ -2,7 +2,14 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Input, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-function Navigation() {
+
+interface Props {
+    logout : () => void
+}
+
+function Navigation(props : Props) {
+    const {logout} = props
+
     return (
         <NavigationStyled className="d-flex justify-content-center">
             <Navbar
@@ -52,7 +59,7 @@ function Navigation() {
                                     <NavLink to='user'>  Trang cá nhân </NavLink>
                                     <NavLink to='setting'>  Cài đặt tài khoản </NavLink>
                                     <DropdownItem divider />
-                                    <DropdownItem> Đăng Xuất </DropdownItem>
+                                    <DropdownItem onClick={logout}> Đăng Xuất </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
