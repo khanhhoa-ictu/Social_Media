@@ -1,28 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
+import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-
 import logo from '../../assets/image/logo.png'
-import { home } from '../../assets/icon/home'
-
 
 interface Props {
     logout: () => void
 }
-// function Navigation(props : Props) {
-//     const {logout} = props
-
 
 function Navigation(props: Props) {
     let { logout } = props
+
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
+    const [show, setShow] = useState<boolean>(false);
+    const [postContent, setPostContent] = useState('');
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [uploadFileName, setUploadFileName] = useState<string | null>(null);
+
+    const handleUpload = () => {
+        inputRef.current?.click();
+    }
+
+    const handleDisplayFileDetails = () => {
+        inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
+            setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
+        console.log(uploadFileName);
+    }
+
+    const setShowModal = () => {
+        setShow(!show)
+    }
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
-
 
     return (
         <NavigationStyled className="d-flex justify-content-center">
@@ -52,8 +65,6 @@ function Navigation(props: Props) {
                                             <svg aria-label="Trang chủ" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M22 23h-6.001a1 1 0 01-1-1v-5.455a2.997 2.997 0 10-5.993 0V22a1 1 0 01-1 1H2a1 1 0 01-1-1V11.543a1.002 1.002 0 01.31-.724l10-9.543a1.001 1.001 0 011.38 0l10 9.543a1.002 1.002 0 01.31.724V22a1 1 0 01-1 1z"></path>
                                             </svg>
-                                            // <>{home}</>
-                                            // <img src={home} alt="Home" />
                                             :
                                             <svg aria-label="Trang chủ" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                 <path d="M9.005 16.545a2.997 2.997 0 012.997-2.997h0A2.997 2.997 0 0115 16.545V22h7V11.543L12 2 2 11.543V22h7.005z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
@@ -77,7 +88,7 @@ function Navigation(props: Props) {
                                 </NavLink>
                             </NavItem>
                             <NavItem className='mx-2'>
-                                <NavLink to="/create">
+                                <NavLink to={history.location.pathname} onClick={setShowModal}>
                                     {
                                         currentPath === '/create' ?
                                             <svg aria-label="Bài viết mới" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
@@ -115,7 +126,11 @@ function Navigation(props: Props) {
                                     <DropdownItem divider />
 
                                     <DropdownItem onClick={logout}>
-                                        <TextNavStyled className='mx-1'>Đăng xuất</TextNavStyled>
+                                        <NavLink to='/logout' className="text-decoration-none text-dark">
+                                            <TextNavStyled className='mx-1'>
+                                                Đăng xuất
+                                            </TextNavStyled>
+                                        </NavLink>
                                     </DropdownItem>
                                 </DropdownMenuStyled>
 
@@ -125,6 +140,69 @@ function Navigation(props: Props) {
                     </Collapse>
                 </div>
             </Navbar>
+
+            <ModalStyled
+                isOpen={show}
+                toggle={setShowModal}
+                centered
+                className='modal border-none'
+            >
+                <ModalHeader toggle={setShowModal} className=''>
+                    Tạo bài viết mới
+                </ModalHeader>
+                <div className="d-flex flex-row">
+                    <ModalBody className="col-7 border-end text-center">
+                        Nhập ảnh từ thiết bị &nbsp;
+                        <input
+                            className="d-none"
+                            type="file"
+                            name='input'
+                            ref={inputRef}
+                            onChange={handleDisplayFileDetails}
+                        />
+                        <button
+                            onClick={handleUpload}
+                            className="btn btn-outline-primary py-1 px-2 my-2"
+                        >
+                            Tải lên
+                        </button>
+                        {
+                            uploadFileName &&
+                            <div className="my-1">
+                                <ImgStyled className='img-thumbnail' src={uploadFileName} alt="temp" />
+                            </div>
+                        }
+                    </ModalBody>
+                    <ModalBody className="col-5">
+                        <div className="d-flex justify-content-between">
+                            <div className="d-flex align-items-center">
+                                <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
+                                <div className='mx-3'>
+                                    <TitleStyled className='mb-0' tag="h6">
+                                        account
+                                    </TitleStyled>
+                                    <TitleStyled className="text-muted mb-0" >
+                                        address
+                                    </TitleStyled>
+                                </div>
+                            </div>
+                            <ButtonPostStyled className='text-primary px-1'>Chia sẻ</ButtonPostStyled>
+                        </div>
+                        <ContentArea
+                            className='d-block my-3'
+                            name='caption'
+                            value={postContent}
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setPostContent(e.target.value)}
+                            placeholder='Chú thích bài viết...'
+                            rows={10}
+                        />
+                        <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+                            <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
+                        </ButtonSvg>
+                    </ModalBody>
+                </div>
+            </ModalStyled>
+
         </NavigationStyled>
     )
 }
@@ -145,12 +223,77 @@ const NavigationStyled = styled.div`
             border-radius:50%;
             object-fit: cover;
         }
+`
+const AvatarStyled = styled.img`
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #e6e6e6;
+`
+
+const ButtonPostStyled = styled.button`
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+`
+
+const ButtonSvg = styled.svg`
+    cursor: pointer;
+`
+
+const ModalStyled = styled(Modal)`
+    width: 750px;
+    height: 600px;
+    max-width: none !important;   
+    .modal-body{
+        height: 535px;
     }
+    .modal-dialog, .modal-content{
+        height: 600px;
+    }
+    .modal-content{
+        border-radius: 15px;
+        border: none;
+        .modal-header>.modal-title{
+            font-size: 16px;
+        }
+    }
+    .modal-backdrop.show{
+        opacity: 0.85;
     }
 `
 
 const TextNavStyled = styled.span`
     font-size: 14px;
+`
+
+const ImgStyled = styled.img`
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+`
+
+const ContentArea = styled.textarea`
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    padding: 5px 10px;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+`
+
+const TitleStyled = styled(CardTitle)`
+    font-size: 14px;
+    span{
+        font-size: 14px;
+    }
+    .text-muted{
+        cursor: pointer;
+    }
+    .span-time{
+        font-size: 10.5px !important;
+    }
 `
 
 const DropdownMenuStyled = styled(DropdownMenu)`

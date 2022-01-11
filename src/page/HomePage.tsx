@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setPost } from '../action/post.action'
@@ -12,8 +12,8 @@ function HomePage() {
 
     const history = useHistory()
 
-    let post  = useSelector((state:any) =>state.HomeReducer.post.data)
-    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
+    let post = useSelector((state: any) => state.HomeReducer.post.data)
+    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin)
     console.log(isLogin);
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
@@ -30,10 +30,8 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(auth())
-        
-    },[]);
-    
 
+    }, []);
 
     useEffect(() => {
         getPost().then((post) => {
@@ -43,7 +41,7 @@ function HomePage() {
     }, [])
     return (
         <div>
-            <Home logout = {logout}/>
+            <Home logout={logout} />
 
         </div>
     )
