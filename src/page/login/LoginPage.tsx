@@ -51,19 +51,14 @@ function LoginPage() {
         history.push('/register')
     }
     
-    // useEffect(() => {
-    //     console.log('truoc',isLogin);
-    //     dispatch(auth())
-    //     console.log(isLogin);
-    //     if (!isLogin) {
-    //         history.push('/login')
-    //     }
-    //     else {
-    //         history.push('/')
-    //     }
-    // }, [isLogin]);
-
-    console.log('sau',isLogin)
+    useEffect(() => {
+        dispatch(auth());
+        if(!isLogin){
+          history.push("/login");
+        }else{
+          history.push("/");
+        }
+      }, [isLogin]);
     return (
         <div>
             <Login 

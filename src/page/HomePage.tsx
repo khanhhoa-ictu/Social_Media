@@ -14,7 +14,7 @@ function HomePage() {
 
     let post  = useSelector((state:any) =>state.HomeReducer.post.data)
     let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
-
+    console.log(isLogin);
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
         if (typeof local === "string") {
@@ -30,12 +30,9 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(auth())
+        
     },[]);
     
-    console.log('homepage1', isLogin);
-
-    let post = useSelector((state: any) => state.HomeReducer.post.data)
-    console.log(post)
 
 
     useEffect(() => {

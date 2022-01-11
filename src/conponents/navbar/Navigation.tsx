@@ -6,14 +6,14 @@ import styled from 'styled-components'
 import logo from './logo.png'
 
 interface Props {
-    logout : () => void
+    logout: () => void
 }
-function Navigation(props : Props) {
-    const {logout} = props
+// function Navigation(props : Props) {
+//     const {logout} = props
 
 
-function Navigation() {
-
+function Navigation(props: Props) {
+    let { logout } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
 
