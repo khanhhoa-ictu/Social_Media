@@ -24,6 +24,7 @@ function HomePage() {
         dispatch(auth())
         if(isLogin){
             history.push('/')
+            
         }else {
             history.push('/login')
         }
@@ -40,7 +41,6 @@ function HomePage() {
     return (
         <div>
             <Home logout = {logout}/>
-
         </div>
     )
 }
