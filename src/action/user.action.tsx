@@ -46,5 +46,6 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
         dispatch(loginFail());
         return false
     })
+
 }
   
