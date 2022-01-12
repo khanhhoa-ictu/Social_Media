@@ -3,6 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import logo from '../../assets/image/logo.png'
+import { createPost } from '../../api/post.api'
 
 interface Props {
     logout: () => void
@@ -15,7 +16,6 @@ function Navigation(props: Props) {
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
-
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<string | null>(null);
 
@@ -26,12 +26,21 @@ function Navigation(props: Props) {
     const handleDisplayFileDetails = () => {
         inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
             setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
-        console.log(uploadFileName);
+        // console.log(uploadFileName);
     }
 
     const setShowModal = () => {
         setShow(!show)
     }
+
+    const handleCreatePost = () => {
+        // console.log(uploadFileName)
+        // console.log(postContent);
+        if (uploadFileName) {
+            createPost('61de3ee515a581204443e712', postContent, uploadFileName)
+            setShowModal();
+        }
+    } // done
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)
@@ -133,7 +142,6 @@ function Navigation(props: Props) {
                                         </NavLink>
                                     </DropdownItem>
                                 </DropdownMenuStyled>
-
                             </UncontrolledDropdown>
                         </Nav>
 
@@ -186,7 +194,12 @@ function Navigation(props: Props) {
                                     </TitleStyled>
                                 </div>
                             </div>
-                            <ButtonPostStyled className='text-primary px-1'>Chia sẻ</ButtonPostStyled>
+                            <ButtonPostStyled
+                                className='text-primary px-1'
+                                onClick={handleCreatePost}
+                            >
+                                Chia sẻ
+                            </ButtonPostStyled>
                         </div>
                         <ContentArea
                             className='d-block my-3'

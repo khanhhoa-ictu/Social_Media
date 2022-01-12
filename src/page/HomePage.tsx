@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setPost } from '../action/post.action'
 import { auth, loginFail, loginSuccess } from '../action/user.action'
-import { getPost } from '../api/post'
+import { getPost } from '../api/post.api'
 
 import Home from '../conponents/home/Home'
 
