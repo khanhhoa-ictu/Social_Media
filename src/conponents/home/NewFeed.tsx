@@ -13,9 +13,7 @@ interface Feed {
 }
 
 const NewFeed = () => {
-
     let post = useSelector((state: any) => state.HomeReducer.post.data)
-    console.log(post)
 
     return (
         <div>

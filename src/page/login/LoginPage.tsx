@@ -40,7 +40,6 @@ function LoginPage() {
             dispatch(loginSuccess());
             dispatch(setUser(data.user))
         })
-        .catch((err) => console.log('err1',err))
         history.push('/')
     }
 
@@ -53,13 +52,16 @@ function LoginPage() {
     }
     
     useEffect(() => {
-        dispatch(auth());
-        if(!isLogin){
-          history.push("/login");
-        }else{
-          history.push("/");
+        dispatch(auth())
+        if (!isLogin) {
+            history.push('/login')
         }
-      }, [isLogin]);
+        else {
+            history.push('/')
+        }
+    }, [isLogin]);
+
+
     return (
         <div>
             <Login 

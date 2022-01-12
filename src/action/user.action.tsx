@@ -1,19 +1,26 @@
 import axios from "axios";
+import { Dispatch } from "react";
+import { verifyAuth } from "../api/user.api";
+import { dispatchLogin } from "../reducer/Login.reducer";
 
 export const loginSuccess = () => ({
     type: 'LOGIN_SUCCESS',
+    data: ''
 });
 
 export const loginFail = () => ({
     type: 'LOGIN_FAIL',
+    data: ''
 });
 
 export const checkOTP = () => ({
     type: 'FORGOT_CHECK_OTP',
+    data: ''
 });
 
 export const changePassword = () => ({
     type: 'FORGOT_CHANGE_PASSWORD',
+    data: ''
 });
 export const setUser = (user:any) =>({
   type: 'SET_USER',
@@ -21,34 +28,27 @@ export const setUser = (user:any) =>({
 })
 export const sentEmail = () => ({
     type: 'FORGOT_SENT_EMAIL',
+    data: ''
 });
-const getUser = () => {
-    if(localStorage.getItem('user') === null)
-        return null
-    return JSON.parse(localStorage.getItem('user') || '{}')
-}
-export const auth = () => async(dispatch:any) => {
-    let user 
-    if (getUser() === null) {
+
+export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
+    let user ;
+    const local = localStorage.getItem("user")
+    if (typeof local === "string") {
+        user =  JSON.parse(local)
+    }else{
         dispatch(loginFail());
-        return false;
-      }else{
-        user = getUser();
-      }
-      let email = user.email;
-      let token = user.token;
-    
-      try {
-        await axios.post("http://localhost:8080/auth", {
-          email: email,
-          token: token,
-        });
-      } catch (err) {
+        return false
+    }
+    await verifyAuth(user.email, user.token)
+    .then((data) => {
+        dispatch(loginSuccess());
+        return true
+    })
+    .catch((err) => {
         dispatch(loginFail());
-        return false;
-      }
-      dispatch(loginSuccess());
-      return true;
-   
+        return false
+    })
+
 }
   
