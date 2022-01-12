@@ -12,9 +12,9 @@ function HomePage() {
 
     const history = useHistory()
 
-    // let post  = useSelector((state:any) =>state.HomeReducer.post.data)
+    let user  = useSelector((state:any) =>state.UserReducer.user.state)
+    console.log(user)
     let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
-
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
         if (typeof local === "string") {
@@ -38,9 +38,6 @@ function HomePage() {
         }
     },[isLogin]);
 
-
-    }, []);
-
     useEffect(() => {
         getPost().then((post) => {
             dispatch(setPost(post))
@@ -51,9 +48,12 @@ function HomePage() {
     return (
         <div>
             <Home logout={logout} />
-
         </div>
     )
 }
 
 export default HomePage
+function dispatch(arg0: (dispatch: any) => Promise<boolean>) {
+    throw new Error('Function not implemented.')
+}
+

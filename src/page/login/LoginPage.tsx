@@ -2,7 +2,7 @@ import React, { useState,FormEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import {auth, loginSuccess} from '../../action/user.action';
+import {auth, loginSuccess, setUser} from '../../action/user.action';
 import { loginUser } from '../../api/user.api';
 
 import Login from '../../conponents/login/LoginComponents'
@@ -37,7 +37,8 @@ function LoginPage() {
         .then((data) => {
             const token = data.token
             localStorage.setItem("user", JSON.stringify({token, email}));
-            dispatch(loginSuccess())
+            dispatch(loginSuccess());
+            dispatch(setUser(data.user))
         })
         history.push('/')
     }
