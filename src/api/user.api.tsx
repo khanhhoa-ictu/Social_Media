@@ -58,3 +58,12 @@ export function getUser(email : string) : Promise<any> {
   })
   .then((response : AxiosResponse<any>) => response.data)
 }
+
+export function ChangeAvatar(file : any, email:string) : Promise<any> {
+  let data = new FormData()
+  data.append('file', file)
+  data.append('email', email)
+
+  return axios.post('http://localhost:8080/user/changeavatar',data)
+  .then((response : AxiosResponse<any>) => response.data)
+}

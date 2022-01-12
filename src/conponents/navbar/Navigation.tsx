@@ -29,7 +29,6 @@ function Navigation(props: Props) {
     const handleDisplayFileDetails = () => {
         inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
             setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
-        // console.log(uploadFileName);
     }
 
     const setShowModal = () => {

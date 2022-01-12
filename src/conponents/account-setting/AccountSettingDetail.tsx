@@ -3,12 +3,13 @@ import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap
 import { UserType } from './../../type/userType';
 import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
+import { ChangeAvatar } from '../../api/user.api';
 
 interface Props {
     noti: string,
     user: UserType
     email: string,
-    submitButton: (name: string, address: string, phone: string, gender: string) => void,
+    submitButton: (name: string, address: string, phone: string, gender: string, desc:string) => void,
 }
 
 
@@ -19,16 +20,23 @@ function AccountSettingDetail(props: Props) {
         email,
         submitButton,
     } = props
-    console.log(user.name);
-    const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
-    useEffect(() => {
-        setInputFile(document.getElementById("input-file") as HTMLInputElement);
-    }, []);
-
+    // const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
+    // useEffect(() => {
+    //     setInputFile(document.getElementById("input-file") as HTMLInputElement);
+    // }, []);
+    const inputFile = useRef<HTMLInputElement>(null);
     const handleUpload = () => {
-        inputFile?.click();
+        inputFile.current?.click();
     };
+    const handleChangeAvatar = () =>{
+        inputFile.current?.files && (inputFile.current.files?.length !== 0) &&  
+        ChangeAvatar(inputFile.current.files[0],user.email).then((data)=>{
+            console.log(data);
+        });
+    }
+
     const [name, setName] = useState('')
+    const [desc, setDesc] = useState('')
     const [phone, setPhone] = useState('')
     const [adress, setAdress] = useState('')
     const [gender, setGender] = useState('')
@@ -47,7 +55,7 @@ function AccountSettingDetail(props: Props) {
 
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        submitButton(name, phone, adress, gender)
+        submitButton(name, phone, adress, gender,desc)
     }
 
     useEffect(() => {
@@ -75,7 +83,7 @@ function AccountSettingDetail(props: Props) {
                                 style={{ border: '0', backgroundColor: "white", color: "#0095f6", fontSize: "14px", fontWeight: "600px", cursor: "pointer" }}>
                                 Thay đổi ảnh đại diện
                             </button>
-                            <input id="input-file" className="d-none" type="file" />
+                            <input id="input-file" className="d-none" type="file" ref={inputFile} onChange={handleChangeAvatar} />
                         </div>
 
                     </div>
@@ -129,6 +137,26 @@ function AccountSettingDetail(props: Props) {
                             />
                         </Col>
                     </FormGroup>
+                    <FormGroup row>
+                        <Label
+                            for="exampleText"
+                            sm={3}
+                        >
+                            Tiểu sử
+                        </Label>
+                        <Col sm={9}>
+                            <Input
+
+                                id="exampleText"
+                                name="text"
+                                type="textarea"
+                                defaultValue={user.desc}
+                                value={desc}
+                                onChange={(e) => { setDesc(e.target.value) }}
+                            />
+                        </Col>
+                    </FormGroup>
+
                     <FormGroup row>
                         <Label
                             for="examplePhone"

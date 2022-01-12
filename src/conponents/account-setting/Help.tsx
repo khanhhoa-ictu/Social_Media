@@ -5,8 +5,8 @@ import styled from 'styled-components'
 function Help() {
     return (
         <DivHelp>
-            <div className='heading'>
-                Help
+            <div className='heading my-3'>
+                <h5>Help</h5>
             </div>
 
             <div className='content-help'>
@@ -49,10 +49,7 @@ function Help() {
 }
 
 const DivHelp = styled.div`
-.heading{
-
-}
-.content-help{
+.content-help, .heading{
     width: 80%;
     margin: auto;
 }
