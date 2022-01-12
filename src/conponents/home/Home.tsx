@@ -7,7 +7,7 @@ import NewFeed from './NewFeed'
 
 interface Props {
     logout: () => void,
-    user:UserType
+    user: UserType
 }
 
 function Home(props: Props) {
@@ -15,8 +15,7 @@ function Home(props: Props) {
 
     return (
         <div>
-
-            <Navigation logout={logout} user = {user} />
+            <Navigation logout={logout} user={user} />
             <Content className="container d-flex mt-3">
                 <div className="col-sm-8 mr-3 mt-4">
                     <NewFeed />
