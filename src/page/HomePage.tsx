@@ -12,9 +12,10 @@ function HomePage() {
 
     const history = useHistory()
 
-    let post  = useSelector((state:any) =>state.HomeReducer.post.data)
+    let user  = useSelector((state:any) =>state.UserReducer.user.state)
+    console.log(user)
     let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
-    console.log(isLogin);
+    // console.log(isLogin);
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
         if (typeof local === "string") {

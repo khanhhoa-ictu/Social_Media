@@ -15,7 +15,10 @@ export const checkOTP = () => ({
 export const changePassword = () => ({
     type: 'FORGOT_CHANGE_PASSWORD',
 });
-
+export const setUser = (user:any) =>({
+  type: 'SET_USER',
+  payload:user
+})
 export const sentEmail = () => ({
     type: 'FORGOT_SENT_EMAIL',
 });

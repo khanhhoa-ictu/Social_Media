@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap'
-
+import {UserType} from './../../type/userType'
 interface Props {
+    noti:string,
+    user:UserType
     name : string, 
     email : string,
     adress : string, 
@@ -20,6 +22,8 @@ interface Props {
 
 function AccountSettingDetail(props : Props) {
     const {
+        noti,
+        user,
         name , 
         email ,
         adress  ,
@@ -47,19 +51,24 @@ function AccountSettingDetail(props : Props) {
 
 
     return (
-        <div>
+        <div className="p-4">
             <article>
                 <div className='wapper__change-avatar d-flex'>
-                    <div className='img'>Img</div>
+                    <div className='img'>
+                        <img src={user.coverPicture} alt='avatar' />
+                    </div>
                     <div className='text__change-name'>
-                        <div>Name</div>
-                        <div 
+                        <div>{user.name}</div>
+                        <button 
                         onClick={handleUpload}
 
                         style={{ border: '0', backgroundColor: "white", color: "#0095f6", fontSize: "14px", fontWeight: "600px",cursor:"pointer" }}>
                             Thay đổi ảnh đại diện
-                        </div>
+                        </button>
                         <input id="input-file" className="d-none" type="file" />
+                    </div>
+                    <div>
+                        <h3>{noti}</h3>
                     </div>
                 </div>
 
@@ -67,15 +76,17 @@ function AccountSettingDetail(props : Props) {
                     <FormGroup row>
                         <Label
                             for="exampleName"
-                            sm={2}
+                            sm={3}
                         >
                             Tên
                         </Label>
 
-                        <Col sm={10}>
+                        <Col sm={9}>
                             <Input
+                            className='col-9'
                                 placeholder="Tên"
                                 type="text"
+                                defaultValue={user.name}
                                 value={name}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                     setName(e.target.value)
@@ -91,17 +102,18 @@ function AccountSettingDetail(props : Props) {
                     <FormGroup row>
                         <Label
                             for="exampleEmail"
-                            sm={2}
+                            sm={3}
                         >
                             Email
                         </Label>
-                        <Col sm={10}>
+                        <Col sm={9}>
                             <Input
+                                disabled
                                 id="exampleEmail"
                                 name="email"
                                 placeholder="email"
                                 type="email"
-                                value={email}
+                                value={user.email}
                                 onChange={(e) => {
                                     setEmail(e.target.value)
                                     validateForm()
@@ -112,16 +124,17 @@ function AccountSettingDetail(props : Props) {
                     <FormGroup row>
                         <Label
                             for="examplePhone"
-                            sm={2}
+                            sm={3}
                         >
                             Số điện thoại
                         </Label>
-                        <Col sm={10}>
+                        <Col sm={9}>
                             <Input
                                 id="examplePhone"
                                 name="phone"
                                 placeholder="phone"
                                 type="text"
+                                defaultValue={user.phone_number}
                                 value={phone}
                                 onChange={(e) => {setPhone(e.target.value)}}
                             />
@@ -131,15 +144,17 @@ function AccountSettingDetail(props : Props) {
                     <FormGroup row>
                         <Label
                             for="exampleText"
-                            sm={2}
+                            sm={3}
                         >
                             Địa chỉ
                         </Label>
-                        <Col sm={10}>
+                        <Col sm={9}>
                             <Input
+                                
                                 id="exampleText"
                                 name="text"
                                 type="textarea"
+                                defaultValue={user.address}
                                 value={adress}
                                 onChange={(e) => {setAdress(e.target.value)}}
                             />
@@ -152,69 +167,32 @@ function AccountSettingDetail(props : Props) {
                     >
                         <Label
                             for="exampleGender"
-                            sm={2}
+                            sm={3}
                         >
-                           Giowis tinhs
+                           Giới tính
                         </Label>
-                        <Col sm={10}>
+                        <Col sm={9}>
                             <Input
                                 id="exampleGender"
                                 name="text"
                                 type="text"
+                                defaultValue={user.gender}
                                 value={gender}
                                 onChange={(e) => {setGender(e.target.value)}}
                             />
                         </Col>
-                        {/* <legend className="col-form-label col-sm-2">
-                            Giới tính
-                        </legend>
-                        <Col sm={10}>
-                            <FormGroup check>
-                                <Input
-                                    name="radio2"
-                                    type="radio"
-                                />
-                                {' '}
-                                <Label check>
-                                    Nam
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Input
-                                    name="radio2"
-                                    type="radio"
-                                />
-                                {' '}
-                                <Label check>
-                                    Nữ
-                                </Label>
-                            </FormGroup>
-                            <FormGroup
-                                check
-                                disabled
-                            >
-                                <Input
-
-                                    name="radio2"
-                                    type="radio"
-                                />
-                                {' '}
-                                <Label check>
-                                    Khác
-                                </Label>
-                            </FormGroup>
-                        </Col> */}
+                    
                     </FormGroup>
                     <FormGroup row>
                         <Label
                             for="checkbox2"
-                            sm={2}
+                            sm={3}
                         >
                             Gợi ý tài khoản tương tự
                         </Label>
                         <Col
                             sm={{
-                                size: 10
+                                size: 9
                             }}
                         >
                             <FormGroup check>
@@ -230,25 +208,7 @@ function AccountSettingDetail(props : Props) {
                             </FormGroup>
                         </Col>
                     </FormGroup>
-                    <FormGroup row>
 
-                        <Col
-                            sm={{
-                                size: 10
-                            }}
-                        >
-                            <FormGroup check>
-                                <Input
-                                    id="checkbox2"
-                                    type="checkbox"
-                                />
-                                {' '}
-                                <Label>
-                                    Tạm thời vô hiệu hóa tài khoản
-                                </Label>
-                            </FormGroup>
-                        </Col>
-                    </FormGroup>
                     <FormGroup
                         check
                         row
