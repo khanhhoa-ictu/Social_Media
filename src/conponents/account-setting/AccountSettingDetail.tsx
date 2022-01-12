@@ -1,78 +1,90 @@
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap'
-import {UserType} from './../../type/userType'
+import { UserType } from './../../type/userType';
+import avatar from './../../assets/image/no-avatar.png'
+import styled from 'styled-components';
+
 interface Props {
-    noti:string,
-    user:UserType
-    name : string, 
-    email : string,
-    adress : string, 
-    phone : string,
-    gender : string, 
-    isSubmit : boolean,
-    setName : (text : string) => void,
-    setEmail  : (text : string) => void,
-    setPhone : (text : string) => void,
-    setAdress  : (text : string) => void,
-    setGender  : (text : string) => void,
-    submitButton : (e : FormEvent<HTMLFormElement>) => void,
-    validateForm : () => void
+    noti: string,
+    user: UserType
+    email: string,
+    submitButton: (name: string, address: string, phone: string, gender: string) => void,
 }
 
 
-function AccountSettingDetail(props : Props) {
+function AccountSettingDetail(props: Props) {
     const {
         noti,
         user,
-        name , 
-        email ,
-        adress  ,
-        phone,
-        gender  , 
-        isSubmit ,
-        setName,
-        setEmail ,
-        setPhone,
-        setAdress ,
-        setGender ,
+        email,
         submitButton,
-        validateForm 
     } = props
-   
-
+    console.log(user.name);
     const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
     useEffect(() => {
-      setInputFile(document.getElementById("input-file") as HTMLInputElement);
+        setInputFile(document.getElementById("input-file") as HTMLInputElement);
     }, []);
-  
+
     const handleUpload = () => {
-      inputFile?.click();
+        inputFile?.click();
     };
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [adress, setAdress] = useState('')
+    const [gender, setGender] = useState('')
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [notice, setNotice] = useState('')
+
+
+    const validateForm = () => {
+        if (!name || !email || !phone || !adress || !gender) {
+            setIsSubmit(false)
+            return
+        }
+        setIsSubmit(true)
+        return
+    }
+
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        submitButton(name, phone, adress, gender)
+    }
+
+    useEffect(() => {
+        validateForm()
+    }, [name, email, phone, adress, gender])
 
 
     return (
         <div className="p-4">
             <article>
-                <div className='wapper__change-avatar d-flex'>
-                    <div className='img'>
-                        <img src={user.coverPicture} alt='avatar' />
-                    </div>
-                    <div className='text__change-name'>
-                        <div>{user.name}</div>
-                        <button 
-                        onClick={handleUpload}
+                <div className='wapper__change-avatar d-flex mb-5'>
+                    <AvatarStyle>
+                        {user.coverPicture === ''
+                            ? <img src={avatar} alt='avatar' />
+                            : <img src={user.coverPicture} alt='avatar' />
+                        }
 
-                        style={{ border: '0', backgroundColor: "white", color: "#0095f6", fontSize: "14px", fontWeight: "600px",cursor:"pointer" }}>
-                            Thay đổi ảnh đại diện
-                        </button>
-                        <input id="input-file" className="d-none" type="file" />
+                    </AvatarStyle>
+                    <div className='text__change-name d-flex flex-column ms-4'>
+                        <div>{user.name}</div>
+                        <div >
+                            <button
+                                onClick={handleUpload}
+                                className='p-0'
+                                style={{ border: '0', backgroundColor: "white", color: "#0095f6", fontSize: "14px", fontWeight: "600px", cursor: "pointer" }}>
+                                Thay đổi ảnh đại diện
+                            </button>
+                            <input id="input-file" className="d-none" type="file" />
+                        </div>
+
                     </div>
                     <div>
-                        <h3>{noti}</h3>
+                        <h6>{noti}</h6>
                     </div>
                 </div>
 
-                <Form onSubmit={submitButton}>
+                <Form onSubmit={submitForm}>
                     <FormGroup row>
                         <Label
                             for="exampleName"
@@ -83,7 +95,7 @@ function AccountSettingDetail(props : Props) {
 
                         <Col sm={9}>
                             <Input
-                            className='col-9'
+                                className='col-9'
                                 placeholder="Tên"
                                 type="text"
                                 defaultValue={user.name}
@@ -114,11 +126,7 @@ function AccountSettingDetail(props : Props) {
                                 placeholder="email"
                                 type="email"
                                 value={user.email}
-                                onChange={(e) => {
-                                    setEmail(e.target.value)
-                                    validateForm()
-                                }}
-                                />
+                            />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -136,7 +144,7 @@ function AccountSettingDetail(props : Props) {
                                 type="text"
                                 defaultValue={user.phone_number}
                                 value={phone}
-                                onChange={(e) => {setPhone(e.target.value)}}
+                                onChange={(e) => { setPhone(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -150,13 +158,13 @@ function AccountSettingDetail(props : Props) {
                         </Label>
                         <Col sm={9}>
                             <Input
-                                
+
                                 id="exampleText"
                                 name="text"
                                 type="textarea"
                                 defaultValue={user.address}
                                 value={adress}
-                                onChange={(e) => {setAdress(e.target.value)}}
+                                onChange={(e) => { setAdress(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -169,7 +177,7 @@ function AccountSettingDetail(props : Props) {
                             for="exampleGender"
                             sm={3}
                         >
-                           Giới tính
+                            Giới tính
                         </Label>
                         <Col sm={9}>
                             <Input
@@ -178,10 +186,10 @@ function AccountSettingDetail(props : Props) {
                                 type="text"
                                 defaultValue={user.gender}
                                 value={gender}
-                                onChange={(e) => {setGender(e.target.value)}}
+                                onChange={(e) => { setGender(e.target.value) }}
                             />
                         </Col>
-                    
+
                     </FormGroup>
                     <FormGroup row>
                         <Label
@@ -220,7 +228,7 @@ function AccountSettingDetail(props : Props) {
                             }}
                         >
                             {/* style={{ backgroundColor: "#0095f6" }} */}
-                            <Button type='submit' className={isSubmit? 'bg-primary' : 'bg-secondary'} >
+                            <Button type='submit' className={isSubmit ? 'bg-primary' : 'bg-secondary'} >
                                 Gửi
                             </Button>
 
@@ -235,4 +243,13 @@ function AccountSettingDetail(props : Props) {
     )
 }
 
+const AvatarStyle = styled.div`
+    width:40px;
+    height:40px;
+    img{
+        width:100%;
+        height:100%;
+        border-radius: 50%;
+    }
+`
 export default AccountSettingDetail

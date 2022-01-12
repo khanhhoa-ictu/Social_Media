@@ -51,3 +51,10 @@ export function verifyAuth(email : string, token : string) : Promise<any> {
   })
   .then((response : AxiosResponse<any>) => response.data)
 }
+
+export function getUser(email : string) : Promise<any> {
+  return axios.post('http://localhost:8080/user/getuser', {
+    email : email,
+  })
+  .then((response : AxiosResponse<any>) => response.data)
+}
