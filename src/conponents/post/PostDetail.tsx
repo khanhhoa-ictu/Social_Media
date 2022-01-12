@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import { CardImg, CardTitle, Input, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import React, { useState } from 'react';
+import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
 import styled from 'styled-components';
 import { handleLike } from '../../api/post.api';
 
