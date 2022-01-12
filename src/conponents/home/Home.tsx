@@ -14,7 +14,7 @@ function Home(props : Props) {
         <div>
 
             <Navigation logout = {logout}/>
-            <Navigation />
+            {/* <Navigation /> */}
             <div className="container w-75 d-flex mt-4">
                 <div className="col-sm-8 mr-3">
                     <NewFeed />

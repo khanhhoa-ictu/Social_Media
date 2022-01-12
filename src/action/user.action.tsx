@@ -1,50 +1,50 @@
 import axios from "axios";
+import { Dispatch } from "react";
+import { verifyAuth } from "../api/user.api";
+import { dispatchLogin } from "../reducer/Login.reducer";
 
 export const loginSuccess = () => ({
     type: 'LOGIN_SUCCESS',
+    data: ''
 });
 
 export const loginFail = () => ({
     type: 'LOGIN_FAIL',
+    data: ''
 });
 
 export const checkOTP = () => ({
     type: 'FORGOT_CHECK_OTP',
+    data: ''
 });
 
 export const changePassword = () => ({
     type: 'FORGOT_CHANGE_PASSWORD',
+    data: ''
 });
 
 export const sentEmail = () => ({
     type: 'FORGOT_SENT_EMAIL',
+    data: ''
 });
 
-export const auth = () => async(dispatch:any) => {
+export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     let user ;
-    console.log('object');
     const local = localStorage.getItem("user")
     if (typeof local === "string") {
         user =  JSON.parse(local)
     }else{
-        dispatch(loginFail);
+        dispatch(loginFail());
         return false
     }
-    console.log('user.token',user.token) 
-    console.log(user.email) 
-    try {
-       let res = await axios.post('http://localhost:8080/auth',{
-            email: user.email,
-            token : user.token
-        })
-       console.log(res);
-    } catch (error) {
-        console.log(error);
-        dispatch(loginFail);
+    await verifyAuth(user.email, user.token)
+    .then((data) => {
+        dispatch(loginSuccess());
+        return true
+    })
+    .catch((err) => {
+        dispatch(loginFail());
         return false
-    }
-    dispatch(loginSuccess);
-    return true
-   
+    })
 }
   

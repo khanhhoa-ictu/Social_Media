@@ -12,7 +12,7 @@ function Navigation(props : Props) {
     const {logout} = props
 
 
-function Navigation() {
+// function Navigation() {
 
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);

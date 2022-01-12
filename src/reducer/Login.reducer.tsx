@@ -1,4 +1,8 @@
 import { combineReducers } from 'redux';
+export interface dispatchLogin{
+    type: string,
+    data: string
+}
 
 const initial = {
     isLogin: false
