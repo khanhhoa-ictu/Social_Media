@@ -28,6 +28,7 @@ function AccountSettingDetail(props: Props) {
     const handleUpload = () => {
         inputFile?.click();
     };
+    
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [adress, setAdress] = useState('')
