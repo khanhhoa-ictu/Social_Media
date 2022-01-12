@@ -12,9 +12,9 @@ function HomePage() {
 
     const history = useHistory()
 
-    let post = useSelector((state: any) => state.HomeReducer.post.data)
-    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin)
-    console.log(isLogin);
+    // let post  = useSelector((state:any) =>state.HomeReducer.post.data)
+    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
+
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
         if (typeof local === "string") {
@@ -23,6 +23,7 @@ function HomePage() {
         else return null;
     }
 
+
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
@@ -30,6 +31,13 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(auth())
+        if(isLogin){
+            history.push('/')
+        }else {
+            history.push('/login')
+        }
+    },[isLogin]);
+
 
     }, []);
 
@@ -39,6 +47,7 @@ function HomePage() {
         })
         dispatch(auth())
     }, [])
+    
     return (
         <div>
             <Home logout={logout} />

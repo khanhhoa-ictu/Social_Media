@@ -13,9 +13,11 @@ function Home(props: Props) {
 
     return (
         <div>
+
             <Navigation logout={logout} />
             <Content className="container d-flex mt-3">
                 <div className="col-sm-8 mr-3 mt-4">
+
                     <NewFeed />
                 </div>
                 <FixedSuggestion className="pt-2">

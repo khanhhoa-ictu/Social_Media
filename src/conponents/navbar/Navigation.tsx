@@ -8,9 +8,9 @@ interface Props {
     logout: () => void
 }
 
+
 function Navigation(props: Props) {
     let { logout } = props
-
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
     const [show, setShow] = useState<boolean>(false);
