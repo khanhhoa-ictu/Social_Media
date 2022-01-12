@@ -42,7 +42,6 @@ const user = (state: State = initial, action: Action) => {
         //     }
         // }
         case 'SET_USER': {
-            console.log(action.payload)
             return {
                 state: action.payload,
             }

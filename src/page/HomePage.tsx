@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setPost } from '../action/post.action'
-import { auth, loginFail, loginSuccess } from '../action/user.action'
+import { auth, loginFail, loginSuccess, setUser } from '../action/user.action'
 import { getPost } from '../api/post'
+import { getUser } from '../api/user.api'
+import { getEmail } from '../config/locastorga.config'
 
 import Home from '../conponents/home/Home'
 
@@ -13,8 +15,8 @@ function HomePage() {
     const history = useHistory()
 
     let user  = useSelector((state:any) =>state.UserReducer.user.state)
-    console.log(user)
-    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
+    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin);
+    let email = getEmail()?.email ;
     const getUserFromLocal = () => {
         const local = localStorage.getItem("user")
         if (typeof local === "string") {
@@ -22,7 +24,6 @@ function HomePage() {
         }
         else return null;
     }
-
 
     const logout = () => {
         localStorage.removeItem("user");
@@ -39,15 +40,15 @@ function HomePage() {
     },[isLogin]);
 
     useEffect(() => {
-        getPost().then((post) => {
-            dispatch(setPost(post))
+        getUser(email).then(user => {
+            dispatch(setUser(user))
         })
-        dispatch(auth())
     }, [])
     
     return (
         <div>
-            <Home logout={logout} />
+            {user ? <Home logout={logout} user = {user} /> :null}
+           
         </div>
     )
 }

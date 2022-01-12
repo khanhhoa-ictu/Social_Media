@@ -3,14 +3,16 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import logo from '../../assets/image/logo.png'
-
+import { UserType } from '../../type/userType'
+import avatar from './../../assets/image/no-avatar.png'
 interface Props {
-    logout: () => void
+    logout: () => void,
+    user:UserType
 }
 
 
 function Navigation(props: Props) {
-    let { logout } = props
+    let { logout,user } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
     const [show, setShow] = useState<boolean>(false);
@@ -107,7 +109,12 @@ function Navigation(props: Props) {
                             <UncontrolledDropdown inNavbar nav >
                                 <DropdownToggle nav >
                                     <div className="avatar">
-                                        <img src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' alt="avatar" />
+                                        {user.coverPicture === '' 
+                                        ? <img src={avatar} alt="avatar" />
+                                        : <img src={user.coverPicture} alt="avatar" />
+                                        }
+
+                                        
                                     </div>
                                 </DropdownToggle>
                                 <DropdownMenuStyled end>
