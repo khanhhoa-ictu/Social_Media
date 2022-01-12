@@ -118,9 +118,9 @@ function Navigation(props: Props) {
                             <UncontrolledDropdown inNavbar nav >
                                 <DropdownToggle nav >
                                     <div className="avatar">
-                                        {user.coverPicture === ''
+                                        {user.profilePicture === ''
                                             ? <img src={avatar} alt="avatar" />
-                                            : <img src={user.coverPicture} alt="avatar" />
+                                            : <img src={user.profilePicture} alt="avatar" />
                                         }
 
 
