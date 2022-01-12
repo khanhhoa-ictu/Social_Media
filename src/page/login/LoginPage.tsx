@@ -2,7 +2,7 @@ import React, { useState,FormEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import {auth, loginSuccess} from '../../action/user.action';
+import {auth, loginSuccess, setUser} from '../../action/user.action';
 import { loginUser } from '../../api/user.api';
 
 import Login from '../../conponents/login/LoginComponents'
@@ -37,9 +37,9 @@ function LoginPage() {
         .then((data) => {
             const token = data.token
             localStorage.setItem("user", JSON.stringify({token, email}));
-            dispatch(loginSuccess())
+            dispatch(loginSuccess());
+            dispatch(setUser(data.user))
         })
-        .catch((err) => console.log('err1',err))
         history.push('/')
     }
 
@@ -52,13 +52,16 @@ function LoginPage() {
     }
     
     useEffect(() => {
-        dispatch(auth());
-        if(!isLogin){
-          history.push("/login");
-        }else{
-          history.push("/");
+        dispatch(auth())
+        if (!isLogin) {
+            history.push('/login')
         }
-      }, [isLogin]);
+        else {
+            history.push('/')
+        }
+    }, [isLogin]);
+
+
     return (
         <div>
             <Login 

@@ -6,7 +6,6 @@ import ConfirmComponent from '../../conponents/login/ConfirmComponent'
 function ConfirmPage() {
     const history = useHistory()
     const params : {id : string} = useParams()
-    console.log(params.id);
     const loginButton = () => {
         history.push('/login')
     }

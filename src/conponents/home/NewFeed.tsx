@@ -13,15 +13,13 @@ interface Feed {
 }
 
 const NewFeed = () => {
-
     let post = useSelector((state: any) => state.HomeReducer.post.data)
-    console.log(post)
 
     return (
         <div>
-            {post.map((feed: Feed) => (
-                <Post key={feed.id} />
-            ))}
+            {/* {post.map((feed: Feed) => ( */}
+            <Post />
+            {/* ))} */}
         </div>
     )
 }
