@@ -22,11 +22,12 @@ function AccountSettingPage() {
     const [confirmPassword, setConfirmPassWord] = useState('')
     let user = useSelector((state: any) => state.UserReducer.user.state)
 
-    const submitButton = (name: string, address: string, phone: string, gender: string) => {
-        updateInfor(user.email, name, address, phone, gender)
+    const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
+        updateInfor(user.email, name, phone, address, gender, desc)
             .then((data) => {
                 dispatch(setUser(data.user))
                 setNoti('Thay đổi thông tin thành công')
+                
             })
             .catch((err) => {
                 console.log(err)
@@ -62,7 +63,7 @@ function AccountSettingPage() {
         getUser(email).then(user => {
             dispatch(setUser(user))
         })
-    }, [])
+    }, [user])
     const [test, setTest] = useState('')
     return (
         <div>
