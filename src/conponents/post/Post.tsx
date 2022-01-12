@@ -1,55 +1,55 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom';
-import { Button, Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap'
+import React, { ChangeEvent } from 'react'
+import {  Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-import { deletePost, handleLike, updatePost } from '../../api/post.api';
-import PostDetail from './PostDetail';
+import PostDetailPage from '../../page/post/PostDetailPage';
+import { PostType } from '../../type/postType';
+import { UserType } from '../../type/userType';
 
-const Post = () => {
+interface Props {
+    liked : boolean,
+    show : boolean,
+    postContent:string,
+    inputRef : React.RefObject<HTMLInputElement>,
+    uploadFileName : string | null,
+    showDetailPost : boolean,
+    setLiked : (text : boolean) => void,
+    setShow  : (text : boolean) => void,
+    setPostContent : (text : string) => void,
+    setUploadFileName : (text : string) => void,
+    setShowDetailPost  : (text : boolean) => void,
+    handleUpload : () => void,
+    handleDisplayFileDetails: () => void,
+    setShowModal: () => void,
+    setShowPostDetail : () => void,
+    handleUpdatePost : () => void,
+    handleDeletePost : () => void,
+    handleLikePost : () => void,
+    post : PostType,
+    user : UserType,
+    userPost : UserType | undefined
+}
 
-    const [liked, setLiked] = useState<boolean>(false);
-    const [show, setShow] = useState<boolean>(false);
-    const [postContent, setPostContent] = useState('');
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<string | null>(null);
-    const [showDetailPost, setShowDetailPost] = useState<boolean>(false);
-
-    const handleUpload = () => {
-        inputRef.current?.click();
-    }
-
-    const handleDisplayFileDetails = () => {
-        inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
-            setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
-        // console.log(uploadFileName);
-    }
-
-    const setShowModal = () => {
-        setShow(!show)
-    }
-
-    const setShowPostDetail = () => {
-        setShowDetailPost(!showDetailPost)
-    }
-
-    const handleUpdatePost = () => {
-        // console.log(uploadFileName)
-        // console.log(postContent);
-        if (uploadFileName) {
-            updatePost('61de3fa015a581204443e71e', postContent, uploadFileName)
-            setShowModal();
-        }
-    } // done
-
-    const handleDeletePost = () => {
-        deletePost('61de3ee515a581204443e712', '61de3f4515a581204443e718')
-    }
-
-    const handleLikePost = () => {
-        handleLike('61de3ee515a581204443e712', '61de4cdd310ebb0898c24329')
-        setLiked(!liked);
-        console.log(liked);
-    } // done
+const Post = (props : Props) => {
+    const {
+        liked,
+        show,
+        postContent,
+        inputRef,
+        uploadFileName,
+        showDetailPost,
+        setPostContent,
+        setShowDetailPost,
+        handleUpload,
+        handleDisplayFileDetails,
+        setShowModal,
+        setShowPostDetail ,
+        handleUpdatePost ,
+        handleDeletePost ,
+        handleLikePost ,
+        post,
+        user,
+        userPost
+    } = props
 
     return (
         <Card className="mb-4">
@@ -57,13 +57,13 @@ const Post = () => {
                 <div className="p-3">
                     <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                            <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
+                            <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
                             <div className='mx-3'>
                                 <TitleStyled className='mb-0' tag="h6">
-                                    account
+                                    {userPost?.name}
                                 </TitleStyled>
                                 <TitleStyled className="text-muted mb-0" >
-                                    address / song
+                                    {userPost?.address}, vn
                                 </TitleStyled>
                             </div>
                         </div>
@@ -125,13 +125,13 @@ const Post = () => {
                                 <ModalBody className="col-5">
                                     <div className="d-flex justify-content-between">
                                         <div className="d-flex align-items-center">
-                                            <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
+                                            <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
                                             <div className='mx-3'>
                                                 <TitleStyled className='mb-0' tag="h6">
-                                                    account
+                                                    {userPost?.name}
                                                 </TitleStyled>
                                                 <TitleStyled className="text-muted mb-0" >
-                                                    address
+                                                    {userPost?.address}, vn
                                                 </TitleStyled>
                                             </div>
                                         </div>
@@ -160,7 +160,7 @@ const Post = () => {
                 </div>
                 <CardImg
                     alt="Card image cap"
-                    src="https://picsum.photos/256/186"
+                    src={post.img}
                     top
                     width="100%"
                 />
@@ -185,7 +185,7 @@ const Post = () => {
                             </ButtonSvg>
                             {
                                 showDetailPost ?
-                                    <PostDetail showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
+                                    <PostDetailPage showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
                             }
                             <ButtonSvg aria-label="Chia sẻ bài viết" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
@@ -197,11 +197,11 @@ const Post = () => {
                         </ButtonSvg>
                     </span>
                     <span className="d-block">
-                        <span className="h6">701 lượt thích</span>
+                        <span className="h6">{post.likes.length} người thích</span>
                     </span>
-                    <span className="h6">account</span> Nội dung bài viết.
+                    <span className="h6">account</span> {post.desc}
                     <span className="d-block text-muted">Xem tất cả 11 bình luận</span>
-                    <span className="d-block text-muted span-time my-1 pb-1">1 NGÀY TRƯỚC</span>
+                    <span className="d-block text-muted span-time my-1 pb-1">{post.createdAt}</span>
                 </div>
                 <hr className="my-2" />
                 <span className="d-block d-flex align-items-center px-3">

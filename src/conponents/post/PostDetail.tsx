@@ -1,27 +1,23 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import { CardImg, CardTitle, Input, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import React from 'react'
+import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap'
 import styled from 'styled-components';
-import { handleLike } from '../../api/post.api';
 
 interface PostDetailProps {
     showDetailPost: boolean;
     setShowDetailPost: (showDetailPost: boolean) => void;
+    liked : boolean;
+    setLiked: (liked: boolean) => void;
+    setShowModal : () => void;
+    handleLikePost : () => void;
 }
 
 const PostDetail = (props: PostDetailProps) => {
-
-    const { showDetailPost, setShowDetailPost } = props;
-    const [liked, setLiked] = useState<boolean>(false);
-
-    const setShowModal = () => {
-        setShowDetailPost(!showDetailPost)
-    }
-
-    const handleLikePost = () => {
-        handleLike('61de3ee515a581204443e712', '61de4cdd310ebb0898c24329')
-        setLiked(!liked);
-        console.log(liked);
-    } // done
+    const { 
+        showDetailPost, 
+        liked,
+        setShowModal,
+        handleLikePost
+    } = props;
 
     return (
         <ModalStyled
@@ -183,12 +179,6 @@ const TitleStyled = styled(CardTitle)`
     .span-time{
         font-size: 10.5px !important;
     }
-`
-
-const ImgStyled = styled.img`
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
 `
 
 const ButtonSvg = styled.svg`

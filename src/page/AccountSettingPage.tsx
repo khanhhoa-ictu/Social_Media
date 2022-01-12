@@ -30,7 +30,6 @@ function AccountSettingPage() {
                 
             })
             .catch((err) => {
-                console.log(err)
                 setNoti('Đã sãy ra lỗi vui lòng thử lại')
             })
     }
@@ -46,10 +45,8 @@ function AccountSettingPage() {
             if (newPassword === confirmPassword) {
                 changePasswordUser(oldPassword, newPassword, email)
                     .then((data) => {
-                        console.log(data);
                         setNotice('Thay đổi mật khẩu thành công')
                     }).catch((error) => {
-                        console.log(error);
                         setNotice('Mật khẩu không chính xác')
                     })
             } else {
