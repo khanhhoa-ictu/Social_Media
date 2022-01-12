@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setPost } from '../action/post.action'
-import { auth, loginFail, loginSuccess } from '../action/user.action'
-import { getPost } from '../api/post'
+import { getPost } from '../api/post.api'
+import { auth, loginFail, loginSuccess, setUser } from '../action/user.action'
+import { getUser } from '../api/user.api'
+import { getEmail } from '../config/locastorga.config'
 
 import Home from '../conponents/home/Home'
 
@@ -12,8 +14,16 @@ function HomePage() {
 
     const history = useHistory()
 
-    // let post  = useSelector((state:any) =>state.HomeReducer.post.data)
-    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
+    let user = useSelector((state: any) => state.UserReducer.user.state)
+    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin);
+    let email = getEmail()?.email;
+    const getUserFromLocal = () => {
+        const local = localStorage.getItem("user")
+        if (typeof local === "string") {
+            return JSON.parse(local)
+        }
+        else return null;
+    }
 
     const logout = () => {
         localStorage.removeItem("user");
@@ -22,27 +32,29 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(auth())
-        if(isLogin){
+        if (isLogin) {
             history.push('/')
-            
-        }else {
+        } else {
             history.push('/login')
         }
-    },[isLogin]);
-
+    }, [isLogin]);
 
     useEffect(() => {
-        getPost().then((post) => {
-            dispatch(setPost(post))
+        getUser(email).then(user => {
+            dispatch(setUser(user))
         })
-        dispatch(auth())
     }, [])
-    
+
     return (
         <div>
-            <Home logout = {logout}/>
+            {user ? <Home logout={logout} user={user} /> : null}
+
         </div>
     )
 }
 
 export default HomePage
+function dispatch(arg0: (dispatch: any) => Promise<boolean>) {
+    throw new Error('Function not implemented.')
+}
+

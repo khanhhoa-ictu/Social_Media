@@ -22,7 +22,10 @@ export const changePassword = () => ({
     type: 'FORGOT_CHANGE_PASSWORD',
     data: ''
 });
-
+export const setUser = (user:any) =>({
+  type: 'SET_USER',
+  payload:user
+})
 export const sentEmail = () => ({
     type: 'FORGOT_SENT_EMAIL',
     data: ''
@@ -34,6 +37,7 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     if (typeof local === "string") {
         user =  JSON.parse(local)
     }else{
+        console.log('object');
         dispatch(loginFail());
         return false
     }
@@ -46,5 +50,6 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
         dispatch(loginFail());
         return false
     })
+
 }
   

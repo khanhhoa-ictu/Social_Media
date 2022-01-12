@@ -1,0 +1,9 @@
+.container,
+.container-fluid {
+    width: 935px !important;
+    margin: auto;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

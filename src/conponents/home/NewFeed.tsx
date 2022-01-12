@@ -17,9 +17,9 @@ const NewFeed = () => {
 
     return (
         <div>
-            {post.map((feed: Feed) => (
-                <Post key={feed.id} />
-            ))}
+            {/* {post.map((feed: Feed) => ( */}
+            <Post />
+            {/* ))} */}
         </div>
     )
 }
