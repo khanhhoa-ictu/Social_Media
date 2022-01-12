@@ -19,7 +19,6 @@ function AccountSettingDetail(props: Props) {
         email,
         submitButton,
     } = props
-    console.log(user.name);
     const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
     useEffect(() => {
         setInputFile(document.getElementById("input-file") as HTMLInputElement);
