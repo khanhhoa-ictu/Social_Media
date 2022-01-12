@@ -142,7 +142,7 @@ function Navigation(props: Props) {
                                     <DropdownItem divider />
 
                                     <DropdownItem onClick={logout}>
-                                        <NavLink to='/logout' className="text-decoration-none text-dark">
+                                        <NavLink to='/login' className="text-decoration-none text-dark">
                                             <TextNavStyled className='mx-1'>
                                                 Đăng xuất
                                             </TextNavStyled>
