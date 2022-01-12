@@ -1,25 +1,33 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import Post from '../post/Post'
+import PostPage from '../../page/post/PostPage'
+import { PostType } from '../../type/postType'
+import { UserType } from '../../type/userType'
 
-interface Feed {
-    id: string,
-    name: string,
-    avatar: string,
-    post: {
-        image: string,
-        like: number
-    }
+interface Props {
+    newsFeed : PostType[],
+    user : UserType,
 }
 
-const NewFeed = () => {
-    let post = useSelector((state: any) => state.HomeReducer.post.data)
+const NewFeed = (props : Props) => {
+    const {newsFeed , user} = props
 
     return (
         <div>
-            {/* {post.map((feed: Feed) => ( */}
-            <Post />
-            {/* ))} */}
+            {newsFeed.length>0
+                ?(
+                    newsFeed.map((post, index) => (
+                        <div key={index}>
+                            <PostPage 
+                                post={post} 
+                                user = {user}
+                            />
+                        </div>
+
+                    ))
+                )
+                : <p>Hong cho đâu! Em chưa follow anh mà đòi xin in tư của anh!</p>
+            }    
+            
         </div>
     )
 }

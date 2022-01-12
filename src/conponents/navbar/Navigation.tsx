@@ -36,8 +36,6 @@ function Navigation(props: Props) {
     }
 
     const handleCreatePost = () => {
-        // console.log(uploadFileName)
-        // console.log(postContent);
         if (uploadFileName) {
             createPost('61de3ee515a581204443e712', postContent, uploadFileName)
             setShowModal();
@@ -142,7 +140,7 @@ function Navigation(props: Props) {
                                     <DropdownItem divider />
 
                                     <DropdownItem onClick={logout}>
-                                        <NavLink to='/login' className="text-decoration-none text-dark">
+                                        <NavLink to='/' className="text-decoration-none text-dark">
                                             <TextNavStyled className='mx-1'>
                                                 Đăng xuất
                                             </TextNavStyled>
@@ -191,13 +189,13 @@ function Navigation(props: Props) {
                     <ModalBody className="col-5">
                         <div className="d-flex justify-content-between">
                             <div className="d-flex align-items-center">
-                                <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
+                                <AvatarStyled src={user.profilePicture} alt="avatar" />
                                 <div className='mx-3'>
                                     <TitleStyled className='mb-0' tag="h6">
-                                        account
+                                        {user.name}
                                     </TitleStyled>
                                     <TitleStyled className="text-muted mb-0" >
-                                        address
+                                        {user.address}
                                     </TitleStyled>
                                 </div>
                             </div>

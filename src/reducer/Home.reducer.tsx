@@ -1,16 +1,35 @@
 import { combineReducers } from 'redux'
+import { PostType } from '../type/postType'
 
+export interface State {
+    listPost : PostType[],
+    isLoading : boolean
+}
 
+const initialList = {
+    listPost : [],
+    isLoading : false
+}
 
-const post = (state = {data: []}, action: { type: any; data: any }) => {
+type Action = {
+    type: string,
+    payload: PostType[]
+}
+
+const post = (state : State = initialList, action: Action) => {
     switch (action.type) {
-        case 'SET_POST': {
+        case 'SET_LIST_TIMELINES_POST': {
             return {
                 ...state,
-                data: action.data
+                listPost: action.payload
             }
         }
-
+        case 'SET_IS_LOADING' : {
+            return {
+                ...state,
+                isLoading : action.payload
+            }
+        }
         default: return state
     }
 }

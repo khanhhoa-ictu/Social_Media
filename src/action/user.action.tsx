@@ -37,7 +37,6 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     if (typeof local === "string") {
         user =  JSON.parse(local)
     }else{
-        console.log('object');
         dispatch(loginFail());
         return false
     }
