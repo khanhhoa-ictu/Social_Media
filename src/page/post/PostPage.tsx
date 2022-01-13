@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
+import { getUserPost } from '../../api/user.api';
 // import { getUserPost } from '../../api/user.api';
 import Post from '../../conponents/post/Post'
 import { PostType } from '../../type/postType';
@@ -64,16 +65,16 @@ function PostPage(props: Props) {
         setLiked(post.likes.includes(user._id))
     }
 
-    // useEffect(() => {
-    //     getUserPost(post.userId)
-    //         .then((data: any) => {
-    //             setUserPost(data)
-    //         })
-    //         .catch((err: any) => {
-    //             console.log(err)
-    //         })
-    //     handleCheckLiked()
-    // }, [post])
+    useEffect(() => {
+        getUserPost(post.userId)
+            .then((data: any) => {
+                setUserPost(data)
+            })
+            .catch((err: any) => {
+                console.log(err)
+            })
+        handleCheckLiked()
+    }, [post])
 
     return (
         <div>
