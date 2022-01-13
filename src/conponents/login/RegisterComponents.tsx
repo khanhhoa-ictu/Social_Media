@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import styled from 'styled-components';
-
+import logo from './../../assets/image/logo.png'
 interface Props {
     email : string,
     userName : string,
@@ -41,7 +41,7 @@ const RegisterComponents = (props : Props) => {
     return (
         <StyledDiv className='row'>
             <div className='col p-5'>
-                <img src='https://scontent.fhan14-1.fna.fbcdn.net/v/t1.15752-9/271267317_1305996086577186_2952118136131890232_n.png?_nc_cat=102&ccb=1-5&_nc_sid=ae9488&_nc_ohc=OqmTTH62HYwAX-gwq4w&_nc_ht=scontent.fhan14-1.fna&oh=03_AVJWvcU1pY8MTDTC_aokMQrqFCFobZwHa6qEMi7FB2PUfw&oe=62015C52'
+                <img src={logo}
                     alt='name'
                 />
                 <p className='main-left_text'>Please come with us</p>
@@ -112,7 +112,7 @@ const StyledDiv = styled.div`
     background-color : #f0f2f5;
     .main-left_text {
         padding : 0;
-        margin : 0.5rem 0;
+        margin : 1rem 0;
         font-size: 1.2rem;
         font-weight: bold;
     };

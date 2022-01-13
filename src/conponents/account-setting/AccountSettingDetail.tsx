@@ -20,11 +20,19 @@ function AccountSettingDetail(props: Props) {
         email,
         submitButton,
     } = props
+<<<<<<< HEAD
+    const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
+    useEffect(() => {
+        setInputFile(document.getElementById("input-file") as HTMLInputElement);
+    }, []);
+
+=======
     // const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
     // useEffect(() => {
     //     setInputFile(document.getElementById("input-file") as HTMLInputElement);
     // }, []);
     const inputFile = useRef<HTMLInputElement>(null);
+>>>>>>> 20eadc1f07ad2e8bc94e77638ec95f803c5ca5f3
     const handleUpload = () => {
         inputFile.current?.click();
     };
@@ -35,13 +43,12 @@ function AccountSettingDetail(props: Props) {
         });
     }
 
-    const [name, setName] = useState('')
-    const [desc, setDesc] = useState('')
-    const [phone, setPhone] = useState('')
-    const [adress, setAdress] = useState('')
-    const [gender, setGender] = useState('')
+    const [name, setName] = useState(user.name)
+    const [desc, setDesc] = useState(user.desc)
+    const [phone, setPhone] = useState(user.phone_number)
+    const [adress, setAdress] = useState(user.address)
+    const [gender, setGender] = useState(user.gender)
     const [isSubmit, setIsSubmit] = useState(false)
-    const [notice, setNotice] = useState('')
 
 
     const validateForm = () => {
@@ -106,7 +113,6 @@ function AccountSettingDetail(props: Props) {
                                 className='col-9'
                                 placeholder="Tên"
                                 type="text"
-                                defaultValue={user.name}
                                 value={name}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                     setName(e.target.value)
@@ -150,7 +156,6 @@ function AccountSettingDetail(props: Props) {
                                 id="exampleText"
                                 name="text"
                                 type="textarea"
-                                defaultValue={user.desc}
                                 value={desc}
                                 onChange={(e) => { setDesc(e.target.value) }}
                             />
@@ -170,7 +175,6 @@ function AccountSettingDetail(props: Props) {
                                 name="phone"
                                 placeholder="phone"
                                 type="text"
-                                defaultValue={user.phone_number}
                                 value={phone}
                                 onChange={(e) => { setPhone(e.target.value) }}
                             />
@@ -190,7 +194,6 @@ function AccountSettingDetail(props: Props) {
                                 id="exampleText"
                                 name="text"
                                 type="textarea"
-                                defaultValue={user.address}
                                 value={adress}
                                 onChange={(e) => { setAdress(e.target.value) }}
                             />
@@ -212,7 +215,6 @@ function AccountSettingDetail(props: Props) {
                                 id="exampleGender"
                                 name="text"
                                 type="text"
-                                defaultValue={user.gender}
                                 value={gender}
                                 onChange={(e) => { setGender(e.target.value) }}
                             />

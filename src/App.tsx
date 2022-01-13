@@ -27,6 +27,7 @@ function App() {
           <Route exact path="/forgot" component={ForgotPage} />
         </Switch>
       </BrowserRouter>
+
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState,FormEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {auth, loginSuccess, setUser} from '../../action/user.action';
 import { loginUser } from '../../api/user.api';
@@ -42,14 +43,6 @@ function LoginPage() {
         })
         history.push('/')
     }
-
-    const forgotButton = () => {
-        history.push('/forgot')
-    }
-    
-    const registerButton = () => {
-        history.push('/register')
-    }
     
     useEffect(() => {
         dispatch(auth())
@@ -63,11 +56,9 @@ function LoginPage() {
 
 
     return (
-        <div>
+        <LoginStyle >
             <Login 
                 loginSubmit = {loginSubmit}
-                forgotButton = {forgotButton}
-                registerButton = {registerButton}
                 email = {email}
                 passWord = {passWord}
                 setEmail = {setEmail}
@@ -75,8 +66,10 @@ function LoginPage() {
                 notificationUserName = {notificationUserName}
                 notificationPassword = {notificationPassword}
             />
-        </div>
+        </LoginStyle>
     )
 }
-
+const LoginStyle = styled.div`
+    background-color : #fafafa;
+`
 export default LoginPage

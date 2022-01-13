@@ -1,13 +1,18 @@
 import { combineReducers } from 'redux';
 import {UserType} from './../type/userType'
 
-
 export interface State {
     user: UserType
 }
 
+export interface forgot {
+    statusForgot: string
+}
+
+
 const initial = {
     user: {
+        _id :'',
         email: '',
         name: '',
         address: '',
@@ -19,10 +24,6 @@ const initial = {
         desc: '',
         gender: '',
     }
-}
-
-export interface forgot {
-    statusForgot: string
 }
 
 const initialForgot = {

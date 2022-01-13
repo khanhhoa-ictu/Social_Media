@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { UserType } from '../../type/userType'
 import Navigation from '../navbar/Navigation'
 import FollowersSuggestion from './FollowersSuggestion'
-import NewFeed from './NewFeed'
+import NewsFeedPage from '../../page/post/NewsFeedPage'
 
 interface Props {
     logout: () => void,
@@ -18,7 +18,7 @@ function Home(props: Props) {
             <Navigation logout={logout} user={user} />
             <Content className="container d-flex mt-3">
                 <div className="col-sm-8 mr-3 mt-4">
-                    <NewFeed />
+                    <NewsFeedPage user = {user}/>
                 </div>
                 <FixedSuggestion className="pt-2 col-sm-4">
                     <FollowersSuggestion />
