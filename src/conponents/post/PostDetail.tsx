@@ -7,15 +7,15 @@ import styled from 'styled-components';
 interface PostDetailProps {
     showDetailPost: boolean;
     setShowDetailPost: (showDetailPost: boolean) => void;
-    liked : boolean;
+    liked: boolean;
     setLiked: (liked: boolean) => void;
-    setShowModal : () => void;
-    handleLikePost : () => void;
+    setShowModal: () => void;
+    handleLikePost: () => void;
 }
 
 const PostDetail = (props: PostDetailProps) => {
-    const { 
-        showDetailPost, 
+    const {
+        showDetailPost,
         liked,
         setShowModal,
         handleLikePost

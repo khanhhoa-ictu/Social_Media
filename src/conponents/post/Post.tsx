@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
+import avatar from './../../assets/image/no-avatar.png'
 
 interface Props {
     liked: boolean,
@@ -51,23 +52,25 @@ const Post = (props: Props) => {
         userPost
     } = props
     const [likePost, setLikePost] = useState(post.likes.length)
+
     const changeLikePost = () => {
         handleLikePost()
         setLikePost(liked ? likePost - 1 : likePost + 1)
     }
+
     return (
         <Card className="mb-4">
             <CardBody className='p-0'>
                 <div className="p-3">
                     <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                            <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
+                            <AvatarStyled src={userPost?.profilePicture ? userPost.profilePicture : avatar} alt="avatar" />
                             <div className='mx-3'>
                                 <TitleStyled className='mb-0' tag="h6">
                                     {userPost?.name}
                                 </TitleStyled>
                                 <TitleStyled className="text-muted mb-0" >
-                                    {userPost?.address}, vn
+                                    {userPost?.address ? userPost.address + ', vn' : null}
                                 </TitleStyled>
                             </div>
                         </div>
@@ -101,7 +104,7 @@ const Post = (props: Props) => {
                             className='modal border-none'
                         >
                             <ModalHeader toggle={setShowModal} className=''>
-                                Tạo bài viết mới
+                                Chỉnh sửa bài viết
                             </ModalHeader>
                             <div className="d-flex flex-row">
                                 <ModalBody className="col-7 border-end text-center">
@@ -115,27 +118,27 @@ const Post = (props: Props) => {
                                     />
                                     <button
                                         onClick={handleUpload}
-                                        className="btn btn-outline-primary py-1 px-2 my-2"
+                                        className="btn btn-outline-primary py-1 px-2 my-2 shadow-none"
                                     >
                                         Tải lên
                                     </button>
                                     {
-                                        uploadFileName &&
+                                        post?.img &&
                                         <div className="my-1">
-                                            <ImgStyled className='img-thumbnail' src={uploadFileName} alt="temp" />
+                                            <ImgStyled className='img-thumbnail' src={post?.img} alt="temp" />
                                         </div>
                                     }
                                 </ModalBody>
                                 <ModalBody className="col-5">
                                     <div className="d-flex justify-content-between">
                                         <div className="d-flex align-items-center">
-                                            <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
+                                            <AvatarStyled src={userPost?.profilePicture ? userPost.profilePicture : avatar} alt="avatar" />
                                             <div className='mx-3'>
                                                 <TitleStyled className='mb-0' tag="h6">
                                                     {userPost?.name}
                                                 </TitleStyled>
                                                 <TitleStyled className="text-muted mb-0" >
-                                                    {userPost?.address}, vn
+                                                    {userPost?.address ? userPost.address + ', vn' : ''}
                                                 </TitleStyled>
                                             </div>
                                         </div>
@@ -143,7 +146,7 @@ const Post = (props: Props) => {
                                             className='text-primary px-1'
                                             onClick={handleUpdatePost}
                                         >
-                                            Update
+                                            Lưu
                                         </ButtonPostStyled>
                                     </div>
                                     <ContentArea
@@ -212,7 +215,7 @@ const Post = (props: Props) => {
                     <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                         <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
                     </ButtonSvg>
-                    <CommentInput type="text" placeholder="Thêm bình luận ..." />
+                    <CommentInput type="text" className='shadow-none' placeholder="Thêm bình luận ..." />
                     <ButtonPostStyled className='text-primary px-1'>Đăng</ButtonPostStyled>
                 </span>
             </TitleStyled>

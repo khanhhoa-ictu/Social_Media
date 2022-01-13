@@ -1,19 +1,21 @@
+import { AxiosResponse } from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
+// import { getUserPost } from '../../api/user.api';
 import Post from '../../conponents/post/Post'
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 
 interface Props {
-    post : PostType,
-    user : UserType
+    post: PostType,
+    user: UserType
 }
 
-function PostPage(props : Props) {
-    const {post , user} = props
+function PostPage(props: Props) {
+    const { post, user } = props
     const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     const [liked, setLiked] = useState<boolean>(false);
@@ -43,10 +45,10 @@ function PostPage(props : Props) {
 
     const handleUpdatePost = () => {
         if (uploadFileName) {
-            updatePost(user._id ,post._id, postContent, uploadFileName)
+            updatePost(user._id, post._id, postContent, uploadFileName)
             setShowModal();
         }
-    } 
+    }
 
     const handleDeletePost = () => {
         deletePost(user._id, post._id)
@@ -65,40 +67,40 @@ function PostPage(props : Props) {
 
     useEffect(() => {
         getUserPost(post.userId)
-        .then((data) => {
-            setUserPost(data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .then((data: any) => {
+                setUserPost(data)
+            })
+            .catch((err: any) => {
+                console.log(err)
+            })
         handleCheckLiked()
     }, [post])
 
     return (
         <div>
-            <Post 
-                liked = {liked}
-                show = {show}
-                postContent = {postContent}
-                inputRef = {inputRef}
-                uploadFileName = {uploadFileName}
-                showDetailPost = {showDetailPost}
-                setLiked = {setLiked}
-                setShow = {setShow}
-                setPostContent = {setPostContent}
-                setUploadFileName = {setUploadFileName}
-                setShowDetailPost = {setShowDetailPost}
-                handleUpload = {handleUpload}
-                handleDisplayFileDetails = {handleDisplayFileDetails}
-                setShowModal = {setShowModal}
-                setShowPostDetail = {setShowPostDetail}
-                handleUpdatePost = {handleUpdatePost}
-                handleDeletePost = {handleDeletePost}
-                handleLikePost = {handleLikePost}
+            <Post
+                liked={liked}
+                show={show}
+                postContent={postContent}
+                inputRef={inputRef}
+                uploadFileName={uploadFileName}
+                showDetailPost={showDetailPost}
+                setLiked={setLiked}
+                setShow={setShow}
+                setPostContent={setPostContent}
+                setUploadFileName={setUploadFileName}
+                setShowDetailPost={setShowDetailPost}
+                handleUpload={handleUpload}
+                handleDisplayFileDetails={handleDisplayFileDetails}
+                setShowModal={setShowModal}
+                setShowPostDetail={setShowPostDetail}
+                handleUpdatePost={handleUpdatePost}
+                handleDeletePost={handleDeletePost}
+                handleLikePost={handleLikePost}
 
-                post = {post}
-                user = {user}
-                userPost = {userPost}
+                post={post}
+                user={user}
+                userPost={userPost}
             />
         </div>
     )

@@ -1,6 +1,6 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap'
+import { Button, Col, FormGroup, Input, Label } from 'reactstrap'
 import styled from 'styled-components'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
