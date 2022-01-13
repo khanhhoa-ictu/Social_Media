@@ -20,7 +20,7 @@ function Navigation(props: Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<string | null>(null);
+    const [uploadFileName, setUploadFileName] = useState<any>();
 
     const handleUpload = () => {
         inputRef.current?.click();
@@ -28,7 +28,7 @@ function Navigation(props: Props) {
 
     const handleDisplayFileDetails = () => {
         inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
-            setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
+            setUploadFileName(inputRef.current.files[0]);
     }
 
     const setShowModal = () => {
