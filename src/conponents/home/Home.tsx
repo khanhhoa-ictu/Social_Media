@@ -7,11 +7,13 @@ import NewsFeedPage from '../../page/post/NewsFeedPage'
 
 interface Props {
     logout: () => void,
-    user: UserType
+    user: UserType,
+    following:any,
+    handleFollow:(currentUser:string, userFollow:string) => void
 }
 
 function Home(props: Props) {
-    const { logout, user } = props
+    const { logout, user, following, handleFollow } = props
 
     return (
         <div>
@@ -21,7 +23,7 @@ function Home(props: Props) {
                     <NewsFeedPage user = {user}/>
                 </div>
                 <FixedSuggestion className="pt-2 col-sm-4">
-                    <FollowersSuggestion />
+                    <FollowersSuggestion user = {user} following = {following} handleFollow ={handleFollow} />
                 </FixedSuggestion>
             </Content>
         </div>

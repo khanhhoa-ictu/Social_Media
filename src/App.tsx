@@ -8,7 +8,7 @@ import LoginPage from './page/login/LoginPage';
 import RegisterPage from './page/login/RegisterPage';
 import ForgotPage from './page/login/ForgotPage';
 import ConfirmPage from './page/login/ConfirmPage'
-import InboxPage from './conponents/inbox/InboxPage';
+import InboxPage from './page/InBoxPage';
 
 
 function App() {

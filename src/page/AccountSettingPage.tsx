@@ -1,8 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { loginFail, setUser } from '../action/user.action'
+import { auth, loginFail, setUser } from '../action/user.action'
 import { changePasswordUser, updateInfor } from '../api/contact'
 import { getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
@@ -21,6 +21,7 @@ function AccountSettingPage() {
     const [newPassword, setNewPassWord] = useState('')
     const [confirmPassword, setConfirmPassWord] = useState('')
     let user = useSelector((state: any) => state.UserReducer.user.state)
+    const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
         updateInfor(user.email, name, phone, address, gender, desc)
@@ -61,6 +62,17 @@ function AccountSettingPage() {
             dispatch(setUser(user))
         })
     }, [user])
+    useEffect(() => {
+        const Authentication = async() =>{
+            let res = await dispatch(auth());
+            console.log(res);
+            if(!res){
+              history.push('/login');
+            }
+          }
+          Authentication()
+    }, []);
+
     const [test, setTest] = useState('')
     return (
         <div>

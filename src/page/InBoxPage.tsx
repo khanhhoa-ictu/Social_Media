@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { auth, loginFail } from '../../action/user.action'
-import Navigation from '../navbar/Navigation'
-import BlankMessage from './BlankMessage'
-import DirectMessage from './DirectMessage'
-import RecentMessages from './RecentMessages'
+import { auth, loginFail } from './../action/user.action'
+import Navigation from './../conponents/navbar/Navigation'
+import BlankMessage from './../conponents/inbox/BlankMessage'
+import DirectMessage from './../conponents/inbox/DirectMessage'
+import RecentMessages from './../conponents/inbox/RecentMessages'
 
 const InboxPage = () => {
 

@@ -67,9 +67,9 @@ function AccountSettingDetail(props: Props) {
             <article>
                 <div className='wapper__change-avatar d-flex mb-5'>
                     <AvatarStyle>
-                        {user.coverPicture === ''
+                        {user.profilePicture === ''
                             ? <img src={avatar} alt='avatar' />
-                            : <img src={user.coverPicture} alt='avatar' />
+                            : <img src={user.profilePicture} alt='avatar' />
                         }
 
                     </AvatarStyle>

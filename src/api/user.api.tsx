@@ -59,11 +59,28 @@ export function getUser(email: string): Promise<any> {
     .then((response: AxiosResponse<any>) => response.data)
 }
 
+export function getUserPost(userId: string): Promise<any> {
+  return axios.get('http://localhost:8080/user/getUserPost/' + userId)
+    .then((response: AxiosResponse<any>) => response.data)
+}
 export function ChangeAvatar(file: any, email: string): Promise<any> {
   let data = new FormData()
   data.append('file', file)
   data.append('email', email)
 
   return axios.post('http://localhost:8080/user/changeavatar', data)
+    .then((response: AxiosResponse<any>) => response.data)
+}
+
+export function getFriendSuggestion(id: string): Promise<any> {
+
+  return axios.get(`http://localhost:8080/user/friendsuggestion/${id}`)
+    .then((response: AxiosResponse<any>) => response.data)
+}
+
+export function followUser(currentUser: string, UserFollow: string): Promise<any> {
+  return axios.post(`http://localhost:8080/user/${UserFollow}/follower`, {
+    name: currentUser
+  })
     .then((response: AxiosResponse<any>) => response.data)
 }
