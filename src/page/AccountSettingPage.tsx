@@ -61,7 +61,7 @@ function AccountSettingPage() {
         getUser(email).then(user => {
             dispatch(setUser(user))
         })
-    }, [user])
+    }, [])
     useEffect(() => {
         const Authentication = async() =>{
             let res = await dispatch(auth());
