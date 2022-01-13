@@ -21,24 +21,28 @@ function Navigation(props: Props) {
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<any>();
+    const [preview, setPreview] = useState('');
 
     const handleUpload = () => {
         inputRef.current?.click();
+        console.log(user)
     }
 
     const handleDisplayFileDetails = () => {
-        inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
+        if (inputRef.current?.files && (inputRef.current.files?.length !== 0)) {
             setUploadFileName(inputRef.current.files[0]);
+            setPreview(URL.createObjectURL(inputRef.current.files[0]))
+        }
     }
 
     const setShowModal = () => {
         setShow(!show)
     }
-    
+
     const handleCreatePost = () => {
         if (uploadFileName) {
             createPost(user._id, postContent, uploadFileName)
-                .then((data)=>{
+                .then((data) => {
                     console.log(data);
                     window.location.reload();
                 })
@@ -124,8 +128,6 @@ function Navigation(props: Props) {
                                             ? <img src={avatar} alt="avatar" />
                                             : <img src={user.profilePicture} alt="avatar" />
                                         }
-
-
                                     </div>
                                 </DropdownToggle>
                                 <DropdownMenuStyled end>
@@ -187,7 +189,7 @@ function Navigation(props: Props) {
                         {
                             uploadFileName &&
                             <div className="my-1">
-                                <ImgStyled className='img-thumbnail' src={uploadFileName} alt="temp" />
+                                <ImgStyled className='img-thumbnail' src={preview} alt="temp" />
                             </div>
                         }
                     </ModalBody>

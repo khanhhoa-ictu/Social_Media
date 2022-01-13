@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
+import avatar from './../../assets/image/no-avatar.png'
 
 interface Props {
     liked: boolean,
@@ -61,13 +62,13 @@ const Post = (props: Props) => {
                 <div className="p-3">
                     <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                            <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
+                            <AvatarStyled src={userPost?.profilePicture ? userPost.profilePicture : avatar} alt="avatar" />
                             <div className='mx-3'>
                                 <TitleStyled className='mb-0' tag="h6">
                                     {userPost?.name}
                                 </TitleStyled>
                                 <TitleStyled className="text-muted mb-0" >
-                                    {userPost?.address}, vn
+                                    {userPost?.address ? userPost.address + ', vn' : ''}
                                 </TitleStyled>
                             </div>
                         </div>
@@ -187,10 +188,6 @@ const Post = (props: Props) => {
                             <ButtonSvg onClick={setShowPostDetail} aria-label="Bình luận" className="_8-yf5 mx-3" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
                             </ButtonSvg>
-                            {
-                                showDetailPost ?
-                                    <PostDetailPage showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
-                            }
                             <ButtonSvg aria-label="Chia sẻ bài viết" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
                                 <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></polygon>
@@ -216,6 +213,10 @@ const Post = (props: Props) => {
                     <ButtonPostStyled className='text-primary px-1'>Đăng</ButtonPostStyled>
                 </span>
             </TitleStyled>
+            {
+                showDetailPost ?
+                    <PostDetailPage showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
+            }
         </Card>
     )
 }
