@@ -7,7 +7,6 @@ export function getPost(): Promise<any> {
   return new Promise((resolve) => {
     resolve(post);
   })
-  // console.log('halu')
 }
 
 export const createPost = (userId: string, postContent: string, imgUrl: string) => {
@@ -23,8 +22,9 @@ export const getListTimeline = () => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const updatePost = (postId: string, postContent: string, imgUrl: string) => {
+export const updatePost = (userId : string ,postId: string, postContent: string, imgUrl: string) => {
   return axios.post(url + '/post/update', {
+    userId : userId,
     idPost: postId,
     desc: postContent,
     img: imgUrl
@@ -47,8 +47,9 @@ export const handleLike = (userId: string, idPost: string) => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const getPostTimeline = () => {
-
+export const getPostTimeline = (email : string) => {
+  return axios.get(url + `/newsFeed/${email}`)
+    .then((response: AxiosResponse) => response.data)
 }
 
 export const getFollowerSuggestion = () => {
