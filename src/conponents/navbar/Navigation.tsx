@@ -23,6 +23,7 @@ function Navigation(props: Props) {
     const [uploadFileName, setUploadFileName] = useState<any>();
     const [reviewFile, setReviewFile] = useState<string | null>(null);
 
+
     const handleUpload = () => {
         inputRef.current?.click();
     }
@@ -32,6 +33,7 @@ function Navigation(props: Props) {
             setUploadFileName(inputRef.current.files[0]);
             setReviewFile(URL.createObjectURL(inputRef.current.files[0]))
         }  
+
     }
 
     const setShowModal = () => {
