@@ -1,7 +1,7 @@
-import React, { FormEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { FormEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { loginFail } from '../../action/user.action'
+import { auth, loginFail } from '../../action/user.action'
 import { registerUser } from '../../api/user.api'
 import RegisterComponents from '../../conponents/login/RegisterComponents'
 
@@ -67,7 +67,17 @@ function RegisterPage() {
         dispatch(loginFail())
         history.push('/login')
     }
+    let isLogin = useSelector((state : any) => state.LoginReducer.login.isLogin)
 
+    useEffect(() => {
+        const Authentication = async() =>{
+            let res = await dispatch(auth());
+            if(!!res){
+              history.push('/');
+            }
+          }
+          Authentication()
+    }, [isLogin]);
     return (
         <div>
             <RegisterComponents 

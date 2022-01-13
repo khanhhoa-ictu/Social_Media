@@ -42,6 +42,7 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     }
     await verifyAuth(user.email, user.token)
     .then((data) => {
+        console.log(data);
         dispatch(loginSuccess());
         return true
     })
@@ -49,6 +50,7 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
         dispatch(loginFail());
         return false
     })
-
+    dispatch(loginSuccess());
+    return true
 }
   

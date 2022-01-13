@@ -36,12 +36,6 @@ type Action = {
 }
 const user = (state: State = initial, action: Action) => {
     switch (action.type) {
-        // case 'GET_USER': {
-        //     return {
-        //         ...state,
-        //         user: action.payload
-        //     }
-        // }
         case 'SET_USER': {
             return {
                 state: action.payload,

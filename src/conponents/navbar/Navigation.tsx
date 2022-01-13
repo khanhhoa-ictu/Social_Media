@@ -34,10 +34,14 @@ function Navigation(props: Props) {
     const setShowModal = () => {
         setShow(!show)
     }
-
+    
     const handleCreatePost = () => {
         if (uploadFileName) {
-            createPost('61de3ee515a581204443e712', postContent, uploadFileName)
+            createPost(user._id, postContent, uploadFileName)
+                .then((data)=>{
+                    console.log(data);
+                    window.location.reload();
+                })
             setShowModal();
         }
     } // done
@@ -140,7 +144,7 @@ function Navigation(props: Props) {
                                     <DropdownItem divider />
 
                                     <DropdownItem onClick={logout}>
-                                        <NavLink to='/' className="text-decoration-none text-dark">
+                                        <NavLink to='/login' className="text-decoration-none text-dark">
                                             <TextNavStyled className='mx-1'>
                                                 Đăng xuất
                                             </TextNavStyled>
@@ -167,6 +171,7 @@ function Navigation(props: Props) {
                     <ModalBody className="col-7 border-end text-center">
                         Nhập ảnh từ thiết bị &nbsp;
                         <input
+                            id="input-avatar"
                             className="d-none"
                             type="file"
                             name='input'

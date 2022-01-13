@@ -15,11 +15,11 @@ function NewsFeedPage(props : Props) {
     const {user} = props
     const newsFeed = useSelector((state: any) => state.HomeReducer.post.listPost)
     const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
-
     useEffect(() => {
         getPostTimeline(user._id)
         .then((data) => {
-            dispatch(setPost(data.list))
+            console.log(data);
+            dispatch(setPost(data))
         })
         .catch((err) => {
             console.log(err, 'err')

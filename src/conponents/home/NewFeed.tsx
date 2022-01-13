@@ -10,10 +10,10 @@ interface Props {
 
 const NewFeed = (props : Props) => {
     const {newsFeed , user} = props
-
+    console.log('newwwww',newsFeed);
     return (
         <div>
-            {newsFeed.length>0
+            {newsFeed !== undefined
                 ?(
                     newsFeed.map((post, index) => (
                         <div key={index}>
