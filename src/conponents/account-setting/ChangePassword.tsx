@@ -24,9 +24,9 @@ function ChangePassword(props: Props) {
         <div className='p-4'>
             <div className='wapper__img-name d-flex text-center align-items-center mb-5'>
                 <AvatarStyle>
-                    {user.coverPicture === ''
+                    {user.profilePicture === ''
                         ? <img src={avatar} alt='avatar' />
-                        : <img src={user.coverPicture} alt='avatar' />
+                        : <img src={user.profilePicture} alt='avatar' />
                     }
 
                 </AvatarStyle>

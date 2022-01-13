@@ -45,13 +45,13 @@ function LoginPage() {
     }
     
     useEffect(() => {
-        dispatch(auth())
-        if (!isLogin) {
-            history.push('/login')
-        }
-        else {
-            history.push('/')
-        }
+        const Authentication = async() =>{
+            let res = await dispatch(auth());
+            if(!!res){
+              history.push('/');
+            }
+          }
+          Authentication()
     }, [isLogin]);
 
 

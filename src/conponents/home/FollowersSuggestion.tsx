@@ -1,15 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
-
-const FollowersSuggestion = () => {
+import { UserType } from '../../type/userType'
+import avatar from './../../assets/image/no-avatar.png'
+interface Props {
+    user: UserType,
+    following: any,
+    handleFollow:(currentUser:string, userFollow:string) => void
+}
+const FollowersSuggestion = (props: Props) => {
+    const { user, following, handleFollow } = props
     return (
         <RightSide className="mx-3 px-1">
             <div className="py-4 d-flex justify-content-between align-items-center ">
                 <div className="d-flex align-items-center">
-                    <MainAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
+                    {
+                        user.profilePicture === ''
+                            ? <MainAvatar src={avatar} />
+                            : <MainAvatar src={user.profilePicture} />
+                    }
+
                     <div className="px-3">
-                        <p className="h6 mb-0">account</p>
-                        <p className="text-muted mb-0">user name</p>
+                        <p className="h6 mb-0">{user.name}</p>
                     </div>
                 </div>
                 <ButtonStyled className='text-primary'>Chuyển</ButtonStyled>
@@ -19,46 +30,23 @@ const FollowersSuggestion = () => {
                 <ButtonStyled className="text-dark h6">Xem tất cả</ButtonStyled>
             </div>
             <div>
-                <div className="py-2 d-flex justify-content-between align-items-center ">
-                    <div className="d-flex align-items-center">
-                        <SubAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
-                        <div className="px-3">
-                            <p className="h6 mb-0">account</p>
-                            <p className="text-muted mb-0">user name</p>
+                {
+                    following?.map((item: any, key: number) => {
+                      return  <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
+                            <div className="d-flex align-items-center">
+                                <SubAvatar src={item.profilePicture} />
+                                <div className="px-3">
+                                    <p className="h6 mb-0">{item.name}</p>
+                                </div>
+                            </div>
+                            <ButtonStyled className='text-primary' onClick={()=>handleFollow(user.name,item.name)}>Theo dõi</ButtonStyled>
                         </div>
-                    </div>
-                    <ButtonStyled className='text-primary'>Theo dõi</ButtonStyled>
-                </div>
-                <div className="py-1 d-flex justify-content-between align-items-center ">
-                    <div className="d-flex align-items-center">
-                        <SubAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
-                        <div className="px-3">
-                            <p className="h6 mb-0">account</p>
-                            <p className="text-muted mb-0">user name</p>
-                        </div>
-                    </div>
-                    <ButtonStyled className='text-primary'>Theo dõi</ButtonStyled>
-                </div>
-                <div className="py-1 d-flex justify-content-between align-items-center ">
-                    <div className="d-flex align-items-center">
-                        <SubAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
-                        <div className="px-3">
-                            <p className="h6 mb-0">account</p>
-                            <p className="text-muted mb-0">user name</p>
-                        </div>
-                    </div>
-                    <ButtonStyled className='text-primary'>Theo dõi</ButtonStyled>
-                </div>
-                <div className="py-1 d-flex justify-content-between align-items-center ">
-                    <div className="d-flex align-items-center">
-                        <SubAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
-                        <div className="px-3">
-                            <p className="h6 mb-0">account</p>
-                            <p className="text-muted mb-0">user name</p>
-                        </div>
-                    </div>
-                    <ButtonStyled className='text-primary'>Theo dõi</ButtonStyled>
-                </div>
+                    })
+                }
+
+
+
+
             </div>
             <CopyrightStyled className='my-3'>
                 &copy; 2022 MARGASTNI FROM UNIVERSE
