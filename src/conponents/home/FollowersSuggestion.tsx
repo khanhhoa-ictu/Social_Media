@@ -72,9 +72,10 @@ const MainAvatar = styled.img`
 `
 
 const NameText = styled.p`
-    text-overflow: ellipsis;
     overflow: hidden;
-    whitespace: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 130px;
 `
 
 const SubAvatar = styled.img`
