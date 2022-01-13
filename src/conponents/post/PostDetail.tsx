@@ -1,5 +1,7 @@
-import React from 'react'
-import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap'
+
+import React, { useState } from 'react';
+import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
+
 import styled from 'styled-components';
 
 interface PostDetailProps {
