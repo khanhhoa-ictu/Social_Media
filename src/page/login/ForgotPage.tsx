@@ -10,9 +10,9 @@ function LoginPage() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    let statusForgot = useSelector((state : any) => state.UserReducer.forgotPassword.statusForgot)
+    let statusForgot = useSelector((state: any) => state.UserReducer.forgotPassword.statusForgot)
 
-    const [loading,setLoading] = useState('')
+    const [loading, setLoading] = useState('')
     const [email, setEmail] = useState('')
     const [code, setCode] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -22,67 +22,67 @@ function LoginPage() {
     const [notificationNewPassword, setNotificationNewPassword] = useState('')
     const [notificationConfirmPassword, setNotificationConfirmPassword] = useState('')
 
-    const getCodeButton = (e : FormEvent<HTMLFormElement>) => {
+    const getCodeButton = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(!email){
-            setNotificationEmail('Email is required')
+        if (!email) {
+            setNotificationEmail('Email không được để trống')
             return;
         }
         else {
             setNotificationEmail('')
         }
         requestForgotPassword(email)
-        .then((data) => {
-            dispatch(checkOTP())
-        })
-        .catch((err) => console.log(err))
+            .then((data) => {
+                dispatch(checkOTP())
+            })
+            .catch((err) => console.log(err))
     }
 
-    const checkCodeButton = (e : FormEvent<HTMLFormElement>) => {
+    const checkCodeButton = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(!code){
-            setNotificationCode('Code is required')
+        if (!code) {
+            setNotificationCode('Chưa nhập mã OTP')
             return;
         }
         else {
             setNotificationCode('')
         }
-        verifyForgotPassword(email,code)
-        .then((data) => {
-            dispatch(changePassword())
-        })
-        .catch((err) => console.log(err))
+        verifyForgotPassword(email, code)
+            .then((data) => {
+                dispatch(changePassword())
+            })
+            .catch((err) => console.log(err))
     }
 
-    const changePasswordButton = (e : FormEvent<HTMLFormElement>) => {
+    const changePasswordButton = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(!newPassword){
-            setNotificationNewPassword('Password is required')
+        if (!newPassword) {
+            setNotificationNewPassword('Mật khẩu mới không được để trống')
             return;
         }
         else {
             setNotificationNewPassword('')
         }
-        if(!confirmPassword){
-            setNotificationConfirmPassword('Confirm Password is required')
+        if (!confirmPassword) {
+            setNotificationConfirmPassword('Mật khẩu xác nhận không được để trống')
             return;
         }
         else {
             setNotificationConfirmPassword('')
         }
-        if(newPassword === confirmPassword){
+        if (newPassword === confirmPassword) {
             setNotificationConfirmPassword('')
         }
         else {
-            setNotificationConfirmPassword('Confirm Password is different Password')
+            setNotificationConfirmPassword('Mật khẩu xác nhận không khớp với mật khẩu mới')
             return;
         }
         forgotPassword(email, code, newPassword)
-        .then((data) => {
-            dispatch(sentEmail())
-            history.push('/login')
-        })
-        .catch((err) => console.log(err))
+            .then((data) => {
+                dispatch(sentEmail())
+                history.push('/login')
+            })
+            .catch((err) => console.log(err))
     }
 
     const loginButton = () => {
@@ -91,40 +91,40 @@ function LoginPage() {
         history.push('/login')
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         setLoading('')
     }, [statusForgot])
 
     return (
         <div>
-            {statusForgot === 'forgot' 
-                ? 
-                <Forgot 
-                    email ={email}
-                    notificationEmail = {notificationEmail}
-                    setEmail = {setEmail}
-                    getCodeButton = {getCodeButton}
-                    loginButton = {loginButton}
+            {statusForgot === 'forgot'
+                ?
+                <Forgot
+                    email={email}
+                    notificationEmail={notificationEmail}
+                    setEmail={setEmail}
+                    getCodeButton={getCodeButton}
+                    loginButton={loginButton}
                 />
-                : statusForgot === 'checkOTP' 
-                    ? 
-                    <CheckOTP 
-                        code = {code}
-                        setCode = {setCode}
-                        notificationCode = {notificationCode}
-                        checkCodeButton = {checkCodeButton}
+                : statusForgot === 'checkOTP'
+                    ?
+                    <CheckOTP
+                        code={code}
+                        setCode={setCode}
+                        notificationCode={notificationCode}
+                        checkCodeButton={checkCodeButton}
                     />
                     : statusForgot === 'changePassword'
-                        ? 
-                        <NewPassword 
-                            newPassword = {newPassword}
-                            confirmPassword = {confirmPassword}
-                            notificationNewPassword = {notificationNewPassword}
-                            notificationConfirmPassword = {notificationConfirmPassword}
-                            setNewPassword = {setNewPassword}
-                            setConfirmPassword = {setConfirmPassword}
-                            changePasswordButton = {changePasswordButton}
-                            loginButton = {loginButton}
+                        ?
+                        <NewPassword
+                            newPassword={newPassword}
+                            confirmPassword={confirmPassword}
+                            notificationNewPassword={notificationNewPassword}
+                            notificationConfirmPassword={notificationConfirmPassword}
+                            setNewPassword={setNewPassword}
+                            setConfirmPassword={setConfirmPassword}
+                            changePasswordButton={changePasswordButton}
+                            loginButton={loginButton}
                         />
                         : null
             }
