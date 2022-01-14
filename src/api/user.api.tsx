@@ -84,3 +84,8 @@ export function followUser(currentUser: string, UserFollow: string): Promise<any
   })
     .then((response: AxiosResponse<any>) => response.data)
 }
+
+export function searchUser(name:string): Promise<any> {
+  return axios.get(`http://localhost:8080/user/${name}`)
+    .then((response: AxiosResponse<any>) => response.data)
+}

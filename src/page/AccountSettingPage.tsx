@@ -24,6 +24,7 @@ function AccountSettingPage() {
     const [showAlert, setShowAlert] = useState(false);
 
     let user = useSelector((state: any) => state.UserReducer.user.state)
+    console.log(user);
     const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
