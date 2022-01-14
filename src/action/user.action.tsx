@@ -42,7 +42,6 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     }
     await verifyAuth(user.email, user.token)
     .then((data) => {
-        console.log(data);
         dispatch(loginSuccess());
         return true
     })

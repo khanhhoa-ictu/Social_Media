@@ -11,3 +11,9 @@ export interface UserType {
     desc: string,
     gender: string,
 }
+
+export interface UserSuggestion{
+    _id:string,
+     name:string,
+      profilePicture :string,
+}

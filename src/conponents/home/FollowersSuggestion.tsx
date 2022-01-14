@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { UserType } from '../../type/userType'
+import { UserSuggestion, UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     user: UserType,
     following: any,
-    handleFollow:(currentUser:string, userFollow:string) => void
+    handleFollow: (currentUser: string, userFollow: string) => void
 }
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
+    const [suggestion, setSuggestion] = useState(following)
+    const handleFollowing = (id:string,user: string, userFollow: string) =>{
+        const index:number = suggestion.findIndex((item:UserSuggestion) => item._id === id) 
+        const newData = [...suggestion];
+        newData.splice(index, 1);
+        setSuggestion(newData);
+        handleFollow(user, userFollow);
+    }
     return (
         <RightSide className="mx-3 px-1">
             <div className="py-4 d-flex justify-content-between align-items-center ">
@@ -31,15 +39,19 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    following?.map((item: any, key: number) => {
-                      return  <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
+                    suggestion?.map((item: any, key: number) => {
+                        return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
-                                <SubAvatar src={item.profilePicture} />
+                                {
+                                    item.profilePicture === ''
+                                        ? <SubAvatar src={avatar} />
+                                        : <SubAvatar src={item.profilePicture} />
+                                }
                                 <div className="px-3">
                                     <p className="h6 mb-0">{item.name}</p>
                                 </div>
                             </div>
-                            <ButtonStyled className='text-primary' onClick={()=>handleFollow(user.name,item.name)}>Theo dõi</ButtonStyled>
+                            <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id,user.name, item.name)}>Theo dõi</ButtonStyled>
                         </div>
                     })
                 }

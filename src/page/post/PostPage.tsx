@@ -10,18 +10,17 @@ import { UserType } from '../../type/userType';
 interface Props {
     post : PostType,
     user : UserType
+    CommentPost:(profilePicture: string,userId:string,name:string, comment:string,postID:string)=> void
 }
 
 function PostPage(props : Props) {
-    const {post , user} = props
+    const {post , user,CommentPost} = props
     const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
-
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState(post.desc);
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<string | null>(null);
-    const [showDetailPost, setShowDetailPost] = useState<boolean>(false);
     const [userPost, setUserPost] = useState<UserType>()
 
     const handleUpload = () => {
@@ -37,9 +36,6 @@ function PostPage(props : Props) {
         setShow(!show)
     }
 
-    const setShowPostDetail = () => {
-        setShowDetailPost(!showDetailPost)
-    }
 
     const handleUpdatePost = () => {
         if (uploadFileName) {
@@ -73,7 +69,6 @@ function PostPage(props : Props) {
         })
         handleCheckLiked()
     }, [post])
-
     return (
         <div>
             <Post 
@@ -82,20 +77,17 @@ function PostPage(props : Props) {
                 postContent = {postContent}
                 inputRef = {inputRef}
                 uploadFileName = {uploadFileName}
-                showDetailPost = {showDetailPost}
                 setLiked = {setLiked}
                 setShow = {setShow}
                 setPostContent = {setPostContent}
                 setUploadFileName = {setUploadFileName}
-                setShowDetailPost = {setShowDetailPost}
                 handleUpload = {handleUpload}
                 handleDisplayFileDetails = {handleDisplayFileDetails}
                 setShowModal = {setShowModal}
-                setShowPostDetail = {setShowPostDetail}
                 handleUpdatePost = {handleUpdatePost}
                 handleDeletePost = {handleDeletePost}
                 handleLikePost = {handleLikePost}
-
+                CommentPost={CommentPost}
                 post = {post}
                 user = {user}
                 userPost = {userPost}

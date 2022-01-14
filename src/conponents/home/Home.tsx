@@ -8,23 +8,26 @@ import NewsFeedPage from '../../page/post/NewsFeedPage'
 interface Props {
     logout: () => void,
     user: UserType,
-    following:any,
-    handleFollow:(currentUser:string, userFollow:string) => void
+    following: any,
+    handleFollow: (currentUser: string, userFollow: string) => void
 }
 
 function Home(props: Props) {
     const { logout, user, following, handleFollow } = props
-
+    console.log(following);
     return (
         <div>
             <Navigation logout={logout} user={user} />
             <Content className="container d-flex mt-3">
                 <div className="col-sm-8 mr-3 mt-4">
-                    <NewsFeedPage user = {user}/>
+                    <NewsFeedPage user={user} />
                 </div>
-                <FixedSuggestion className="pt-2 col-sm-4">
-                    <FollowersSuggestion user = {user} following = {following} handleFollow ={handleFollow} />
-                </FixedSuggestion>
+                {
+                    following && <FixedSuggestion className="pt-2 col-sm-4">
+                        <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
+                    </FixedSuggestion>
+                }
+
             </Content>
         </div>
     )
