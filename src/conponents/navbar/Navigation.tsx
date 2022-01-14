@@ -4,7 +4,6 @@ import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal,
 import styled from 'styled-components'
 import logo from '../../assets/image/logo.png'
 import { createPost } from '../../api/post.api'
-
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
@@ -209,7 +208,12 @@ function Navigation(props: Props) {
                     <ModalBody className="col-5">
                         <div className="d-flex justify-content-between">
                             <div className="d-flex align-items-center">
-                                <AvatarStyled src={user.profilePicture ? user.profilePicture : avatar} alt="avatar" />
+                                {
+                                    user.profilePicture === ''
+                                    ? <AvatarStyled src={avatar} alt="avatar" />
+                                    : <AvatarStyled src={user.profilePicture} alt="avatar" />
+                                }
+                               
                                 <div className='mx-3'>
                                     <TitleStyled className='mb-0' tag="h6">
                                         {user.name}

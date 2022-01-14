@@ -15,7 +15,7 @@ interface Props {
 
 function Home(props: Props) {
     const { logout, user, following, handleFollow } = props
-
+    console.log(following);
     return (
         <div>
             <Navigation logout={logout} user={user} />
@@ -23,9 +23,12 @@ function Home(props: Props) {
                 <div className="col-sm-8 mr-3 mt-4">
                     <NewsFeedPage user={user} />
                 </div>
-                <FixedSuggestion className="pt-2 col-sm-4">
-                    <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
-                </FixedSuggestion>
+                {
+                    following && <FixedSuggestion className="pt-2 col-sm-4">
+                        <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
+                    </FixedSuggestion>
+                }
+
             </Content>
         </div>
     )

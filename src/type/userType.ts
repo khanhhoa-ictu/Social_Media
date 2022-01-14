@@ -12,6 +12,11 @@ export interface UserType {
     gender: string,
 }
 
+export interface UserSuggestion{
+    _id:string,
+     name:string,
+      profilePicture :string,
+}
 export interface StateUserType {
     user: UserType
 }

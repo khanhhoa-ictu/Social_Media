@@ -10,3 +10,8 @@ export const setIsLoading = (data: boolean) => ({
     payload : data,
 });
   
+export const setComment = (payload:any) => ({
+    type:'SET_COMMENT',
+    payload,
+});
+

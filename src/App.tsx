@@ -9,6 +9,7 @@ import RegisterPage from './page/login/RegisterPage';
 import ForgotPage from './page/login/ForgotPage';
 import ConfirmPage from './page/login/ConfirmPage'
 import InboxPage from './page/InBoxPage';
+import PostDetailPage from './page/post/PostDetailPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/inbox" component={InboxPage} />
           <Route exact path="/confirm/:id" component={ConfirmPage} />
           <Route exact path="/forgot" component={ForgotPage} />
+          <Route exact path='/post/:id' component={HomePage} />
         </Switch>
       </BrowserRouter>
     </div>
