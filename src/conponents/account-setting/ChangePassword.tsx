@@ -72,7 +72,7 @@ function ChangePassword(props: Props) {
                         <InputStyled
                             required
                             id="examplePassword"
-                            name="password"
+                            name="new-password"
                             type="password"
                             className="shadow-none"
                             value={newPassword}
@@ -90,7 +90,7 @@ function ChangePassword(props: Props) {
                     <Col sm={9}>
                         <InputStyled
                             id="examplePassword"
-                            name="password"
+                            name="confirm-password"
                             required
                             type="password"
                             className="shadow-none"
