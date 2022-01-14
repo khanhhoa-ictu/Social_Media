@@ -28,7 +28,7 @@ function NewPassword(props: Props) {
 
     return (
         <StyledDiv className='bg-light d-flex justify-content-center align-items-center'>
-            <DivFullHeight className='d-flex flex-column'>
+            <DivFullHeight className='d-flex flex-column font-14'>
                 <StyledDiv className='container d-flex flex-column justify-content-between align-items-center'>
                     <div className='w-50 my-5 p-4 border text-center bg-white rounded'>
                         <ImgStyled className='my-4'>
@@ -41,7 +41,7 @@ function NewPassword(props: Props) {
                                 <InputStyled
                                     type='password'
                                     value={newPassword}
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     placeholder='Nhập mật khẩu mới'
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)} />
                                 <p className='notification'>{notificationNewPassword}</p>
@@ -57,8 +57,8 @@ function NewPassword(props: Props) {
                                 <p className='notification'>{notificationConfirmPassword}</p>
 
                             </FormGroup>
-                            <ButtonStyled className='w-100 mb-2' type="submit" outline color="primary">Xác nhận</ButtonStyled>
-                            <ButtonStyled className='w-100' onClick={loginButton} outline color="secondary">Huỷ</ButtonStyled>
+                            <Button className='w-100 font-14 mb-2' type="submit" outline color="primary">Xác nhận</Button>
+                            <Button className='w-100 font-14' onClick={loginButton} outline color="secondary">Huỷ</Button>
                         </Form>
                     </div>
                     <Footer className="text-muted text-center">&copy; 2022 MARGASTNI FROM UNIVERSE</Footer>
@@ -76,14 +76,9 @@ const Footer = styled.p`
     font-size: 12px;
 `
 
-const ButtonStyled = styled(Button)`
-    font-size: 14px;
-`
-
 const DivFullHeight = styled.div`
     background-color : #f0f2f5;
     width: inherit;
-    font-size: 14px;
 `
 
 const ImgStyled = styled.div`
@@ -98,7 +93,6 @@ const ImgStyled = styled.div`
 const InputStyled = styled(Input)`
     background-color: #fafafa;
     padding: 7px 10px;
-    font-size: 14px;
     &:focus{
         background-color: #fafafa;
     }

@@ -27,7 +27,7 @@ const Login = (props: Props) => {
     } = props
 
     return (
-        <StyledDiv className='row d-md-flex justify-content-between align-items-center'>
+        <StyledDiv className='row d-md-flex justify-content-between align-items-center font-14'>
             <div className="col-md-7">
                 <ImgBackground src={background} alt="background" />
             </div>
@@ -43,7 +43,7 @@ const Login = (props: Props) => {
                             <InputStyled
                                 type='email'
                                 value={email}
-                                className='shadow-none'
+                                className='shadow-none font-14'
                                 placeholder='Email'
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                             <p className='text-danger'>{notificationUserName}</p>
@@ -58,14 +58,14 @@ const Login = (props: Props) => {
                             <p className='text-danger'>{notificationPassword}</p>
                         </FormGroup>
                         <FormGroup className=''>
-                            <ButtonStyled
-                                className='w-100'
+                            <Button
+                                className='w-100 font-14'
                                 type="submit"
                                 outline color={email && passWord ? 'primary' : 'secondary'}
                                 disabled={email && passWord ? false : true}
                             >
                                 Đăng nhập
-                            </ButtonStyled>
+                            </Button>
                         </FormGroup>
                     </Form>
                     <hr className='mx-3' />
@@ -86,8 +86,7 @@ const Login = (props: Props) => {
 
 const StyledDiv = styled.div`
     margin: auto;
-    padding: 0;
-    font-size: 14px;
+    padding: 0;\
     width: 1120px;
 `
 
@@ -98,14 +97,9 @@ const ImgBackground = styled.img`
 const InputStyled = styled(Input)`
     background-color: #fafafa;
     padding: 7px 10px;
-    font-size: 14px;
     &:focus{
         background-color: #fafafa;
     }
-`
-
-const ButtonStyled = styled(Button)`
-    font-size: 14px;
 `
 
 export default Login

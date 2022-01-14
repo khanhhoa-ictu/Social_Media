@@ -84,15 +84,15 @@ const PostDetail = (props: PostDetailProps) => {
                                     }
 
                                     <div className='mx-3'>
-                                        <TitleStyled className='mb-0' tag="h6">
+                                        <TitleStyled className='font-14 mb-0' tag="h6">
                                             {postDetail.userPost.name}
                                         </TitleStyled>
-                                        <TitleStyled className="text-muted mb-0" >
+                                        <TitleStyled className="font-14 text-muted mb-0" >
                                             {postDetail.userPost.address}
                                         </TitleStyled>
                                     </div>
                                 </div>
-                                <p className="btn border-none p-0 text-primary">Theo dõi</p>
+                                <p className="btn border-none p-0 text-primary font-14">Theo dõi</p>
                             </div>
                         </div>
                         <div className='ms-3'>
@@ -104,10 +104,10 @@ const PostDetail = (props: PostDetailProps) => {
                                             : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
                                     }
                                     <div className='mx-3 d-flex align-items-center'>
-                                        <TitleStyled className='mb-0' tag="h6">
+                                        <TitleStyled className='font-14 mb-0' tag="h6">
                                             {postDetail.userPost.name}
                                         </TitleStyled>
-                                        <TitleStyled className="text-muted mx-2 pt-1" >
+                                        <TitleStyled className="font-14 text-muted mx-2 pt-1" >
                                             {postDetail.post.desc}
                                         </TitleStyled>
                                     </div>
@@ -155,7 +155,7 @@ const PostDetail = (props: PostDetailProps) => {
                                 </ButtonSvg>
                             </span>
                             <span className="d-block">
-                                <span className="h6">{likePost} lượt thích</span>
+                                <span className="h6 font-14">{likePost} lượt thích</span>
                             </span>
                             <span className="d-block text-muted span-time my-1 pb-1">{format(postDetail.post.createdAt)}</span>
                         </div>
@@ -167,11 +167,11 @@ const PostDetail = (props: PostDetailProps) => {
                             <CommentInput
                                 type="text"
                                 value={comment}
-                                className="shadow-none"
+                                className="shadow-none font-14"
                                 placeholder="Thêm bình luận ..."
                                 onChange={(e: any) => setComment(e.target.value)}
                             />
-                            <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
+                            <ButtonPostStyled className='text-primary px-1 font-14' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
                         </span>
                     </TitleStyled>
                 </ModalBody>
@@ -209,10 +209,6 @@ const AvatarStyled = styled.img`
 `
 
 const TitleStyled = styled(CardTitle)`
-    font-size: 14px;
-    span{
-        font-size: 14px;
-    }
     .text-muted{
         cursor: pointer;
     }
@@ -233,12 +229,10 @@ const ButtonSvg = styled.svg`
 const ButtonPostStyled = styled.button`
     background-color: transparent;
     border: none;
-    font-size: 14px;
 `
 
 const CommentInput = styled(Input)`
     border: none;
     outline: none;
-    font-size: 14px;
 `
 export default PostDetail
