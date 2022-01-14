@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { post } from '../mockData/post'
+import { PostDetailType } from "../type/postType";
 
 const url = `http://localhost:8080`;
 
@@ -52,6 +53,7 @@ export const getPostTimeline = (email : string) => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const getFollowerSuggestion = () => {
-
+export const getPostDetail = (id : string): Promise<PostDetailType> => {
+  return axios.get(url + `/post/${id}`)
+    .then((response: AxiosResponse<PostDetailType>) => response.data)
 }

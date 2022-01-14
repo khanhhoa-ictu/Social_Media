@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
+import { setFollowing } from '../action/flow.action'
 import { auth, loginFail, setUser } from '../action/user.action'
 import { followUser, getFriendSuggestion, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
-
 import Home from '../conponents/home/Home'
-import { setFollowing } from '../action/flow.action'
+import PostDetailPage from './post/PostDetailPage'
+
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -52,21 +53,24 @@ function HomePage() {
     },[user])
     const handleFollow = (currentUser:string,UserFollow:string) =>{
         followUser(currentUser,UserFollow)
-        .then((data) => {
-            console.log(data);
+        .then((data:any) => {
+            console.log('Following user success');
+        })
+        .catch((error:any) =>{
+            console.log(error);
         })
     }
     return (
         <div>
             {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} /> : null}
-
+            <Route exact path="/post/:id" render={() =>  
+            <PostDetailPage  /> }
+            />
+           
         </div>
     )
 }
 
 export default HomePage
 
-// function dispatch(arg0: (dispatch: any) => Promise<boolean>) {
-//     throw new Error('Function not implemented.')
-// }
 

@@ -40,8 +40,14 @@ function LoginPage() {
                 localStorage.setItem("user", JSON.stringify({ token, email }));
                 dispatch(loginSuccess());
                 dispatch(setUser(data.user))
+                history.push('/')
+            }).catch((error) => {
+                if(error.response.data.msg === 'no_registration_confirmation'){
+                    setNotificationPassword("Vui lòng vào mail để kích hoạt tài khoản");
+                }else{
+                    setNotificationPassword("Email hoặc mật khẩu không chính xác");
+                }
             })
-        history.push('/')
     }
 
     useEffect(() => {

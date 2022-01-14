@@ -26,6 +26,12 @@ const post = (state : StatePostType = initialList, action: Action) => {
                 isLoading : action.payload
             }
         }
+        case 'SET_COMMENT' : {
+            return {
+                ...state,
+                comments : action.payload
+            }
+        }
         default: return state
     }
 }
