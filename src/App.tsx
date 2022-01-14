@@ -12,6 +12,7 @@ import ProfileUserPage from './page/ProfileUserPage';
 
 import InboxPage from './page/InBoxPage';
 import PostDetailPage from './page/post/PostDetailPage';
+import styled from 'styled-components';
 
 
 function App() {

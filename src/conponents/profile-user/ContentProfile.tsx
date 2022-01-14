@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav } from "reactstrap";
 import { NavLink } from 'react-router-dom';
 import { CardImg } from 'reactstrap';
 import styled from 'styled-components';
@@ -13,11 +13,11 @@ function ContentProfile() {
     return (
         <Content__Profile className='Content__Profile'>
             <Nav className='border-top border-bottom-0 justify-content-center ml-5 mt-5 mb-1 nav' variant="tabs" defaultActiveKey="/home">
-                <Nav.Item>
-                    <Nav.Link href="" className='navlink' style={{ color: "#262626", fontSize: "18px" }}>
+                <Nav>
+                    <Nav href="" className='navlink' style={{ color: "#262626", fontSize: "18px" }}>
                         Bài viết
-                    </Nav.Link>
-                </Nav.Item>
+                    </Nav>
+                </Nav>
 
 
             </Nav>

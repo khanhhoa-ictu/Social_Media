@@ -251,7 +251,7 @@ function Navigation(props: Props) {
 
 const NavigationStyled = styled.div`
     background-color:rgb(248,249,250);
-    position: fixed;
+    position: sticky;
     top: 0;
     z-index: 1;
     width: 100%;
