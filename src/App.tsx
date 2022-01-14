@@ -10,6 +10,7 @@ import ForgotPage from './page/login/ForgotPage';
 import ConfirmPage from './page/login/ConfirmPage'
 import InboxPage from './page/InBoxPage';
 import PostDetailPage from './page/post/PostDetailPage';
+import styled from 'styled-components';
 
 
 function App() {
