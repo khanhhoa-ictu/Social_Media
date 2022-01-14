@@ -143,13 +143,13 @@ function AccountSettingPage() {
 }
 
 const DivStyle = styled.div`
-    margin-top:85px;
+    margin-top: 24px;
     height: 75vh;
     position: relative;
 `
 
 const DivFullHeight = styled.div`
-    height: 100vh;
+    height: 100%;
 `
 
 export default AccountSettingPage

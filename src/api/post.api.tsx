@@ -48,8 +48,8 @@ export const handleLike = (userId: string, idPost: string) => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const getPostTimeline = (email : string) => {
-  return axios.get(url + `/newsFeed/${email}`)
+export const getPostTimeline = (id : string,page: number) => {
+  return axios.get(url + `/newsFeed/${id}/${page}/10`)
     .then((response: AxiosResponse) => response.data)
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Toast, ToastBody, ToastHeader } from 'reactstrap'
+import { Toast, ToastBody } from 'reactstrap'
 import styled, { keyframes } from 'styled-components'
 
 interface AlertProps {

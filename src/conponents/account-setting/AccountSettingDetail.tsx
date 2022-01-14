@@ -103,6 +103,7 @@ function AccountSettingDetail(props: Props) {
                                 className='col-9 shadow-none'
                                 placeholder="Tên"
                                 type="text"
+                                name='exampleName'
                                 value={name}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                     setName(e.target.value)
@@ -142,13 +143,12 @@ function AccountSettingDetail(props: Props) {
                             Tiểu sử
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
-                                id="exampleText"
-                                name="text"
-                                type="textarea"
+                            <TextAreaStyled
+                                id="exampleDesc"
+                                name="desc"
                                 value={desc}
-                                className='shadow-none'
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setDesc(e.target.value) }}
+                                className='shadow-none form-control'
+                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setDesc(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -175,19 +175,18 @@ function AccountSettingDetail(props: Props) {
 
                     <FormGroup row>
                         <Label
-                            for="exampleText"
+                            for="exampleAdd"
                             sm={3}
                         >
                             Địa chỉ
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
-                                className='shadow-none'
-                                id="exampleText"
-                                name="text"
-                                type="textarea"
+                            <TextAreaStyled
+                                className='shadow-none form-control'
+                                id="exampleAdd"
+                                name="exampleAdd"
                                 value={adress}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setAdress(e.target.value) }}
+                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setAdress(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -205,7 +204,7 @@ function AccountSettingDetail(props: Props) {
                         <Col sm={9}>
                             <InputStyled
                                 id="exampleGender"
-                                name="text"
+                                name="exampleGender"
                                 className='shadow-none'
                                 type="text"
                                 value={gender}
@@ -218,6 +217,7 @@ function AccountSettingDetail(props: Props) {
                         <Label
                             for="checkbox2"
                             sm={3}
+                            className="py-0"
                         >
                             Gợi ý tài khoản tương tự
                         </Label>
@@ -278,6 +278,11 @@ const AvatarStyle = styled.div`
         height:100%;
         border-radius: 50%;
     }
+`
+
+const TextAreaStyled = styled.textarea`
+    resize: none;
+    font-size: 14px;
 `
 
 const InputStyled = styled(Input)`

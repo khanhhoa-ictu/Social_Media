@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap'
-import styled from 'styled-components'
+import React, { ChangeEvent, useState } from 'react';
+import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap';
+import styled from 'styled-components';
+import { format } from 'timeago.js';
 import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
-import { format } from 'timeago.js'
 import avatar from './../../assets/image/no-avatar.png'
 import { NavLink, Route } from 'react-router-dom';
+
 interface Props {
     liked: boolean,
     show: boolean,
@@ -35,7 +36,6 @@ const Post = (props: Props) => {
         show,
         postContent,
         inputRef,
-        uploadFileName,
         setPostContent,
         handleUpload,
         handleDisplayFileDetails,
@@ -245,7 +245,6 @@ const Post = (props: Props) => {
                             ? null
                             : <span className="d-block text-muted" onClick={handleSumComment}>Xem tất cả {sumComment} bình luận</span>
                     }
-
                     {
                         commentByPost.slice(0, visible).map((comment, key) => {
                             return <div className="comment mb-1" key={key}>
@@ -263,12 +262,17 @@ const Post = (props: Props) => {
                     </ButtonSvg>
                     <CommentInput
                         value={comment}
-                        className="shadow-none"
                         type="text"
+                        className='shadow-none'
                         placeholder="Thêm bình luận ..."
                         onChange={(e: any) => setComment(e.target.value)}
                     />
-                    <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
+                    <ButtonPostStyled
+                        className='text-primary px-1'
+                        onClick={submitCommentPost}
+                    >
+                        Đăng
+                    </ButtonPostStyled>
                 </span>
             </TitleStyled>
             {/* {

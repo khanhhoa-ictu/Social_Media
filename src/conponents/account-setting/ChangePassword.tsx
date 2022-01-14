@@ -30,7 +30,7 @@ function ChangePassword(props: Props) {
 
     return (
         <DivStyled className='p-4'>
-            <div className='wapper__img-name d-flex text-center align-items-center mb-5'>
+            <div className='wapper__img-name d-flex text-center align-items-center mb-4'>
                 <AvatarStyle>
                     {user.profilePicture === ''
                         ? <img src={avatar} alt='avatar' />
@@ -38,12 +38,12 @@ function ChangePassword(props: Props) {
                     }
 
                 </AvatarStyle>
-                <div className='name ms-4'>{user.name}</div>
+                <div className='name ms-4 h6 mb-0'>{user.name}</div>
             </div>
             <div >
                 <FormGroup row>
                     <Label
-                        for="examplePassword"
+                        for="password"
                         sm={3}
                     >
                         Mật khẩu cũ
@@ -51,7 +51,7 @@ function ChangePassword(props: Props) {
                     <Col sm={9}>
                         <InputStyled
                             required
-                            id="examplePassword"
+                            id="password"
                             name="password"
                             type="password"
                             className="shadow-none"
@@ -63,7 +63,7 @@ function ChangePassword(props: Props) {
                 </FormGroup>
                 <FormGroup row>
                     <Label
-                        for="examplePassword"
+                        for="new-password"
                         sm={3}
                     >
                         Mật khẩu mới
@@ -71,7 +71,7 @@ function ChangePassword(props: Props) {
                     <Col sm={9}>
                         <InputStyled
                             required
-                            id="examplePassword"
+                            id="new-password"
                             name="new-password"
                             type="password"
                             className="shadow-none"
@@ -82,14 +82,14 @@ function ChangePassword(props: Props) {
                 </FormGroup>
                 <FormGroup row>
                     <Label
-                        for="examplePassword"
+                        for="confirm-password"
                         sm={3}
                     >
                         Xác nhận mật khẩu mới
                     </Label>
                     <Col sm={9}>
                         <InputStyled
-                            id="examplePassword"
+                            id="confirm-password"
                             name="confirm-password"
                             required
                             type="password"

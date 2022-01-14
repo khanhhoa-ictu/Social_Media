@@ -10,25 +10,23 @@ interface Props {
     logout: () => void,
     user: UserType,
     following: FollowingsType[],
-    handleFollow: (currentUser: string, userFollow: string) => void
+    handleFollow: (currentUser: string, userFollow: string) => void,
+    newsFeed: any
 }
 
 function Home(props: Props) {
-    const { logout, user, following, handleFollow } = props
-    console.log(following);
-    return (
-        <div>
-            <Navigation logout={logout} user={user} />
-            <Content className="container d-flex mt-3">
-                <div className="col-sm-8 mr-3 mt-4">
-                    <NewsFeedPage user={user} />
-                </div>
-                {
-                    following && <FixedSuggestion className="pt-2 col-sm-4">
-                        <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
-                    </FixedSuggestion>
-                }
+    const { logout, user, following, handleFollow, newsFeed } = props
 
+    return (
+        <div >
+            <Navigation logout={logout} user={user} />
+            <Content className="container d-flex">
+                <div className="col-sm-8 mr-3 mt-4">
+                    <NewsFeedPage user={user} newsFeed={newsFeed} />
+                </div>
+                <FixedSuggestion className="pt-2 col-sm-4">
+                    <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
+                </FixedSuggestion>
             </Content>
         </div>
     )
@@ -39,7 +37,7 @@ const FixedSuggestion = styled.div`
 `
 
 const Content = styled.div`
-    margin-top: 58px !important;
+    // margin-top: 58px !important;
 `
 
 
