@@ -23,7 +23,7 @@ function Forgot(props: Props) {
     return (
         <DivFullHeight>
             <div className="bg-white border-bottom">
-                <Nav className="container py-2">
+                <Nav className="container d-flex justify-content-center py-2">
                     <img src={logo} alt="logo" height='42px;' />
                 </Nav>
             </div>
@@ -59,7 +59,7 @@ function Forgot(props: Props) {
                         </ButtonStyled>
                     </Form>
                     <div className='bg-light py-3 cursor-pointer text-secondary border-none' onClick={loginButton}>
-                        Quay lại đăng nhập
+                        Quay lại trang trước
                     </div>
 
                 </div>

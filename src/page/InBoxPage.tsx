@@ -44,11 +44,10 @@ const InboxPage = () => {
 }
 
 const DivStyled = styled.div`
-    margin-top: 58px;
 `
 
 const BorderDiv = styled.div`
-    height: 825px;
+    height: 85vh;
 `
 
 export default InboxPage

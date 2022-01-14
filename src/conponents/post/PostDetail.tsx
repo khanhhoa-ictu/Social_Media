@@ -58,7 +58,7 @@ const PostDetail = (props: PostDetailProps) => {
 
     return (
         <ModalStyled
-            isOpen={!!id}
+            isOpen={id ? true : false}
             toggle={() => history.push('/')}
             centered
             className='modal border-none'
@@ -96,33 +96,34 @@ const PostDetail = (props: PostDetailProps) => {
                             </div>
                         </div>
                         <div className='ms-3'>
-                            <div className="d-flex align-items-center mt-2">
-                                {
-                                    postDetail.userPost.profilePicture === ''
-                                        ? <AvatarStyled src={avatar} alt="avatar" />
-                                        : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
-                                }
-
-                                <div className='mx-3 d-flex'>
-                                    <TitleStyled className='mb-0' tag="h6">
-                                        {postDetail.userPost.name}
-                                    </TitleStyled>
-                                    <TitleStyled className="text-muted mb-0 ms-2" >
-                                        {postDetail.post.desc}
-                                    </TitleStyled>
+                            <CommentDiv className="overflow-y">
+                                <div className="d-flex align-items-center my-2">
+                                    {
+                                        postDetail.userPost.profilePicture === ''
+                                            ? <AvatarStyled src={avatar} alt="avatar" />
+                                            : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
+                                    }
+                                    <div className='mx-3 d-flex align-items-center'>
+                                        <TitleStyled className='mb-0' tag="h6">
+                                            {postDetail.userPost.name}
+                                        </TitleStyled>
+                                        <TitleStyled className="text-muted mx-2 pt-1" >
+                                            {postDetail.post.desc}
+                                        </TitleStyled>
+                                    </div>
                                 </div>
-                            </div>
+                                {
+                                    commentByPost.map((comment: any, key: number) => {
+                                        return <Comment
+                                            key={key}
+                                            profilePicture={comment.profilePicture}
+                                            name={comment.name}
+                                            comment={comment.comment}
+                                        />
+                                    })
+                                }
+                            </CommentDiv>
 
-                            {
-                                commentByPost.map((comment:any, key:number) => {
-                                    return <Comment
-                                        key={key}
-                                        profilePicture={comment.profilePicture}
-                                        name={comment.name}
-                                        comment={comment.comment}
-                                    />
-                                })
-                            }
 
                         </div>
                     </div>
@@ -166,6 +167,7 @@ const PostDetail = (props: PostDetailProps) => {
                             <CommentInput
                                 type="text"
                                 value={comment}
+                                className="shadow-none"
                                 placeholder="Thêm bình luận ..."
                                 onChange={(e: any) => setComment(e.target.value)}
                             />
@@ -183,7 +185,7 @@ const ModalStyled = styled(Modal)`
     height: 800px;
     max-width: none !important;   
     .modal-body{
-        height: 600px;
+        height: 610px;
         img{
             object-fit: cover;
         }
@@ -217,6 +219,11 @@ const TitleStyled = styled(CardTitle)`
     .span-time{
         font-size: 10.5px !important;
     }
+`
+
+const CommentDiv = styled.div`
+    height: 380px;
+    overflow-y: auto;
 `
 
 const ButtonSvg = styled.svg`

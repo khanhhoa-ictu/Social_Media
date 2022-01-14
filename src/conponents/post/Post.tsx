@@ -1,12 +1,13 @@
 import React, { ChangeEvent, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap';
 import styled from 'styled-components';
 import { format } from 'timeago.js';
 import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
-import avatar from './../../assets/image/no-avatar.png';
+import avatar from './../../assets/image/no-avatar.png'
+import { NavLink, Route } from 'react-router-dom';
+
 interface Props {
     liked: boolean,
     show: boolean,

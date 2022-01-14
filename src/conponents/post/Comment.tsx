@@ -2,33 +2,33 @@ import React from 'react'
 import { CardTitle } from 'reactstrap'
 import styled from 'styled-components'
 import avatar from './../../assets/image/no-avatar.png'
-interface CommentProps{
-    profilePicture:string,
-    name:string,
-    comment:string
+interface CommentProps {
+    profilePicture: string,
+    name: string,
+    comment: string
 }
-function Comment(props:CommentProps) {
-    const {  name, comment, profilePicture } = props
+function Comment(props: CommentProps) {
+    const { name, comment, profilePicture } = props
     return (
         <div className="comment-post">
-        <div className="d-flex align-items-center my-4">
-            {
-                profilePicture === '' 
-                ? <AvatarStyled src={avatar} alt="avatar" />
-                : <AvatarStyled src={profilePicture} alt="avatar" />
-            }
-            
-            <div className='mx-3 d-flex'>
-                <TitleStyled className='mb-0' tag="h6">
-                    {name}
-                </TitleStyled>
-                <TitleStyled className="text-muted mb-0 ms-2 align-items-center" >
-                   {comment}
-                </TitleStyled>
+            <div className="d-flex align-items-center my-4">
+                {
+                    profilePicture === ''
+                        ? <AvatarStyled src={avatar} alt="avatar" />
+                        : <AvatarStyled src={profilePicture} alt="avatar" />
+                }
+
+                <div className='mx-3 d-flex align-items-center'>
+                    <TitleStyled className='mb-0' tag="h6">
+                        {name}
+                    </TitleStyled>
+                    <TitleStyled className="text-muted mx-2 pt-1" >
+                        {comment}
+                    </TitleStyled>
+                </div>
             </div>
+
         </div>
-        
-    </div>
     )
 }
 const AvatarStyled = styled.img`
