@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 import { setFollowing } from '../action/flow.action'
 import { auth, loginFail, setUser } from '../action/user.action'
+import { getPostTimeline } from '../api/post.api'
 import { followUser, getFriendSuggestion, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
 import Home from '../conponents/home/Home'
@@ -39,7 +41,6 @@ function HomePage() {
         if(getEmail() !== null){
             email = getEmail().email;
         }
-
         getUser(email).then(user => {
             dispatch(setUser(user))
         })  
@@ -51,6 +52,8 @@ function HomePage() {
             })
         }
     },[user])
+    
+
     const handleFollow = (currentUser:string,UserFollow:string) =>{
         followUser(currentUser,UserFollow)
         .then((data:any) => {
@@ -60,17 +63,46 @@ function HomePage() {
             console.log(error);
         })
     }
+    const [loading, setLoading] = useState(true);
+    const [newsFeed, setNewFeed] = useState([]);
+    const [page, setPage] = useState(0);
+    const handleScroll = (event:any) => {
+        console.log('object');
+        const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
+    
+        if (scrollHeight - scrollTop === clientHeight) {
+          setPage(prev => prev + 1);
+        }
+      };
+
+    useEffect(() => {
+        if(user){
+        const loadUsers = async () => {
+            setLoading(true);
+            getPostTimeline(user._id, page).then((data) => {
+                let test = newsFeed.concat(data);
+                setNewFeed(test);
+                setLoading(false);
+            })
+
+        };
+        loadUsers();
+        }
+    }, [page,user]);
     return (
-        <div>
-            {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} /> : null}
+        <AppStyle onScroll={handleScroll}>
+            {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} newsFeed ={newsFeed} /> : null}
             <Route exact path="/post/:id" render={() =>  
             <PostDetailPage  /> }
             />
            
-        </div>
+        </AppStyle>
     )
 }
-
+const AppStyle = styled.div`
+overflow-y: scroll;
+height: 100vh;
+`
 export default HomePage
 
 
