@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { UserType } from '../../type/userType'
+import { FollowingsType } from '../../type/folloingType'
+import { UserSuggestion, UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     user: UserType,
-    following: any,
-    handleFollow:(currentUser:string, userFollow:string) => void
+    following: FollowingsType[],
+    handleFollow: (currentUser: string, userFollow: string) => void
 }
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
+    const [suggestion, setSuggestion] = useState(following)
+    const handleFollowing = (id:string,user: string, userFollow: string) =>{
+        const index:number = suggestion.findIndex((item:UserSuggestion) => item._id === id) 
+        const newData = [...suggestion];
+        newData.splice(index, 1);
+        setSuggestion(newData);
+        handleFollow(user, userFollow);
+    }
     return (
         <RightSide className="mx-3 px-1">
             <div className="py-4 d-flex justify-content-between align-items-center ">
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center col-8">
                     {
                         user.profilePicture === ''
                             ? <MainAvatar src={avatar} />
@@ -20,10 +29,10 @@ const FollowersSuggestion = (props: Props) => {
                     }
 
                     <div className="px-3">
-                        <p className="h6 mb-0">{user.name}</p>
+                        <NameText className="h6 mb-0">{user.name}</NameText>
                     </div>
                 </div>
-                <ButtonStyled className='text-primary'>Chuyển</ButtonStyled>
+                <ButtonStyled className='text-primary col-3'>Chuyển</ButtonStyled>
             </div>
             <div className="d-flex justify-content-between align-items-center">
                 <p className="h6 text-muted mt-1">Gợi ý cho bạn</p>
@@ -31,22 +40,22 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    following?.map((item: any, key: number) => {
-                      return  <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
+                    suggestion?.map((item: any, key: number) => {
+                        return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
-                                <SubAvatar src={item.profilePicture} />
+                                {
+                                    item.profilePicture === ''
+                                        ? <SubAvatar src={avatar} />
+                                        : <SubAvatar src={item.profilePicture} />
+                                }
                                 <div className="px-3">
                                     <p className="h6 mb-0">{item.name}</p>
                                 </div>
                             </div>
-                            <ButtonStyled className='text-primary' onClick={()=>handleFollow(user.name,item.name)}>Theo dõi</ButtonStyled>
+                            <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id,user.name, item.name)}>Theo dõi</ButtonStyled>
                         </div>
                     })
                 }
-
-
-
-
             </div>
             <CopyrightStyled className='my-3'>
                 &copy; 2022 MARGASTNI FROM UNIVERSE
@@ -73,6 +82,13 @@ const MainAvatar = styled.img`
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
+`
+
+const NameText = styled.p`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 130px;
 `
 
 const SubAvatar = styled.img`

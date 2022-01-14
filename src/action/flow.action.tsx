@@ -1,4 +1,6 @@
-export const setFollowing = (data: any) => ({
+import { FollowingsType } from "../type/folloingType";
+
+export const setFollowing = (data: FollowingsType[]) => ({
     type: 'SET_FOLLOWING',
     payload : data,
 });

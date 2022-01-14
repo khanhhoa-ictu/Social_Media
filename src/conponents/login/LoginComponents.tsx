@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, FormGroup, Input, Label, Form } from 'reactstrap'
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import styled from 'styled-components';
-import logo from './../../assets/image/logo.png'
+import background from './../../assets/image/background.png';
+import logo from './../../assets/image/logo.png';
 
 interface Props {
     loginSubmit: (e: FormEvent<HTMLFormElement>) => void,
@@ -26,87 +27,85 @@ const Login = (props: Props) => {
     } = props
 
     return (
-        <StyledDiv className='row ' >
-            <div className='main-left col p-5'>
-                <div>  <img src={logo} alt='name'></img></div>
-                <p className='main-left_text'>Where you share, Where we laugh</p>
+        <StyledDiv className='row d-md-flex justify-content-between align-items-center'>
+            <div className="col-md-7">
+                <ImgBackground src={background} alt="background" />
             </div>
-            <div className='main-right col border rounded p-2 d-flex flex-column align-items-center'>
-                <Form className='login-content rounded m-2 p-2 ' onSubmit={loginSubmit}>
-                    <FormGroup>
-                        <Label for="exampleEmail">
-                            Email
-                        </Label>
-                        <Input
-                            type='email'
-                            value={email}
-                            placeholder='Enter email'
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
-                        <p className='text-danger'>{notificationUserName}</p>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleEmail">
-                            Password
-                        </Label>
-                        <Input
-                            type='password'
-                            value={passWord}
-                            placeholder='password'
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassWord(e.target.value)} />
-                        <p className='text-danger'>{notificationPassword}</p>
-                    </FormGroup>
-                    <FormGroup className=''>
-                        <Button className='w-100' type="submit" color="primary">Login</Button>
-                    </FormGroup>
-                    <hr />
-                    <div className='control-login d-flex justify-content-between'>
-                        <div>
-                            <NavLink to='/forgot' className='text-primary'>Forgot password?</NavLink>
-                        </div>
-                        <div>
-                            <NavLink to='/register' className=' w-50'  color="success">Register</NavLink>
-                        </div>
+            <div className="col-md-4">
+                <div className='border px-3 rounded bg-white'>
+                    <div className='py-5 text-center'>
+                        <img src={logo} alt='name' />
+                        <p className='h6 mt-4'>Where you share, where we laugh</p>
                     </div>
 
-
-
-                </Form>
-
+                    <Form className='rounded m-2 p-2' onSubmit={loginSubmit}>
+                        <FormGroup>
+                            <InputStyled
+                                type='email'
+                                value={email}
+                                className='shadow-none'
+                                placeholder='Email'
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
+                            <p className='text-danger'>{notificationUserName}</p>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputStyled
+                                type='password'
+                                value={passWord}
+                                className='shadow-none'
+                                placeholder='Mật khẩu'
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setPassWord(e.target.value)} />
+                            <p className='text-danger'>{notificationPassword}</p>
+                        </FormGroup>
+                        <FormGroup className=''>
+                            <ButtonStyled
+                                className='w-100'
+                                type="submit"
+                                outline color={email && passWord ? 'primary' : 'secondary'}
+                                disabled={email && passWord ? false : true}
+                            >
+                                Đăng nhập
+                            </ButtonStyled>
+                        </FormGroup>
+                    </Form>
+                    <hr className='mx-3' />
+                    <div className='text-center pb-3'>
+                        <NavLink to='/forgot' className='text-dark text-decoration-none'>Quên mật khẩu?</NavLink>
+                    </div>
+                </div>
+                <div className='py-3 border rounded my-4 bg-white'>
+                    <div className='text-center'>
+                        <span>Bạn chưa có tài khoản? </span>
+                        <NavLink to='/register' className=' w-50 text-decoration-none'>Đăng ký</NavLink>
+                    </div>
+                </div>
             </div>
-
         </StyledDiv>
     )
 }
-export default Login
 
 const StyledDiv = styled.div`
-    height : 100%;
-    width : 100%;
-    padding : 7rem 15rem;
-    .main-left_text {
-        padding : 0;
-        margin : 1rem 0;
-        font-size: 1.2rem;
-        font-weight: bold;
-    };
-    .main-right {
-        background-color : #ffffff;
-    }
-    .login-content{
-        width: 300px;
-    }
-    .btn-register{
-        width: 300px;
-        button{
-            width: 100%;
-            display:inline-block;
-        }
-    }
-.control-login{
-    a{
-        text-decoration: none;
-        font-weight: 500;
-        color: rgba(0,149,246,1);
-    }
-}
+    margin: auto;
+    padding: 0;
+    font-size: 14px;
+    width: 1120px;
 `
+
+const ImgBackground = styled.img`
+    width: 650px;
+`
+
+const InputStyled = styled(Input)`
+    background-color: #fafafa;
+    padding: 7px 10px;
+    font-size: 14px;
+    &:focus{
+        background-color: #fafafa;
+    }
+`
+
+const ButtonStyled = styled(Button)`
+    font-size: 14px;
+`
+
+export default Login

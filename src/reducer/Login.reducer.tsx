@@ -9,7 +9,7 @@ const initial = {
 }
 type Action = {
     type: string,
-    payload: any
+    payload: string
 }
 const login = (state = initial, action: Action) => {
     switch(action.type) {

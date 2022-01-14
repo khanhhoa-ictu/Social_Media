@@ -11,3 +11,22 @@ export interface UserType {
     desc: string,
     gender: string,
 }
+
+export interface UserSuggestion{
+    _id:string,
+     name:string,
+      profilePicture :string,
+}
+export interface StateUserType {
+    user: UserType
+}
+
+export interface Forgot {
+    statusForgot: string
+}
+
+export interface UpdateInforType {
+    msg : string,
+    token : string,
+    user : UserType
+}
