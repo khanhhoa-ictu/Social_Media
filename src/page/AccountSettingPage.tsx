@@ -95,9 +95,8 @@ function AccountSettingPage() {
     useEffect(() => {
         const Authentication = async () => {
             let res = await dispatch(auth());
-            console.log(res);
-            if (!res) {
-                history.push('/login');
+            if(!res){
+              history.push('/login');
             }
         }
         Authentication()

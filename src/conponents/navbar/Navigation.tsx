@@ -7,6 +7,8 @@ import { createPost } from '../../api/post.api'
 
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsLoading } from '../../action/post.action'
 interface Props {
     logout: () => void,
     user: UserType
@@ -14,6 +16,9 @@ interface Props {
 
 
 function Navigation(props: Props) {
+    const dispatch = useDispatch()
+    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
+
     let { logout, user } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
@@ -45,12 +50,11 @@ function Navigation(props: Props) {
         if (uploadFileName) {
             createPost(user._id, postContent, uploadFileName)
                 .then((data) => {
-                    console.log(data);
                     window.location.reload();
                 })
             setShowModal();
         }
-    } // done
+    }
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)

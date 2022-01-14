@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FollowingsType } from '../../type/folloingType'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     user: UserType,
-    following: any,
+    following: FollowingsType[],
     handleFollow: (currentUser: string, userFollow: string) => void
 }
 const FollowersSuggestion = (props: Props) => {
@@ -31,7 +32,7 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    following?.map((item: any, key: number) => {
+                    following?.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 <SubAvatar src={item.profilePicture} />

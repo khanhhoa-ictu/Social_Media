@@ -3,11 +3,11 @@ import { post } from '../mockData/post'
 
 const url = `http://localhost:8080`;
 
-export function getPost(): Promise<any> {
-  return new Promise((resolve) => {
-    resolve(post);
-  })
-}
+// export function getPost(): Promise<any> {
+//   return new Promise((resolve) => {
+//     resolve(post);
+//   })
+// }
 
 export const createPost = (userId: string, desc: string, file: any) => {
   let data = new FormData()

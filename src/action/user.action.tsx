@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "react";
 import { verifyAuth } from "../api/user.api";
 import { dispatchLogin } from "../reducer/Login.reducer";
+import { UserType } from "../type/userType";
 
 export const loginSuccess = () => ({
     type: 'LOGIN_SUCCESS',
@@ -22,9 +23,9 @@ export const changePassword = () => ({
     type: 'FORGOT_CHANGE_PASSWORD',
     data: ''
 });
-export const setUser = (user:any) =>({
+export const setUser = (user: UserType) =>({
   type: 'SET_USER',
-  payload:user
+  payload: user
 })
 export const sentEmail = () => ({
     type: 'FORGOT_SENT_EMAIL',
@@ -42,7 +43,6 @@ export const auth = () => async (dispatch: Dispatch<dispatchLogin>) => {
     }
     await verifyAuth(user.email, user.token)
     .then((data) => {
-        console.log(data);
         dispatch(loginSuccess());
         return true
     })

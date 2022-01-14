@@ -18,7 +18,6 @@ function NewsFeedPage(props : Props) {
     useEffect(() => {
         getPostTimeline(user._id)
         .then((data) => {
-            console.log(data);
             dispatch(setPost(data))
         })
         .catch((err) => {

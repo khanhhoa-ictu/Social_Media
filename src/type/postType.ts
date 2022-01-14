@@ -9,3 +9,8 @@ export interface PostType {
     __v: number,
     _id: string
 }
+
+export interface StatePostType {
+    listPost : PostType[],
+    isLoading : boolean
+}

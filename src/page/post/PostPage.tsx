@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
@@ -14,8 +14,10 @@ interface Props {
     user: UserType
 }
 
-function PostPage(props: Props) {
-    const { post, user } = props
+function PostPage(props : Props) {
+    const dispatch = useDispatch()
+
+    const {post , user} = props
     const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     const [liked, setLiked] = useState<boolean>(false);
@@ -47,18 +49,19 @@ function PostPage(props: Props) {
         if (uploadFileName) {
             updatePost(user._id, post._id, postContent, uploadFileName)
             setShowModal();
+            dispatch(setIsLoading(!isLoading))
         }
     }
 
     const handleDeletePost = () => {
         deletePost(user._id, post._id)
-        setIsLoading(!isLoading)
+        dispatch(setIsLoading(!isLoading))
     }
 
     const handleLikePost = () => {
         handleLike(user._id, post._id)
         setLiked(!liked)
-        setIsLoading(!isLoading)
+        dispatch(setIsLoading(!isLoading))
     }
 
     const handleCheckLiked = () => {
@@ -67,10 +70,10 @@ function PostPage(props: Props) {
 
     useEffect(() => {
         getUserPost(post.userId)
-            .then((data: any) => {
+            .then((data) => {
                 setUserPost(data)
             })
-            .catch((err: any) => {
+            .catch((err) => {
                 console.log(err)
             })
         handleCheckLiked()
