@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux';
-import {UserType} from './../type/userType'
-
-
-export interface State {
-    user: UserType
-}
+import {Forgot, StateUserType, UserType} from './../type/userType'
 
 const initial = {
     user: {
+        _id :'',
         email: '',
         name: '',
         address: '',
@@ -21,26 +17,16 @@ const initial = {
     }
 }
 
-export interface forgot {
-    statusForgot: string
-}
-
 const initialForgot = {
     statusForgot: 'forgot'
 }
 
 type Action = {
     type: string,
-    payload: any
+    payload: UserType
 }
-const user = (state: State = initial, action: Action) => {
+const user = (state: StateUserType = initial, action: Action) => {
     switch (action.type) {
-        // case 'GET_USER': {
-        //     return {
-        //         ...state,
-        //         user: action.payload
-        //     }
-        // }
         case 'SET_USER': {
             return {
                 state: action.payload,
@@ -51,7 +37,7 @@ const user = (state: State = initial, action: Action) => {
         }
     }
 }
-const forgotPassword = (state: forgot = initialForgot, action: Action) => {
+const forgotPassword = (state: Forgot = initialForgot, action: Action) => {
     switch (action.type) {
         case 'FORGOT_CHECK_OTP': {
             return {

@@ -73,7 +73,7 @@ function ContentProfile() {
                 />
             </div>
 
-            {showDetailPost ? <PostDetail showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null}
+            {/* {showDetailPost ? <PostDetail showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null} */}
         </Content__Profile>
     )
 }
