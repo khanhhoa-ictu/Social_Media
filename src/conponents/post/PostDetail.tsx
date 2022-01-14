@@ -59,7 +59,7 @@ const PostDetail = (props: PostDetailProps) => {
     return (
         <ModalStyled
             isOpen={id ? true : false}
-            toggle={() => history.push('/')}
+            toggle={() => history.goBack()}
             centered
             className='modal border-none'
         >

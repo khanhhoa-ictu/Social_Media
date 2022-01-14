@@ -91,6 +91,6 @@ export function searchUser(name:string): Promise<any> {
 }
 
 export function getPostUser(id: string): Promise<any> {
-  return axios.post(`http://localhost:8080/user/getuserprofile/61df8ba09fd422371c9aba1e`)
+  return axios.get(`http://localhost:8080/user/getuserprofile/${id}`)
     .then((response: AxiosResponse<any>) => response.data)
 }

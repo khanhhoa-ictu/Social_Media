@@ -4,9 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { CardImg } from 'reactstrap';
 import styled from 'styled-components';
 import PostDetail from '../post/PostDetail';
+import { PostType } from '../../type/postType';
 
-
-function ContentProfile() {
+interface Props {
+    post: PostType[]
+}
+function ContentProfile(props: Props) {
+    const { post } = props
     const [showDetailPost, setShowDetailPost] = useState(false)
 
 
@@ -22,58 +26,26 @@ function ContentProfile() {
 
             </Nav>
             <div className='list-img'>
+                {
+                    post.map((item, key) => {
+                        return <NavLink to={`/profile/${item._id}`} className='img-item'>
+                            <ImgStyle
+                                key={key}
+                                alt="Card image cap"
+                                src={item.img}
+                                className="image-post"
+                                onClick={() => setShowDetailPost(true)}
+                            />
+                            <div className="img-box">
 
-                <div className=' doc'>
-                    <ImgStyle
-                        alt="Card image cap"
-                        src="https://picsum.photos/256/186"
-                        onClick={() => setShowDetailPost(true)}
+                            </div>
+                        </NavLink>
 
-                    />
-                    <div className='links'>
-                        <NavLink to=""> <i className="fa fa-heart"></i></NavLink>
-                        <NavLink to=""><i className="fa fa-comment"></i></NavLink>
-                    </div>
-                </div>
-                
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
-                <ImgStyle
-                    alt="Card image cap"
-                    src="https://picsum.photos/256/186"
-                    onClick={() => setShowDetailPost(true)}
-                />
+                    })
+                }
+               
             </div>
 
-            {/* {showDetailPost ? <PostDetail showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null} */}
         </Content__Profile>
     )
 }
@@ -85,60 +57,37 @@ const Content__Profile = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 30px 30px;
+    overflow:hidden;
+    .image-post{
+        width:100%;
+        height:300px;
+        display:block;
+        position:relative;
 
-    .doc{
         
-        &:before{
-            content:"";
-            transition:.3s;
-            position:absolute;
-            width:100%;
-            height:100%;
-            background-color:rgba(0,0,0,0);
-          }
-         
-          &:hover{
-            
-            &:before{
-              opacity:1;
-              background-color:rgba(0,0,0,.5);
-            }
-            .links{
-              opacity:1;
-            }
-          }  
-        
-          
-
-          
-          .links{
-            text-align:center;
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            overflow:hidden;
-            opacity:0;
-            transition:.2s;
-
-
-            a{
-                color:#FFF;
-                position:relative;
-                text-decoration:none;
-
-                i{
-                    font-size:35px;
-                    margin:0 auto;
-                    position:relative;
-                    padding:15px;
-                }
-              }
-
-          }
-
     }
+    .img-item{
+        position:relative;
+        cursor: pointer;
+        border-radius:3px;
+        .img-box{
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background-color:#000;
+            opacity:0;
+            transition: opacity ease-in-out 0.3s;
 
+            &:hover{
+                opacity:0.4;
+                 transition: opacity ease-in-out 0.3s;
+
+            }
+        }
+           
+    }
 
 
 }

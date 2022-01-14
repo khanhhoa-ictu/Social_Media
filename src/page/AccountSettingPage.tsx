@@ -106,39 +106,41 @@ function AccountSettingPage() {
     return (
         <>
             <Navigation logout={logout} user={user} />
-            <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
-                {user
-                    ? <div>
-                        <DivStyle className='container d-flex border rounded'>
-                            <div className='col-3 border-end'>
-                                <AccountSettingNavigation />
-                            </div>
+            {
+              user && <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
+              <div>
+                 <DivStyle className='container d-flex border rounded'>
+                     <div className='col-3 border-end'>
+                         <AccountSettingNavigation />
+                     </div>
 
-                            <div className='col-9'>
-                                <Route exact path="/account/help" render={() => <Help />} />
-                                <Route exact path="/account/changepassword" render={() => <ChangePassword
-                                    user={user}
-                                    oldPassword={oldPassword}
-                                    newPassword={newPassword}
-                                    confirmPassword={confirmPassword}
-                                    submitButtonPassWord={submitButtonPassWord}
-                                    setOldPassWord={(value) => setOldPassWord(value)}
-                                    setNewPassWord={(value) => setNewPassWord(value)}
-                                    setConfirmPassWord={(value) => setConfirmPassWord(value)}
-                                />} />
+                     <div className='col-9'>
+                         <Route exact path="/account/help" render={() => <Help />} />
+                         <Route exact path="/account/changepassword" render={() => <ChangePassword
+                             user={user}
+                             oldPassword={oldPassword}
+                             newPassword={newPassword}
+                             confirmPassword={confirmPassword}
+                             submitButtonPassWord={submitButtonPassWord}
+                             setOldPassWord={(value) => setOldPassWord(value)}
+                             setNewPassWord={(value) => setNewPassWord(value)}
+                             setConfirmPassWord={(value) => setConfirmPassWord(value)}
+                         />} />
 
-                                <Route exact path="/account/setting" render={() => <AccountSettingDetail
-                                    user={user}
-                                    email={email}
-                                    submitButton={submitButton}
-                                />}
-                                />
-                            </div>
-                        </DivStyle>
-                    </div>
-                    : null}
-                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
-            </DivFullHeight>
+                         <Route exact path="/account/setting" render={() => <AccountSettingDetail
+                             user={user}
+                             email={email}
+                             submitButton={submitButton}
+                         />}
+                         />
+                     </div>
+                 </DivStyle>
+             </div>
+      
+         <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
+     </DivFullHeight>
+            }
+            
         </>
     )
 }
