@@ -10,6 +10,7 @@ import AccountSettingDetail from '../conponents/account-setting/AccountSettingDe
 import AccountSettingNavigation from '../conponents/account-setting/AccountSettingNavigation'
 import ChangePassword from '../conponents/account-setting/ChangePassword'
 import Help from '../conponents/account-setting/Help'
+import ToastAlert from '../conponents/account-setting/ToastAlert'
 import Navigation from '../conponents/navbar/Navigation'
 
 function AccountSettingPage() {
@@ -20,38 +21,67 @@ function AccountSettingPage() {
     const [oldPassword, setOldPassWord] = useState('')
     const [newPassword, setNewPassWord] = useState('')
     const [confirmPassword, setConfirmPassWord] = useState('')
+    const [showAlert, setShowAlert] = useState(false);
+
     let user = useSelector((state: any) => state.UserReducer.user.state)
     const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
+        setNoti('');
+        setNotice('');
         updateInfor(user.email, name, phone, address, gender, desc)
             .then((data) => {
                 dispatch(setUser(data.user))
                 setNoti('Thay đổi thông tin thành công')
-                
+                setShowAlert(true)
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 2000)
             })
             .catch((err) => {
                 setNoti('Đã sãy ra lỗi vui lòng thử lại')
+                setShowAlert(true)
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 2000)
             })
     }
+
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
     }
 
     const submitButtonPassWord = () => {
+        console.log(oldPassword, newPassword, confirmPassword)
         if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
             setNotice('Không được để trống các trường')
         } else {
             if (newPassword === confirmPassword) {
+                setNoti('');
+                setNotice('');
                 changePasswordUser(oldPassword, newPassword, email)
                     .then((data) => {
                         setNotice('Thay đổi mật khẩu thành công')
+                        setShowAlert(true)
+                        setTimeout(() => {
+                            setShowAlert(false);
+                        }, 2000)
                     }).catch((error) => {
                         setNotice('Mật khẩu không chính xác')
+                        setShowAlert(true)
+                        setTimeout(() => {
+                            setShowAlert(false);
+                        }, 2000)
                     })
             } else {
+                setNoti('')
                 setNotice('Mật khẩu không trùng khớp')
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 2000)
+                console.log(notice)
             }
         }
 
@@ -63,65 +93,63 @@ function AccountSettingPage() {
         })
     }, [])
     useEffect(() => {
-        const Authentication = async() =>{
+        const Authentication = async () => {
             let res = await dispatch(auth());
             console.log(res);
-            if(!res){
-              history.push('/login');
+            if (!res) {
+                history.push('/login');
             }
-          }
-          Authentication()
+        }
+        Authentication()
     }, []);
 
-    const [test, setTest] = useState('')
     return (
-        <div>
-            {user
-                ? <div>
-                    <Navigation logout={logout} user={user} />
+        <>
+            <Navigation logout={logout} user={user} />
+            <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
+                {user
+                    ? <div>
+                        <DivStyle className='container d-flex border rounded'>
+                            <div className='col-3 border-end'>
+                                <AccountSettingNavigation />
+                            </div>
 
-                    <DivStyle className='container d-flex '>
-                        <div className='col-3 border rounded'>
-                            <AccountSettingNavigation />
-                        </div>
+                            <div className='col-9'>
+                                <Route exact path="/account/help" render={() => <Help />} />
+                                <Route exact path="/account/changepassword" render={() => <ChangePassword
+                                    user={user}
+                                    oldPassword={oldPassword}
+                                    newPassword={newPassword}
+                                    confirmPassword={confirmPassword}
+                                    submitButtonPassWord={submitButtonPassWord}
+                                    setOldPassWord={(value) => setOldPassWord(value)}
+                                    setNewPassWord={(value) => setNewPassWord(value)}
+                                    setConfirmPassWord={(value) => setConfirmPassWord(value)}
+                                />} />
 
-                        <div className='col-9 border rounded'>
-                            <Route exact path="/account/help" render={() => <Help />} />
-                            <Route exact path="/account/changepassword" render={() => <ChangePassword
-                                notice={notice}
-                                user={user}
-                                oldPassword={oldPassword}
-                                newPassword={newPassword}
-                                confirmPassword={confirmPassword}
-                                setOldPassWord={(value) => setOldPassWord(value)}
-                                setNewPassWord={(value) => setNewPassWord(value)}
-                                setConfirmPassWord={(value) => setConfirmPassWord(value)}
-                                submitButtonPassWord={submitButtonPassWord}
-                            />} />
-
-                            <Route exact path="/account/setting" render={() => <AccountSettingDetail
-                                noti={noti}
-                                user={user}
-                                email={email}
-                                submitButton={submitButton}
-
-                            />}
-                            />
-                        </div>
-                    </DivStyle>
-                </div>
-                : null}
-
-
-
-
-        </div>
+                                <Route exact path="/account/setting" render={() => <AccountSettingDetail
+                                    user={user}
+                                    email={email}
+                                    submitButton={submitButton}
+                                />}
+                                />
+                            </div>
+                        </DivStyle>
+                    </div>
+                    : null}
+                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti} notice={notice} />
+            </DivFullHeight>
+        </>
     )
 }
 
 const DivStyle = styled.div`
-margin-top:85px;
+    margin-top:85px;
+    height: 75vh;
+`
 
+const DivFullHeight = styled.div`
+    height: 100vh;
 `
 
 export default AccountSettingPage
