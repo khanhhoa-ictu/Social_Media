@@ -5,7 +5,7 @@ import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
 import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
 import { PostDetailType } from '../../type/postType';
-import Comment from './Comment';
+import Comment from './Comment'
 import { format } from 'timeago.js';
 import { UserType } from '../../type/userType';
 
@@ -114,7 +114,7 @@ const PostDetail = (props: PostDetailProps) => {
                             </div>
 
                             {
-                                commentByPost.map((comment, key) => {
+                                commentByPost.map((comment:any, key:number) => {
                                     return <Comment
                                     key={key}
                                         profilePicture={comment.profilePicture}

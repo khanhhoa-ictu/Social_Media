@@ -8,6 +8,8 @@ import LoginPage from './page/login/LoginPage';
 import RegisterPage from './page/login/RegisterPage';
 import ForgotPage from './page/login/ForgotPage';
 import ConfirmPage from './page/login/ConfirmPage'
+import ProfileUserPage from './page/ProfileUserPage';
+
 import InboxPage from './page/InBoxPage';
 import PostDetailPage from './page/post/PostDetailPage';
 import styled from 'styled-components';
@@ -28,6 +30,7 @@ function App() {
           <Route exact path="/confirm/:id" component={ConfirmPage} />
           <Route exact path="/forgot" component={ForgotPage} />
           <Route exact path='/post/:id' component={HomePage} />
+          <Route exact  path="/user" component={ProfileUserPage} />
         </Switch>
       </BrowserRouter>
     </div>
