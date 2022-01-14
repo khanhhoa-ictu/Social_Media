@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap'
-import styled from 'styled-components'
+import React, { ChangeEvent, useState } from 'react';
+import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap';
+import styled from 'styled-components';
+import { format } from 'timeago.js';
 import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
-import { format } from 'timeago.js'
 import avatar from './../../assets/image/no-avatar.png'
 import { NavLink, Route } from 'react-router-dom';
+
 interface Props {
     liked: boolean,
     show: boolean,
@@ -26,7 +27,7 @@ interface Props {
     post: PostType,
     user: UserType,
     userPost: UserType | undefined,
-    CommentPost: (profilePicture:string,userId: string, name: string, comment: string, postID: string) => void,
+    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void,
 }
 
 const Post = (props: Props) => {
@@ -35,7 +36,6 @@ const Post = (props: Props) => {
         show,
         postContent,
         inputRef,
-        uploadFileName,
         setPostContent,
         handleUpload,
         handleDisplayFileDetails,
@@ -67,7 +67,7 @@ const Post = (props: Props) => {
                 comment: comment,
             }
             test.push(mycomment)
-            CommentPost(user.profilePicture,user._id, user.name, comment, post._id)
+            CommentPost(user.profilePicture, user._id, user.name, comment, post._id)
             setComment('')
             setCommentByPost(test)
         }
@@ -90,12 +90,7 @@ const Post = (props: Props) => {
                 <div className="p-3">
                     <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center">
-                            {
-                                userPost?.profilePicture === ''
-                                    ? <AvatarStyled src={avatar} alt="avatar" />
-                                    : <AvatarStyled src={userPost?.profilePicture} alt="avatar" />
-
-                            }
+                            <AvatarStyled src={userPost?.profilePicture ? userPost.profilePicture : avatar} alt="avatar" />
                             <div className='mx-3'>
                                 <TitleStyled className='mb-0' tag="h6">
                                     {userPost?.name}
@@ -229,7 +224,7 @@ const Post = (props: Props) => {
                                     <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
                                 </ButtonSvg>
                             </NavLink>
-                            
+
                             <ButtonSvg aria-label="Chia sẻ bài viết" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
                                 <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></polygon>
@@ -243,14 +238,13 @@ const Post = (props: Props) => {
                         <span className="h6">{likePost} người thích</span>
                     </span>
                     <div className="comment mb-2">
-                        <span className="h6 ">{post.name}: </span> {post.desc}
+                        <span className="h6 ">{userPost?.name} </span> {post.desc}
                     </div>
                     {
                         sumComment <= 0
                             ? null
                             : <span className="d-block text-muted" onClick={handleSumComment}>Xem tất cả {sumComment} bình luận</span>
                     }
-
                     {
                         commentByPost.slice(0, visible).map((comment, key) => {
                             return <div className="comment mb-1" key={key}>
@@ -266,10 +260,25 @@ const Post = (props: Props) => {
                     <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                         <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
                     </ButtonSvg>
-                    <CommentInput value={comment} type="text" placeholder="Thêm bình luận ..." onChange={(e: any) => setComment(e.target.value)} />
-                    <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
+                    <CommentInput
+                        value={comment}
+                        type="text"
+                        className='shadow-none'
+                        placeholder="Thêm bình luận ..."
+                        onChange={(e: any) => setComment(e.target.value)}
+                    />
+                    <ButtonPostStyled
+                        className='text-primary px-1'
+                        onClick={submitCommentPost}
+                    >
+                        Đăng
+                    </ButtonPostStyled>
                 </span>
             </TitleStyled>
+            {/* {
+                showDetailPost ?
+                    <PostDetailPage showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
+            } */}
         </Card>
     )
 }

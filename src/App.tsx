@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/confirm/:id" component={ConfirmPage} />
           <Route exact path="/forgot" component={ForgotPage} />
           <Route exact path='/post/:id' component={HomePage} />
-          <Route exact path="/user" component={ProfileUserPage} />
+          <Route exact path="/user/:name" component={ProfileUserPage} />
           <Route component={NotFoundPage} />
 
         </Switch>

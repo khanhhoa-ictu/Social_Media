@@ -35,7 +35,7 @@ function ContentProfile() {
                         <NavLink to=""><i className="fa fa-comment"></i></NavLink>
                     </div>
                 </div>
-
+                
                 <ImgStyle
                     alt="Card image cap"
                     src="https://picsum.photos/256/186"

@@ -88,7 +88,7 @@ function LoginPage() {
     const loginButton = () => {
         dispatch(loginFail())
         dispatch(sentEmail())
-        history.push('/login')
+        history.goBack()
     }
 
     useEffect(() => {
