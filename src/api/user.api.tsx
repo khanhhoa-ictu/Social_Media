@@ -59,16 +59,16 @@ export function getUser(email : string) : Promise<any> {
   .then((response : AxiosResponse<any>) => response.data)
 }
 
-<<<<<<< HEAD
-export function getUserPost(userId : string) : Promise<any> {
-  return axios.get('http://localhost:8080/user/getUserPost/' + userId)
-=======
 export function ChangeAvatar(file : any, email:string) : Promise<any> {
   let data = new FormData()
   data.append('file', file)
   data.append('email', email)
 
   return axios.post('http://localhost:8080/user/changeavatar',data)
->>>>>>> 20eadc1f07ad2e8bc94e77638ec95f803c5ca5f3
+  .then((response : AxiosResponse<any>) => response.data)
+}
+
+export function getUserPost(userId : string) : Promise<any> {
+  return axios.get('http://localhost:8080/user/getUserPost/' + userId)
   .then((response : AxiosResponse<any>) => response.data)
 }

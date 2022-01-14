@@ -51,6 +51,10 @@ const Post = (props : Props) => {
         userPost
     } = props
 
+    const revokeObjectURL = (text : string) => {
+        return URL.revokeObjectURL(text)
+    }
+
     return (
         <Card className="mb-4">
             <CardBody className='p-0'>
@@ -158,12 +162,14 @@ const Post = (props : Props) => {
                         </ModalStyled>
                     </div>
                 </div>
-                <CardImg
-                    alt="Card image cap"
-                    src={post.img}
-                    top
-                    width="100%"
-                />
+                {post.img &&
+                    <CardImg
+                        alt="Card image cap"
+                        src={post.img}
+                        top
+                        width="100%"
+                    /> 
+                }
             </CardBody>
             <TitleStyled className="pt-3">
                 <div className="px-3">

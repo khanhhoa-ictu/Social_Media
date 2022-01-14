@@ -20,19 +20,12 @@ function AccountSettingDetail(props: Props) {
         email,
         submitButton,
     } = props
-<<<<<<< HEAD
-    const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
-    useEffect(() => {
-        setInputFile(document.getElementById("input-file") as HTMLInputElement);
-    }, []);
 
-=======
     // const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
     // useEffect(() => {
     //     setInputFile(document.getElementById("input-file") as HTMLInputElement);
     // }, []);
     const inputFile = useRef<HTMLInputElement>(null);
->>>>>>> 20eadc1f07ad2e8bc94e77638ec95f803c5ca5f3
     const handleUpload = () => {
         inputFile.current?.click();
     };
