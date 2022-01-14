@@ -1,5 +1,16 @@
 import { combineReducers } from 'redux'
-const following = (state  = [], action: any) => {
+import { FollowingsType, SateFollowingsType } from '../type/folloingType'
+
+const initialList = {
+    followings : []
+}
+
+type Action = {
+    type: string,
+    payload: FollowingsType[]
+}
+
+const following = (state : SateFollowingsType = initialList, action: Action) => {
     switch (action.type) {
         case 'SET_FOLLOWING': {
             return {

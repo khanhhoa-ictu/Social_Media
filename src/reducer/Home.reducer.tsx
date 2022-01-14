@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux'
-import { PostType } from '../type/postType'
+import { PostType, StatePostType } from '../type/postType'
 
-export interface State {
-    listPost : PostType[],
-    isLoading : boolean
-}
 
 const initialList = {
     listPost : [],
@@ -16,7 +12,7 @@ type Action = {
     payload: PostType[]
 }
 
-const post = (state : State = initialList, action: Action) => {
+const post = (state : StatePostType = initialList, action: Action) => {
     switch (action.type) {
         case 'SET_LIST_TIMELINES_POST': {
             return {
@@ -28,6 +24,12 @@ const post = (state : State = initialList, action: Action) => {
             return {
                 ...state,
                 isLoading : action.payload
+            }
+        }
+        case 'SET_COMMENT' : {
+            return {
+                ...state,
+                comments : action.payload
             }
         }
         default: return state

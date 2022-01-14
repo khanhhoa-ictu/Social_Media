@@ -1,27 +1,35 @@
-import React, { FormEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 import { NavLink } from 'react-router-dom'
-import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap'
+import { Button, Col, FormGroup, Input, Label } from 'reactstrap'
 import styled from 'styled-components'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
-    notice: string,
     user: UserType,
     oldPassword: string,
     newPassword: string,
     confirmPassword: string,
-
     setOldPassWord: (text: string) => void,
     setNewPassWord: (text: string) => void,
     setConfirmPassWord: (text: string) => void,
     submitButtonPassWord: () => void,
-
 }
 function ChangePassword(props: Props) {
-    const { notice, user, oldPassword, newPassword, confirmPassword,
-        setOldPassWord, setNewPassWord, setConfirmPassWord, submitButtonPassWord } = props
+
+    const {
+        user,
+        oldPassword,
+        newPassword,
+        confirmPassword,
+        setOldPassWord,
+        setNewPassWord,
+        setConfirmPassWord,
+        submitButtonPassWord
+    } = props
+
+
     return (
-        <div className='p-4'>
+        <DivStyled className='p-4'>
             <div className='wapper__img-name d-flex text-center align-items-center mb-5'>
                 <AvatarStyle>
                     {user.profilePicture === ''
@@ -30,8 +38,7 @@ function ChangePassword(props: Props) {
                     }
 
                 </AvatarStyle>
-                <div className='name ms-4'>Name</div>
-                <h5>{notice}</h5>
+                <div className='name ms-4'>{user.name}</div>
             </div>
             <div >
                 <FormGroup row>
@@ -42,13 +49,14 @@ function ChangePassword(props: Props) {
                         Mật khẩu cũ
                     </Label>
                     <Col sm={9}>
-                        <Input
+                        <InputStyled
                             required
                             id="examplePassword"
                             name="password"
                             type="password"
+                            className="shadow-none"
                             value={oldPassword}
-                            onChange={(e) => { setOldPassWord(e.target.value) }}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => { setOldPassWord(e.target.value) }}
                         />
 
                     </Col>
@@ -61,13 +69,14 @@ function ChangePassword(props: Props) {
                         Mật khẩu mới
                     </Label>
                     <Col sm={9}>
-                        <Input
+                        <InputStyled
                             required
                             id="examplePassword"
                             name="password"
                             type="password"
+                            className="shadow-none"
                             value={newPassword}
-                            onChange={(e) => { setNewPassWord(e.target.value) }}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => { setNewPassWord(e.target.value) }}
                         />
                     </Col>
                 </FormGroup>
@@ -79,13 +88,14 @@ function ChangePassword(props: Props) {
                         Xác nhận mật khẩu mới
                     </Label>
                     <Col sm={9}>
-                        <Input
+                        <InputStyled
                             id="examplePassword"
                             name="password"
                             required
                             type="password"
+                            className="shadow-none"
                             value={confirmPassword}
-                            onChange={(e) => { setConfirmPassWord(e.target.value) }}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => { setConfirmPassWord(e.target.value) }}
                         />
                     </Col>
                 </FormGroup>
@@ -97,9 +107,13 @@ function ChangePassword(props: Props) {
 
                     </Label>
                     <Col sm={9}>
-                        <Button onClick={submitButtonPassWord} style={{ backgroundColor: "#0095f6" }}>
+                        <ButtonStyled
+                            onClick={submitButtonPassWord}
+                            outline color="primary"
+                            disabled={oldPassword && newPassword && confirmPassword ? false : true}
+                        >
                             Đổi mật khẩu
-                        </Button>
+                        </ButtonStyled>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -117,7 +131,8 @@ function ChangePassword(props: Props) {
                     </Col>
                 </FormGroup>
 
-            </div></div>
+            </div>
+        </DivStyled>
 
     )
 }
@@ -129,5 +144,16 @@ const AvatarStyle = styled.div`
         height:100%;
         border-radius: 50%;
     }
+`
+const InputStyled = styled(Input)`
+    font-size: 14px;
+`
+
+const DivStyled = styled.div`
+    font-size: 14px;
+`
+
+const ButtonStyled = styled(Button)`
+    font-size: 14px;
 `
 export default ChangePassword

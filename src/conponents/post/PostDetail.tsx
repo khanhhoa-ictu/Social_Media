@@ -1,30 +1,65 @@
 
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
-
+import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
+import { PostDetailType } from '../../type/postType';
+import Comment from './Comment';
+import { format } from 'timeago.js';
+import { UserType } from '../../type/userType';
 
 interface PostDetailProps {
-    showDetailPost: boolean;
-    setShowDetailPost: (showDetailPost: boolean) => void;
-    liked : boolean;
+    liked: boolean;
+    user: UserType,
     setLiked: (liked: boolean) => void;
-    setShowModal : () => void;
-    handleLikePost : () => void;
+    handleLikePost: (IdPost: string) => void;
+    id: string,
+    postDetail: PostDetailType,
+    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void,
 }
 
 const PostDetail = (props: PostDetailProps) => {
-    const { 
-        showDetailPost, 
+    const {
         liked,
-        setShowModal,
-        handleLikePost
+        handleLikePost,
+        id,
+        user,
+        postDetail,
+        CommentPost,
     } = props;
+    let history = useHistory();
+    const [likePost, setLikePost] = useState(() => {
+        return postDetail.post.likes.length;
+    })
+    const changeLikePost = () => {
+        handleLikePost(postDetail.post._id)
+        setLikePost(liked ? likePost - 1 : likePost + 1)
+    }
+    const [comment, setComment] = useState('')
+    const [commentByPost, setCommentByPost] = useState(postDetail.post.comments)
+    const submitCommentPost = () => {
+        if (comment !== '') {
+            let test = [...commentByPost]
+            let mycomment = {
+                profilePicture: user.profilePicture,
+                id_user: user._id,
+                id_post: postDetail.post._id,
+                name: user.name,
+                comment: comment,
+            }
+            test.push(mycomment)
+            CommentPost(user.profilePicture, user._id, user.name, comment, postDetail.post._id)
+            setComment('')
+            setCommentByPost(test)
+        }
+
+    }
 
     return (
         <ModalStyled
-            isOpen={showDetailPost}
-            toggle={setShowModal}
+            isOpen={id ? true : false}
+            toggle={() => history.push('/')}
             centered
             className='modal border-none'
         >
@@ -32,7 +67,7 @@ const PostDetail = (props: PostDetailProps) => {
                 <ModalBody className="col-7 p-0 border-end text-center">
                     <CardImg
                         alt="Card image cap"
-                        src="https://picsum.photos/256/186"
+                        src={postDetail.post.img}
                         width="100%"
                         height="100%"
                     />
@@ -42,62 +77,61 @@ const PostDetail = (props: PostDetailProps) => {
                         <div className="border-bottom p-3">
                             <div className="d-flex justify-content-between">
                                 <div className="d-flex align-items-center">
-                                    <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
+                                    {
+                                        postDetail.userPost.profilePicture === ''
+                                            ? <AvatarStyled src={avatar} alt="avatar" />
+                                            : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
+                                    }
+
                                     <div className='mx-3'>
                                         <TitleStyled className='mb-0' tag="h6">
-                                            account
+                                            {postDetail.userPost.name}
                                         </TitleStyled>
                                         <TitleStyled className="text-muted mb-0" >
-                                            address
+                                            {postDetail.userPost.address}
                                         </TitleStyled>
                                     </div>
                                 </div>
                                 <p className="btn border-none p-0 text-primary">Theo dõi</p>
                             </div>
                         </div>
-                        <div className="content-post p-3">
-                            <div className="d-flex align-items-center">
-                                <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
-                                <div className='mx-3'>
+                        <div className='ms-3'>
+                            <div className="d-flex align-items-center my-2">
+                                {
+                                    postDetail.userPost.profilePicture === ''
+                                        ? <AvatarStyled src={avatar} alt="avatar" />
+                                        : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
+                                }
+
+                                <div className='mx-3 d-flex align-items-center'>
                                     <TitleStyled className='mb-0' tag="h6">
-                                        account
+                                        {postDetail.userPost.name}
                                     </TitleStyled>
-                                    <TitleStyled className="text-muted mb-0" >
-                                        Content post here ...
+                                    <TitleStyled className="text-muted mx-2 pt-1" >
+                                        {postDetail.post.desc}
                                     </TitleStyled>
                                 </div>
                             </div>
-                            <div className="comment-post">
-                                <div className="d-flex align-items-center my-4">
-                                    <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
-                                    <div className='mx-3'>
-                                        <TitleStyled className='mb-0' tag="h6">
-                                            account
-                                        </TitleStyled>
-                                        <TitleStyled className="text-muted mb-0" >
-                                            Comment here
-                                        </TitleStyled>
-                                    </div>
-                                </div>
-                                <div className="d-flex align-items-center my-4">
-                                    <AvatarStyled src="https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg" alt="avatar" />
-                                    <div className='mx-3'>
-                                        <TitleStyled className='mb-0' tag="h6">
-                                            account
-                                        </TitleStyled>
-                                        <TitleStyled className="text-muted mb-0" >
-                                            Comment here
-                                        </TitleStyled>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <CommentDiv>
+                                {
+                                    commentByPost.map((comment, key) => {
+                                        return <Comment
+                                            key={key}
+                                            profilePicture={comment.profilePicture}
+                                            name={comment.name}
+                                            comment={comment.comment}
+                                        />
+                                    })
+                                }
+                            </CommentDiv>
                         </div>
                     </div>
                     <TitleStyled className="pt-3 border-top">
                         <div className="px-3">
                             <span className="d-flex justify-content-between mb-2">
                                 <span>
-                                    <span onClick={handleLikePost}>
+                                    <span onClick={changeLikePost}>
                                         {liked ?
                                             <ButtonSvg aria-label="Bỏ thích" className="_8-yf5 " color="#ed4956" fill="#ed4956" height="24" role="img" viewBox="0 0 48 48" width="24">
                                                 <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
@@ -121,19 +155,23 @@ const PostDetail = (props: PostDetailProps) => {
                                 </ButtonSvg>
                             </span>
                             <span className="d-block">
-                                <span className="h6">701 lượt thích</span>
+                                <span className="h6">{likePost} lượt thích</span>
                             </span>
-                            <span className="h6">account</span> Nội dung bài viết.
-                            <span className="d-block text-muted">Xem tất cả 11 bình luận</span>
-                            <span className="d-block text-muted span-time my-1 pb-1">1 NGÀY TRƯỚC</span>
+                            <span className="d-block text-muted span-time my-1 pb-1">{format(postDetail.post.createdAt)}</span>
                         </div>
                         <hr className="my-2" />
                         <span className="d-block d-flex align-items-center px-3">
                             <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
                             </ButtonSvg>
-                            <CommentInput type="text" placeholder="Thêm bình luận ..." />
-                            <ButtonPostStyled className='text-primary px-1'>Đăng</ButtonPostStyled>
+                            <CommentInput
+                                type="text"
+                                value={comment}
+                                className="shadow-none"
+                                placeholder="Thêm bình luận ..."
+                                onChange={(e: any) => setComment(e.target.value)}
+                            />
+                            <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
                         </span>
                     </TitleStyled>
                 </ModalBody>
@@ -181,6 +219,11 @@ const TitleStyled = styled(CardTitle)`
     .span-time{
         font-size: 10.5px !important;
     }
+`
+
+const CommentDiv = styled.div`
+    height: 330px;
+    overflow-y: auto;
 `
 
 const ButtonSvg = styled.svg`

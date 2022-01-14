@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import { UpdateInforType } from "../type/userType";
 
-export function updateInfor(email: string, name: string, phone_number: string, address: string, gender: string, desc: string,): Promise<any> {
+export function updateInfor(email: string, name: string, phone_number: string, address: string, gender: string, desc: string,): Promise<UpdateInforType> {
   return axios.post('http://localhost:8080/user/updateinfor', {
     name: name,
     desc: desc,
@@ -9,10 +10,12 @@ export function updateInfor(email: string, name: string, phone_number: string, a
     email: email,
     gender: gender
   })
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<any>) => {
+      return response.data
+    })
 }
 
-export function changePasswordUser(oldPassword: string, newPassword: string, email: string): Promise<any> {
+export function changePasswordUser(oldPassword: string, newPassword: string, email: string): Promise<{msg : string}> {
   return axios.post('http://localhost:8080/user/updatepassword', {
     oldpassword: oldPassword,
     newpassword: newPassword,
