@@ -9,7 +9,6 @@ import HeaderProfile from '../conponents/profile-user/HeaderProfile';
 
 function ProfileUserPage() {
     let email = getEmail()?.email;
-
     useEffect(() => {
         getUser(email).then(user => {
             dispatch(setUser(user))
@@ -24,11 +23,12 @@ function ProfileUserPage() {
     }
     
     let user = useSelector((state: any) => state.UserReducer.user.state)
+    console.log(user)
     return (
         <div>
             <Navigation logout={logout} user={user} />
             <div className='container'>
-                <HeaderProfile />
+                <HeaderProfile  user = {user}/>
                 <ContentProfile />
             </div>
 

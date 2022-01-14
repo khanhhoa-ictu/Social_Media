@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/confirm/:id" component={ConfirmPage} />
         <Route exact path="/forgot" component={ForgotPage} />
       </Switch>
-      <FooterPage />
+      {/* <FooterPage /> */}
     </BrowserRouter>
     </div>
   );

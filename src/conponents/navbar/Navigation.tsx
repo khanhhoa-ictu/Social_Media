@@ -3,21 +3,22 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import logo from '../../assets/image/logo.png'
+import { createPost } from '../../api/post.api'
+
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     logout: () => void,
-    user:UserType
+    user: UserType
 }
 
 
 function Navigation(props: Props) {
-    let { logout,user } = props
+    let { logout, user } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
-
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<string | null>(null);
 
@@ -28,12 +29,20 @@ function Navigation(props: Props) {
     const handleDisplayFileDetails = () => {
         inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
             setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
-        console.log(uploadFileName);
     }
 
     const setShowModal = () => {
         setShow(!show)
     }
+
+    const handleCreatePost = () => {
+        // console.log(uploadFileName)
+        // console.log(postContent);
+        if (uploadFileName) {
+            createPost('61de3ee515a581204443e712', postContent, uploadFileName)
+            setShowModal();
+        }
+    } // done
 
     useEffect(() => {
         setCurrentPath(history.location.pathname)
@@ -109,12 +118,12 @@ function Navigation(props: Props) {
                             <UncontrolledDropdown inNavbar nav >
                                 <DropdownToggle nav >
                                     <div className="avatar">
-                                        {user.coverPicture === '' 
-                                        ? <img src={avatar} alt="avatar" />
-                                        : <img src={user.coverPicture} alt="avatar" />
+                                        {user.coverPicture === ''
+                                            ? <img src={avatar} alt="avatar" />
+                                            : <img src={user.coverPicture} alt="avatar" />
                                         }
 
-                                        
+
                                     </div>
                                 </DropdownToggle>
                                 <DropdownMenuStyled end>
@@ -133,14 +142,13 @@ function Navigation(props: Props) {
                                     <DropdownItem divider />
 
                                     <DropdownItem onClick={logout}>
-                                        <NavLink to='/logout' className="text-decoration-none text-dark">
+                                        <NavLink to='/login' className="text-decoration-none text-dark">
                                             <TextNavStyled className='mx-1'>
                                                 Đăng xuất
                                             </TextNavStyled>
                                         </NavLink>
                                     </DropdownItem>
                                 </DropdownMenuStyled>
-
                             </UncontrolledDropdown>
                         </Nav>
 
@@ -193,7 +201,12 @@ function Navigation(props: Props) {
                                     </TitleStyled>
                                 </div>
                             </div>
-                            <ButtonPostStyled className='text-primary px-1'>Chia sẻ</ButtonPostStyled>
+                            <ButtonPostStyled
+                                className='text-primary px-1'
+                                onClick={handleCreatePost}
+                            >
+                                Chia sẻ
+                            </ButtonPostStyled>
                         </div>
                         <ContentArea
                             className='d-block my-3'
