@@ -23,15 +23,18 @@ function Navigation(props: Props) {
     const [uploadFileName, setUploadFileName] = useState<any>();
     const [preview, setPreview] = useState('')
 
+
     const handleUpload = () => {
         inputRef.current?.click();
     }
 
     const handleDisplayFileDetails = () => {
+
         if (inputRef.current?.files && (inputRef.current.files?.length !== 0)) {
             setUploadFileName(inputRef.current.files[0]);
             setPreview(URL.createObjectURL(inputRef.current.files[0]))
         }
+
     }
 
     const setShowModal = () => {
@@ -192,9 +195,10 @@ function Navigation(props: Props) {
                             Tải lên
                         </button>
                         {
-                            uploadFileName &&
+                            reviewFile &&
                             <div className="my-1">
                                 <ImgStyled className='img-thumbnail' src={preview} alt="temp" />
+
                             </div>
                         }
                     </ModalBody>
