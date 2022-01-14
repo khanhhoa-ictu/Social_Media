@@ -195,7 +195,7 @@ function Navigation(props: Props) {
                             Tải lên
                         </button>
                         {
-                            reviewFile &&
+                            preview &&
                             <div className="my-1">
                                 <ImgStyled className='img-thumbnail' src={preview} alt="temp" />
 
