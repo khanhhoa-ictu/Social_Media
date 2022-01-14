@@ -1,6 +1,6 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FormGroup, Input, Button, Label, Col, FormText, Form } from 'reactstrap'
+import { Button, Col, FormGroup, Input, Label } from 'reactstrap'
 import styled from 'styled-components'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
@@ -24,9 +24,9 @@ function ChangePassword(props: Props) {
         <div className='p-4'>
             <div className='wapper__img-name d-flex text-center align-items-center mb-5'>
                 <AvatarStyle>
-                    {user.coverPicture === ''
+                    {user.profilePicture === ''
                         ? <img src={avatar} alt='avatar' />
-                        : <img src={user.coverPicture} alt='avatar' />
+                        : <img src={user.profilePicture} alt='avatar' />
                     }
 
                 </AvatarStyle>

@@ -3,18 +3,18 @@ import { post } from '../mockData/post'
 
 const url = `http://localhost:8080`;
 
-export function getPost(): Promise<any> {
-  return new Promise((resolve) => {
-    resolve(post);
-  })
-}
+// export function getPost(): Promise<any> {
+//   return new Promise((resolve) => {
+//     resolve(post);
+//   })
+// }
 
-export const createPost = (userId: string, postContent: string, imgUrl: string) => {
-  return axios.post(url + '/post/create', {
-    userId: userId,
-    desc: postContent,
-    img: imgUrl
-  }).then((response: AxiosResponse) => response.data)
+export const createPost = (userId: string, desc: string, file: any) => {
+  let data = new FormData()
+  data.append('userId', userId)
+  data.append('desc', desc)
+  data.append('file', file)
+  return axios.post(url + '/post/create',data).then((response: AxiosResponse) => response.data)
 }
 
 export const getListTimeline = () => {

@@ -9,7 +9,7 @@ interface Props {
     noti: string,
     user: UserType
     email: string,
-    submitButton: (name: string, address: string, phone: string, gender: string, desc:string) => void,
+    submitButton: (name: string, address: string, phone: string, gender: string, desc: string) => void,
 }
 
 
@@ -29,11 +29,11 @@ function AccountSettingDetail(props: Props) {
     const handleUpload = () => {
         inputFile.current?.click();
     };
-    const handleChangeAvatar = () =>{
-        inputFile.current?.files && (inputFile.current.files?.length !== 0) &&  
-        ChangeAvatar(inputFile.current.files[0],user.email).then((data)=>{
-            console.log(data);
-        });
+    const handleChangeAvatar = () => {
+        inputFile.current?.files && (inputFile.current.files?.length !== 0) &&
+            ChangeAvatar(inputFile.current.files[0], user.email).then((data) => {
+                console.log(data);
+            });
     }
 
     const [name, setName] = useState(user.name)
@@ -55,7 +55,7 @@ function AccountSettingDetail(props: Props) {
 
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        submitButton(name, phone, adress, gender,desc)
+        submitButton(name, phone, adress, gender, desc)
     }
 
     useEffect(() => {
@@ -68,9 +68,9 @@ function AccountSettingDetail(props: Props) {
             <article>
                 <div className='wapper__change-avatar d-flex mb-5'>
                     <AvatarStyle>
-                        {user.coverPicture === ''
+                        {user.profilePicture === ''
                             ? <img src={avatar} alt='avatar' />
-                            : <img src={user.coverPicture} alt='avatar' />
+                            : <img src={user.profilePicture} alt='avatar' />
                         }
 
                     </AvatarStyle>
