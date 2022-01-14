@@ -57,10 +57,16 @@ function RegisterPage() {
         }
 
         registerUser(email, passWord, userName)
-            .then((data) => console.log(data, 'data'))
-            .catch((err) => console.log(err, 'err'))
+            .then((data) => {
+                history.push('/')
+            })
+            .catch((err) => {
+                if(err.response.data.msg === "Email already exist"){
+                    setNotificationEmail('Email đã tồn tại')
+                }
+            })
 
-        history.push('/')
+      
     }
 
     const loginButton = () => {
