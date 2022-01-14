@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from "axios";
+import { FollowingsType } from "../type/folloingType";
+import { UpdateInforType, UserType } from "../type/userType";
 
-export function registerUser(email: string, password: string, username: string): Promise<any> {
+export function registerUser(email: string, password: string, username: string): Promise<{msg : string}> {
   return axios.post('http://localhost:8080/user/register', {
     email: email,
     password: password,
@@ -9,12 +11,12 @@ export function registerUser(email: string, password: string, username: string):
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function verifyUser(id: string): Promise<any> {
+export function verifyUser(id: string): Promise<{msg : string}> {
   return axios.get(`http://localhost:8080/user/verify/` + id)
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function loginUser(email: string, password: string): Promise<any> {
+export function loginUser(email: string, password: string): Promise<UpdateInforType> {
   return axios.post('http://localhost:8080/user/login', {
     email: email,
     password: password
@@ -22,12 +24,12 @@ export function loginUser(email: string, password: string): Promise<any> {
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function requestForgotPassword(email: string): Promise<any> {
+export function requestForgotPassword(email: string): Promise<{msg : string, email : string}> {
   return axios.get('http://localhost:8080/user/request/forgotpassword/' + email)
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function verifyForgotPassword(email: string, code: string): Promise<any> {
+export function verifyForgotPassword(email: string, code: string): Promise<{msg: String, otp: string}> {
   return axios.post('http://localhost:8080/user/verify/forgotpassword', {
     email: email,
     otp: code
@@ -35,7 +37,7 @@ export function verifyForgotPassword(email: string, code: string): Promise<any> 
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function forgotPassword(email: string, code: string, password: string): Promise<any> {
+export function forgotPassword(email: string, code: string, password: string): Promise<{msg : string}> {
   return axios.post('http://localhost:8080/user/forgotpassword', {
     email: email,
     otp: code,
@@ -44,7 +46,7 @@ export function forgotPassword(email: string, code: string, password: string): P
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function verifyAuth(email: string, token: string): Promise<any> {
+export function verifyAuth(email: string, token: string): Promise<{msg : string}> {
   return axios.post('http://localhost:8080/auth', {
     email: email,
     token: token
@@ -52,18 +54,18 @@ export function verifyAuth(email: string, token: string): Promise<any> {
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function getUser(email: string): Promise<any> {
+export function getUser(email: string): Promise<UserType> {
   return axios.post('http://localhost:8080/user/getuser', {
     email: email,
   })
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function getUserPost(userId: string): Promise<any> {
+export function getUserPost(userId: string): Promise<UserType> {
   return axios.get('http://localhost:8080/user/getUserPost/' + userId)
     .then((response: AxiosResponse<any>) => response.data)
 }
-export function ChangeAvatar(file: any, email: string): Promise<any> {
+export function ChangeAvatar(file: any, email: string): Promise<{msg : string, data : UserType}> {
   let data = new FormData()
   data.append('file', file)
   data.append('email', email)
@@ -72,13 +74,13 @@ export function ChangeAvatar(file: any, email: string): Promise<any> {
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function getFriendSuggestion(id: string): Promise<any> {
+export function getFriendSuggestion(id: string): Promise<FollowingsType[]> {
 
   return axios.get(`http://localhost:8080/user/friendsuggestion/${id}`)
     .then((response: AxiosResponse<any>) => response.data)
 }
 
-export function followUser(currentUser: string, UserFollow: string): Promise<any> {
+export function followUser(currentUser: string, UserFollow: string): Promise<string> {
   return axios.post(`http://localhost:8080/user/${UserFollow}/follower`, {
     name: currentUser
   })
