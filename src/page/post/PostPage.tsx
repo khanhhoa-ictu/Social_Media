@@ -20,7 +20,7 @@ function PostPage(props : Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState(post.desc);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<string | null>(null);
+    const [uploadFileName, setUploadFileName] = useState<string>(post.img);
     const [userPost, setUserPost] = useState<UserType>()
 
     const handleUpload = () => {
@@ -42,6 +42,7 @@ function PostPage(props : Props) {
             updatePost(user._id ,post._id, postContent, uploadFileName)
             setShowModal();
         }
+        window.location.reload();
     } 
 
     const handleDeletePost = () => {

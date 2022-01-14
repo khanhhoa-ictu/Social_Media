@@ -179,7 +179,7 @@ const Post = (props: Props) => {
                                             className='text-primary px-1'
                                             onClick={handleUpdatePost}
                                         >
-                                            Update
+                                            Cập nhật
                                         </ButtonPostStyled>
                                     </div>
                                     <ContentArea
@@ -227,11 +227,6 @@ const Post = (props: Props) => {
                                     <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
                                 </ButtonSvg>
                             </NavLink>
-                            {/* onClick={setShowPostDetail}  */}
-                            {/* {
-                                showDetailPost ?
-                                    <PostDetailPage showDetailPost={showDetailPost} setShowDetailPost={setShowDetailPost} /> : null
-                            } */}
                             
                             <ButtonSvg aria-label="Chia sẻ bài viết" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
