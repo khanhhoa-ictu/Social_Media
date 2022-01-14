@@ -11,3 +11,8 @@
 .hover:hover {
     background-color: #f8f8f8;
 }
+
+.dropdown-item:focus {
+    background-color: #efefef !important;
+    color: black !important;
+}

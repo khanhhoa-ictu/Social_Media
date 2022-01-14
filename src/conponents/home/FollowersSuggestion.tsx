@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { FollowingsType } from '../../type/folloingType'
 import { UserSuggestion, UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     user: UserType,
-    following: any,
+    following: FollowingsType[],
     handleFollow: (currentUser: string, userFollow: string) => void
 }
 const FollowersSuggestion = (props: Props) => {
@@ -20,7 +21,7 @@ const FollowersSuggestion = (props: Props) => {
     return (
         <RightSide className="mx-3 px-1">
             <div className="py-4 d-flex justify-content-between align-items-center ">
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center col-8">
                     {
                         user.profilePicture === ''
                             ? <MainAvatar src={avatar} />
@@ -28,10 +29,10 @@ const FollowersSuggestion = (props: Props) => {
                     }
 
                     <div className="px-3">
-                        <p className="h6 mb-0">{user.name}</p>
+                        <NameText className="h6 mb-0">{user.name}</NameText>
                     </div>
                 </div>
-                <ButtonStyled className='text-primary'>Chuyển</ButtonStyled>
+                <ButtonStyled className='text-primary col-3'>Chuyển</ButtonStyled>
             </div>
             <div className="d-flex justify-content-between align-items-center">
                 <p className="h6 text-muted mt-1">Gợi ý cho bạn</p>
@@ -55,10 +56,6 @@ const FollowersSuggestion = (props: Props) => {
                         </div>
                     })
                 }
-
-
-
-
             </div>
             <CopyrightStyled className='my-3'>
                 &copy; 2022 MARGASTNI FROM UNIVERSE
@@ -85,6 +82,13 @@ const MainAvatar = styled.img`
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
+`
+
+const NameText = styled.p`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 130px;
 `
 
 const SubAvatar = styled.img`

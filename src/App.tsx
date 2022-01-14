@@ -29,7 +29,6 @@ function App() {
           <Route exact path='/post/:id' component={HomePage} />
         </Switch>
       </BrowserRouter>
-
     </div>
   );
 }

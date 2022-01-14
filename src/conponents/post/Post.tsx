@@ -49,6 +49,7 @@ const Post = (props: Props) => {
         CommentPost
     } = props
     const [likePost, setLikePost] = useState(post.likes.length)
+
     const changeLikePost = () => {
         handleLikePost()
         setLikePost(liked ? likePost - 1 : likePost + 1)
@@ -82,6 +83,7 @@ const Post = (props: Props) => {
         setVisible(visible + 4);
         setSumComment(post.comments.length - (visible + 4))
     }
+
     return (
         <Card className="mb-4">
             <CardBody className='p-0'>
@@ -99,7 +101,7 @@ const Post = (props: Props) => {
                                     {userPost?.name}
                                 </TitleStyled>
                                 <TitleStyled className="text-muted mb-0" >
-                                    {userPost?.address}
+                                    {userPost?.address ? userPost.address + ', vn' : null}
                                 </TitleStyled>
                             </div>
                         </div>
@@ -133,7 +135,7 @@ const Post = (props: Props) => {
                             className='modal border-none'
                         >
                             <ModalHeader toggle={setShowModal} className=''>
-                                Tạo bài viết mới
+                                Chỉnh sửa bài viết
                             </ModalHeader>
                             <div className="d-flex flex-row">
                                 <ModalBody className="col-7 border-end text-center">
@@ -147,14 +149,14 @@ const Post = (props: Props) => {
                                     />
                                     <button
                                         onClick={handleUpload}
-                                        className="btn btn-outline-primary py-1 px-2 my-2"
+                                        className="btn btn-outline-primary py-1 px-2 my-2 shadow-none"
                                     >
                                         Tải lên
                                     </button>
                                     {
-                                        uploadFileName &&
+                                        post?.img &&
                                         <div className="my-1">
-                                            <ImgStyled className='img-thumbnail' src={uploadFileName} alt="temp" />
+                                            <ImgStyled className='img-thumbnail' src={post?.img} alt="temp" />
                                         </div>
                                     }
                                 </ModalBody>
@@ -171,7 +173,7 @@ const Post = (props: Props) => {
                                                     {userPost?.name}
                                                 </TitleStyled>
                                                 <TitleStyled className="text-muted mb-0" >
-                                                    {userPost?.address}, vn
+                                                    {userPost?.address ? userPost.address + ', vn' : ''}
                                                 </TitleStyled>
                                             </div>
                                         </div>
@@ -179,7 +181,7 @@ const Post = (props: Props) => {
                                             className='text-primary px-1'
                                             onClick={handleUpdatePost}
                                         >
-                                            Cập nhật
+                                            Lưu
                                         </ButtonPostStyled>
                                     </div>
                                     <ContentArea

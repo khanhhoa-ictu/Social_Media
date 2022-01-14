@@ -22,3 +22,7 @@ export interface UserPostType{
     address: string,
     profilePicture:string,
 }
+export interface StatePostType {
+    listPost : PostType[],
+    isLoading : boolean
+}

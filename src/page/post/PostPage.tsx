@@ -1,8 +1,10 @@
+import { AxiosResponse } from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
+// import { getUserPost } from '../../api/user.api';
 import Post from '../../conponents/post/Post'
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
@@ -22,7 +24,7 @@ function PostPage(props : Props) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<string>(post.img);
     const [userPost, setUserPost] = useState<UserType>()
-
+    let  dispatch = useDispatch()
     const handleUpload = () => {
         inputRef.current?.click();
     }
@@ -39,21 +41,22 @@ function PostPage(props : Props) {
 
     const handleUpdatePost = () => {
         if (uploadFileName) {
-            updatePost(user._id ,post._id, postContent, uploadFileName)
+            updatePost(user._id, post._id, postContent, uploadFileName)
             setShowModal();
+            dispatch(setIsLoading(!isLoading))
         }
         window.location.reload();
     } 
 
     const handleDeletePost = () => {
         deletePost(user._id, post._id)
-        setIsLoading(!isLoading)
+        dispatch(setIsLoading(!isLoading))
     }
 
     const handleLikePost = () => {
         handleLike(user._id, post._id)
         setLiked(!liked)
-        setIsLoading(!isLoading)
+        dispatch(setIsLoading(!isLoading))
     }
 
     const handleCheckLiked = () => {
@@ -62,12 +65,12 @@ function PostPage(props : Props) {
 
     useEffect(() => {
         getUserPost(post.userId)
-        .then((data) => {
-            setUserPost(data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .then((data) => {
+                setUserPost(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         handleCheckLiked()
     }, [post])
     return (

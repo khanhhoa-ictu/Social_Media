@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 function Help() {
     return (
-        <DivHelp>
+        <DivHelp className="my-5">
             <div className='heading my-3'>
                 <h5>Help</h5>
             </div>

@@ -17,3 +17,16 @@ export interface UserSuggestion{
      name:string,
       profilePicture :string,
 }
+export interface StateUserType {
+    user: UserType
+}
+
+export interface Forgot {
+    statusForgot: string
+}
+
+export interface UpdateInforType {
+    msg : string,
+    token : string,
+    user : UserType
+}

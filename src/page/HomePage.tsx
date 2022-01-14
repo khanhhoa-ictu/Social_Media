@@ -16,8 +16,9 @@ function HomePage() {
 
     let user = useSelector((state: any) => state.UserReducer.user.state)
     let following = useSelector((state: any) => state.FollowingReducer.following.followings)
-    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin);
+    // let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin);
 
+    
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
