@@ -22,7 +22,7 @@ const RecentMessages = (props: Props) => {
                     <MainAvatar src='https://media.congluan.vn/files/dieulinh/2020/07/31/jisoo-2236.jpg' />
                     <div className="px-3">
                         <p className="h6 mb-0">account</p>
-                        <p className="text-muted mb-0">Online</p>
+                        <p className="text-muted mb-0 font-14">Online</p>
                     </div>
                 </div>
             </div>

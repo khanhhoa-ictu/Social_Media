@@ -1,14 +1,13 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useHistory } from 'react-router-dom'
 import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-import logo from '../../assets/image/logo.png'
 import { createPost } from '../../api/post.api'
+import logo from '../../assets/image/logo.png'
 import { UserType } from '../../type/userType'
-import avatar from './../../assets/image/no-avatar.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { setIsLoading } from '../../action/post.action'
 import ToastAlert from '../alert/ToastAlert'
+import avatar from './../../assets/image/no-avatar.png'
 interface Props {
     logout: () => void,
     user: UserType
@@ -16,8 +15,8 @@ interface Props {
 
 
 function Navigation(props: Props) {
-    const dispatch = useDispatch()
-    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
+    // const dispatch = useDispatch()
+    // const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     let { logout, user } = props
     const history = useHistory()
