@@ -1,3 +1,4 @@
+import { CommentType } from "../type/commentType";
 import { PostType } from "../type/postType";
 
 export const setPost = (data: PostType[]) => ({
@@ -10,7 +11,7 @@ export const setIsLoading = (data: boolean) => ({
     payload : data,
 });
   
-export const setComment = (payload:any) => ({
+export const setComment = (payload: string | {data : CommentType[]}) => ({
     type:'SET_COMMENT',
     payload,
 });

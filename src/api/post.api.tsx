@@ -1,16 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { post } from '../mockData/post'
 import { PostDetailType } from "../type/postType";
 
 const url = `http://localhost:8080`;
 
-// export function getPost(): Promise<any> {
-//   return new Promise((resolve) => {
-//     resolve(post);
-//   })
-// }
-
-export const createPost = (userId: string, desc: string, file: any) => {
+export const createPost = (userId: string, desc: string, file: string | Blob) => {
   let data = new FormData()
   data.append('userId', userId)
   data.append('desc', desc)

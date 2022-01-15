@@ -6,11 +6,12 @@ import Forgot from '../../conponents/forgotpassword/Forgot'
 import CheckOTP from '../../conponents/forgotpassword/CheckOTP'
 import NewPassword from '../../conponents/forgotpassword/NewPassword'
 import { forgotPassword, requestForgotPassword, verifyForgotPassword } from '../../api/user.api'
+import { RootState } from '../../reducer'
 function LoginPage() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    let statusForgot = useSelector((state: any) => state.UserReducer.forgotPassword.statusForgot)
+    let statusForgot = useSelector((state: RootState) => state.UserReducer.forgotPassword.statusForgot)
 
     const [loading, setLoading] = useState('')
     const [email, setEmail] = useState('')

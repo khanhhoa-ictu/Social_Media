@@ -23,6 +23,5 @@ export interface UserPostType{
     profilePicture:string,
 }
 export interface StatePostType {
-    listPost : PostType[],
-    isLoading : boolean
+    listPost : PostType[]
 }

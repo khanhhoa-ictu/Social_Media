@@ -15,7 +15,6 @@ interface Props {
 
 function Home(props: Props) {
     const { logout, user, following, handleFollow } = props
-    console.log(following);
     return (
         <div>
             <Navigation logout={logout} user={user} />

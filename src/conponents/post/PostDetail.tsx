@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
 import avatar from './../../assets/image/no-avatar.png'
@@ -167,7 +167,7 @@ const PostDetail = (props: PostDetailProps) => {
                                 type="text" 
                                 value={comment} 
                                 placeholder="Thêm bình luận ..." 
-                                onChange={(e:any)=>setComment(e.target.value)} 
+                                onChange={(e: ChangeEvent<HTMLInputElement>)=>setComment(e.target.value)} 
                             />
                             <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
                         </span>

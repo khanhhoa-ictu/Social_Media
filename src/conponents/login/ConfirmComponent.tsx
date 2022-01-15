@@ -8,7 +8,7 @@ interface Props {
 }
 
 const  ConfirmComponent = (props : Props) => {
-    const {loginButton, id} = props
+    const {loginButton} = props
     
     return (
         <StyledDiv>

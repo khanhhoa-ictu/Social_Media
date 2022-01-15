@@ -6,6 +6,7 @@ import { auth, loginFail, setUser } from '../action/user.action'
 import { followUser, getFriendSuggestion, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
 import Home from '../conponents/home/Home'
+import { RootState } from '../reducer'
 import PostDetailPage from './post/PostDetailPage'
 
 
@@ -14,9 +15,8 @@ function HomePage() {
 
     const history = useHistory()
 
-    let user = useSelector((state: any) => state.UserReducer.user.state)
-    let following = useSelector((state: any) => state.FollowingReducer.following.followings)
-    // let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin);
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
+    let following = useSelector((state: RootState) => state.FollowingReducer.following.followings)
 
     
     const logout = () => {
@@ -45,7 +45,7 @@ function HomePage() {
         })  
     }, [])
     useEffect(() => {
-        if(user !== undefined){
+        if(user._id){
             getFriendSuggestion(user._id).then(followings => {
                 dispatch(setFollowing(followings))
             })
@@ -53,10 +53,10 @@ function HomePage() {
     },[user])
     const handleFollow = (currentUser:string,UserFollow:string) =>{
         followUser(currentUser,UserFollow)
-        .then((data:any) => {
+        .then((data: string) => {
             console.log('Following user success');
         })
-        .catch((error:any) =>{
+        .catch((error) =>{
             console.log(error);
         })
     }

@@ -6,8 +6,6 @@ import logo from '../../assets/image/logo.png'
 import { createPost } from '../../api/post.api'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { setIsLoading } from '../../action/post.action'
 interface Props {
     logout: () => void,
     user: UserType
@@ -15,8 +13,6 @@ interface Props {
 
 
 function Navigation(props: Props) {
-    const dispatch = useDispatch()
-    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     let { logout, user } = props
     const history = useHistory()
@@ -24,8 +20,9 @@ function Navigation(props: Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<any>();
+    const [uploadFileName, setUploadFileName] = useState<string | Blob>();
     const [preview, setPreview] = useState('')
+    const [textSearch, setTextSearch] = useState('')
 
 
     const handleUpload = () => {
@@ -55,6 +52,11 @@ function Navigation(props: Props) {
         }
     }
 
+    const handleSearch = (text : string) => {
+        setTextSearch(text)
+        console.log(textSearch)
+    }
+
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
@@ -71,7 +73,13 @@ function Navigation(props: Props) {
                     <LogoImageStyled src={logo} alt="logo" />
                 </NavbarBrand>
                 <div>
-                    <InputStyled className="rounded-5" type="text" placeholder="Tìm kiếm" />
+                    <InputStyled 
+                        className="rounded-5" 
+                        type="text" 
+                        value={textSearch} 
+                        placeholder="Tìm kiếm" 
+                        onChange={(e : ChangeEvent<HTMLInputElement>) => {handleSearch(e.target.value)}}
+                    />
                 </div>
                 <div>
                     <NavbarToggler onClick={function noRefCheck() { }} />
