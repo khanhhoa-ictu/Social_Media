@@ -1,10 +1,14 @@
+
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
+import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import logo from '../../assets/image/logo.png'
 import { createPost } from '../../api/post.api'
 import { UserType } from '../../type/userType'
+import ToastAlert from '../alert/ToastAlert'
+import PostModal from '../post/modal/PostModal'
+
 import avatar from './../../assets/image/no-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
 import ToastAlert from '../alert/ToastAlert'
@@ -23,8 +27,8 @@ function Navigation(props: Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<Blob>();
-    const [preview, setPreview] = useState('')
+    const [uploadFileName, setUploadFileName] = useState<any>();
+
     const [showAlert, setShowAlert] = useState(false);
     const [noti, setNoti] = useState('');
 
@@ -35,7 +39,6 @@ function Navigation(props: Props) {
     const handleDisplayFileDetails = () => {
         if (inputRef.current?.files && (inputRef.current.files?.length !== 0)) {
             setUploadFileName(inputRef.current.files[0]);
-            setPreview(URL.createObjectURL(inputRef.current.files[0]))
         }
     }
 
@@ -129,7 +132,6 @@ function Navigation(props: Props) {
                                                 <svg aria-label="Bài viết mới" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                     <path d="M12.003 5.545l-.117.006-.112.02a1 1 0 00-.764.857l-.007.117V11H6.544l-.116.007a1 1 0 00-.877.876L5.545 12l.007.117a1 1 0 00.877.876l.116.007h4.457l.001 4.454.007.116a1 1 0 00.876.877l.117.007.117-.007a1 1 0 00.876-.877l.007-.116V13h4.452l.116-.007a1 1 0 00.877-.876l.007-.117-.007-.117a1 1 0 00-.877-.876L17.455 11h-4.453l.001-4.455-.007-.117a1 1 0 00-.876-.877zM8.552.999h6.896c2.754 0 4.285.579 5.664 1.912 1.255 1.297 1.838 2.758 1.885 5.302L23 8.55v6.898c0 2.755-.578 4.286-1.912 5.664-1.298 1.255-2.759 1.838-5.302 1.885l-.338.003H8.552c-2.754 0-4.285-.579-5.664-1.912-1.255-1.297-1.839-2.758-1.885-5.302L1 15.45V8.551c0-2.754.579-4.286 1.912-5.664C4.21 1.633 5.67 1.05 8.214 1.002L8.552 1z"></path>
                                                 </svg>
-                                                // <>{home}</>
                                                 :
                                                 <svg aria-label="Bài viết mới" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                     <path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
@@ -183,80 +185,23 @@ function Navigation(props: Props) {
                         </Collapse>
                     </div>
                 </Navbar>
+                {
+                    show &&
+                    <PostModal
+                        show={show}
+                        inputRef={inputRef}
+                        post={undefined}
+                        title={'Tạo bài viết mới'}
+                        userPost={user}
+                        postContent={postContent}
+                        setShowModal={setShowModal}
+                        handleUpdatePost={handleCreatePost}
+                        setPostContent={setPostContent}
+                        handleUpload={handleUpload}
+                        handleDisplayFileDetails={handleDisplayFileDetails}
+                    />
+                }
 
-                <ModalStyled
-                    isOpen={show}
-                    toggle={setShowModal}
-                    centered
-                    className='modal border-none'
-                >
-                    <ModalHeader toggle={setShowModal} className=''>
-                        Tạo bài viết mới
-                    </ModalHeader>
-                    <div className="d-flex flex-row">
-                        <ModalBody className="col-7 border-end text-center">
-                            Nhập ảnh từ thiết bị &nbsp;
-                            <input
-                                id="input-avatar"
-                                className="d-none"
-                                type="file"
-                                name='input'
-                                ref={inputRef}
-                                onChange={handleDisplayFileDetails}
-                            />
-                            <button
-                                onClick={handleUpload}
-                                className="btn btn-outline-primary py-1 px-2 my-2 shadow-none"
-                            >
-                                Tải lên
-                            </button>
-                            {
-                                preview &&
-                                <div className="my-1">
-                                    <ImgStyled className='img-thumbnail' src={preview} alt="temp" />
-
-                                </div>
-                            }
-                        </ModalBody>
-                        <ModalBody className="col-5">
-                            <div className="d-flex justify-content-between">
-                                <div className="d-flex align-items-center">
-                                    {
-                                        user.profilePicture === ''
-                                            ? <AvatarStyled src={avatar} alt="avatar" />
-                                            : <AvatarStyled src={user.profilePicture} alt="avatar" />
-                                    }
-
-                                    <div className='mx-3'>
-                                        <TitleStyled className='mb-0' tag="h6">
-                                            {user.name}
-                                        </TitleStyled>
-                                        <TitleStyled className="text-muted mb-0" >
-                                            {user.address}
-                                        </TitleStyled>
-                                    </div>
-                                </div>
-                                <ButtonPostStyled
-                                    className='text-primary px-1'
-                                    onClick={handleCreatePost}
-                                >
-                                    Chia sẻ
-                                </ButtonPostStyled>
-                            </div>
-                            <ContentArea
-                                className='d-block my-3'
-                                name='caption'
-                                value={postContent}
-                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setPostContent(e.target.value)}
-                                placeholder='Chú thích bài viết...'
-                                rows={10}
-                            />
-                            <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
-                                <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
-                            </ButtonSvg>
-                        </ModalBody>
-                    </div>
-                </ModalStyled>
             </NavigationStyled>
             {
                 showAlert && noti &&
@@ -287,77 +232,7 @@ const NavigationStyled = styled.div`
             object-fit: cover;
         }
 `
-const AvatarStyled = styled.img`
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid #e6e6e6;
-`
 
-const ButtonPostStyled = styled.button`
-    background-color: transparent;
-    border: none;
-    font-size: 14px;
-`
-
-const ButtonSvg = styled.svg`
-    cursor: pointer;
-`
-
-const ModalStyled = styled(Modal)`
-    width: 750px;
-    height: 600px;
-    max-width: none !important;   
-    .modal-body{
-        height: 535px;
-    }
-    .modal-dialog, .modal-content{
-        height: 600px;
-    }
-    .modal-content{
-        border-radius: 15px;
-        border: none;
-        .modal-header>.modal-title{
-            font-size: 16px;
-        }
-    }
-    .modal-backdrop.show{
-        opacity: 0.85;
-    }
-`
-
-const TextNavStyled = styled.span`
-    font-size: 14px;
-`
-
-const ImgStyled = styled.img`
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-`
-
-const ContentArea = styled.textarea`
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    padding: 5px 10px;
-    outline: none;
-    font-size: 14px;
-    width: 100%;
-`
-
-const TitleStyled = styled(CardTitle)`
-    font-size: 14px;
-    span{
-        font-size: 14px;
-    }
-    .text-muted{
-        cursor: pointer;
-    }
-    .span-time{
-        font-size: 10.5px !important;
-    }
-`
 
 const DropdownMenuStyled = styled(DropdownMenu)`
     border: none;
