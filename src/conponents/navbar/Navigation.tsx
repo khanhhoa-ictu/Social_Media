@@ -3,15 +3,14 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-import logo from '../../assets/image/logo.png'
 import { createPost } from '../../api/post.api'
+import { searchUser } from '../../api/user.api'
+import logo from '../../assets/image/logo.png'
 import { UserType } from '../../type/userType'
 import ToastAlert from '../alert/ToastAlert'
 import PostModal from '../post/modal/PostModal'
-
 import avatar from './../../assets/image/no-avatar.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { searchUser } from '../../api/user.api'
+
 interface Props {
     logout: () => void,
     user: UserType
