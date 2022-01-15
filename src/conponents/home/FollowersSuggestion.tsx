@@ -41,7 +41,7 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    suggestion?.map((item: any, key: number) => {
+                    suggestion?.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 {

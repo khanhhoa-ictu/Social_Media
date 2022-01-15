@@ -29,7 +29,8 @@ const user = (state: StateUserType = initial, action: Action) => {
     switch (action.type) {
         case 'SET_USER': {
             return {
-                state: action.payload,
+                ...state,
+                user: action.payload,
             }
         }
         default: {

@@ -14,8 +14,8 @@ export interface UserType {
 
 export interface UserSuggestion{
     _id:string,
-     name:string,
-      profilePicture :string,
+    name:string,
+    profilePicture :string,
 }
 export interface StateUserType {
     user: UserType

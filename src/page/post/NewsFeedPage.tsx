@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setComment } from '../../action/post.action'
 import { getCommentByIDPost, submitComment } from '../../api/comment.api'
 import { getPostTimeline } from '../../api/post.api'
 import NewsFeed from '../../conponents/home/NewFeed'
+import { RootState } from '../../reducer'
+import { CommentType } from '../../type/commentType'
+import { PostType } from '../../type/postType'
 import { UserType } from '../../type/userType'
 
 interface Props {
     user: UserType,
-    newsFeed:any,
+    newsFeed:PostType[],
 }
 
 function NewsFeedPage(props: Props) {
     const dispatch = useDispatch()
 
     const { user,newsFeed } = props
-    // const newsFeed = useSelector((state: any) => state.HomeReducer.post.listPost)
-    const comments = useSelector((state: any) => state.HomeReducer.post.comment)
-    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
+    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
 
     // useEffect(() => {
     //     getPostTimeline(user._id)
@@ -31,9 +32,9 @@ function NewsFeedPage(props: Props) {
 
     
     const CommentPost = (profilePicture: string, userId: string, name: string, comment: string, postID: string) => {
-        submitComment(profilePicture, userId, name, comment, postID).then((response: any) => {
+        submitComment(profilePicture, userId, name, comment, postID).then((response:  {msg : string}) => {
             if (response) {
-                getCommentByIDPost(postID).then((data: any) => {
+                getCommentByIDPost(postID).then((data: {data : CommentType[]}) => {
                     dispatch(setComment(data))
                 })
             }

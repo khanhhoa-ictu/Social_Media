@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent } from 'react'
-import { Button, Form, FormGroup, FormText, Input, Label, Nav } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, Nav } from 'reactstrap';
 import styled from 'styled-components';
 import lock from '../../assets/image/lock.png'
 import logo from '../../assets/image/logo.png'

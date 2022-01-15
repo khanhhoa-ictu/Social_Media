@@ -7,12 +7,13 @@ import { auth, loginSuccess, setUser } from '../../action/user.action';
 import { loginUser } from '../../api/user.api';
 
 import Login from '../../conponents/login/LoginComponents'
+import { RootState } from '../../reducer';
 
 function LoginPage() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin)
+    let isLogin = useSelector((state: RootState) => state.LoginReducer.login.isLogin)
 
     const [email, setEmail] = useState("");
     const [passWord, setPassWord] = useState("");

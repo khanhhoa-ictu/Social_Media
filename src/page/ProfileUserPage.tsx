@@ -6,6 +6,7 @@ import { getEmail } from '../config/locastorga.config';
 import Navigation from '../conponents/navbar/Navigation'
 import ContentProfile from '../conponents/profile-user/ContentProfile';
 import HeaderProfile from '../conponents/profile-user/HeaderProfile';
+import { RootState } from '../reducer';
 
 function ProfileUserPage() {
     let email = getEmail()?.email;
@@ -22,7 +23,7 @@ function ProfileUserPage() {
         dispatch(loginFail())
     }
     
-    let user = useSelector((state: any) => state.UserReducer.user.state)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
     console.log(user)
     return (
         <div>

@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import { setUser } from '../../action/user.action'
 import { getUser } from '../../api/user.api'
 import { getEmail } from '../../config/locastorga.config'
+import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 
 interface Props {
-    user: any,
+    user: UserType,
 }
 function HeaderProfile(props: Props) {
     const { user } = props

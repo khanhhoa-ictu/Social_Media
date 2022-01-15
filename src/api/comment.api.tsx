@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import { CommentType } from "../type/commentType";
 
-export function submitComment(profilePicture: string, userId: string, name: string, comment: string, id_post: string): Promise<any> {
+export function submitComment(profilePicture: string, userId: string, name: string, comment: string, id_post: string): Promise<{msg : string}> {
   return axios.post('http://localhost:8080/comment', {
     profilePicture: profilePicture,
     userId: userId,
@@ -9,11 +10,11 @@ export function submitComment(profilePicture: string, userId: string, name: stri
     comment: comment,
 
   })
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<{msg : string}>) => response.data)
 }
 
-export function getCommentByIDPost(id_post: string): Promise<any> {
+export function getCommentByIDPost(id_post: string): Promise<{data : CommentType[]}> {
   return axios.post("http://localhost:8080/comment/post", {
     id_post: id_post,
-  }).then((response: AxiosResponse<any>) => response.data)
+  }).then((response: AxiosResponse<{data : CommentType[]}>) => response.data)
 }

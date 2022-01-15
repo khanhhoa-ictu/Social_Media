@@ -4,7 +4,6 @@ import { UserType } from './../../type/userType';
 import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
 import { ChangeAvatar } from '../../api/user.api';
-import { useRouteMatch } from 'react-router-dom';
 
 interface Props {
     user: UserType
@@ -62,8 +61,6 @@ function AccountSettingDetail(props: Props) {
         validateForm()
     }, [name, email, phone, adress, gender])
 
-    const params = useRouteMatch();
-    console.log(params);
     return (
         <div className="p-4 font-14">
             <article>

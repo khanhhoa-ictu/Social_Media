@@ -276,7 +276,7 @@ const Post = (props: Props) => {
                         type="text"
                         className='shadow-none font-14'
                         placeholder="Thêm bình luận ..."
-                        onChange={(e: any) => setComment(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
                         className='text-primary px-1 font-14'

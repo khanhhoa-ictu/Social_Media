@@ -12,6 +12,7 @@ import ChangePassword from '../conponents/account-setting/ChangePassword'
 import Help from '../conponents/account-setting/Help'
 import ToastAlert from '../conponents/alert/ToastAlert'
 import Navigation from '../conponents/navbar/Navigation'
+import { RootState } from '../reducer'
 
 function AccountSettingPage() {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ function AccountSettingPage() {
     const [confirmPassword, setConfirmPassWord] = useState('')
     const [showAlert, setShowAlert] = useState(false);
 
-    let user = useSelector((state: any) => state.UserReducer.user.state)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
     const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
@@ -53,7 +54,6 @@ function AccountSettingPage() {
     }
 
     const submitButtonPassWord = () => {
-        console.log(oldPassword, newPassword, confirmPassword)
         if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
             setNotice('Không được để trống các trường')
         } else {
@@ -81,7 +81,6 @@ function AccountSettingPage() {
                 setTimeout(() => {
                     setShowAlert(false);
                 }, 1500)
-                console.log(notice)
             }
         }
 

@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useHistory } from 'react-router-dom'
 import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, ModalHeader, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
-import { createPost } from '../../api/post.api'
 import logo from '../../assets/image/logo.png'
+import { createPost } from '../../api/post.api'
 import { UserType } from '../../type/userType'
-import ToastAlert from '../alert/ToastAlert'
 import avatar from './../../assets/image/no-avatar.png'
+import { useDispatch, useSelector } from 'react-redux'
+import ToastAlert from '../alert/ToastAlert'
 interface Props {
     logout: () => void,
     user: UserType
@@ -15,8 +15,6 @@ interface Props {
 
 
 function Navigation(props: Props) {
-    // const dispatch = useDispatch()
-    // const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     let { logout, user } = props
     const history = useHistory()
@@ -24,7 +22,7 @@ function Navigation(props: Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<any>();
+    const [uploadFileName, setUploadFileName] = useState<Blob>();
     const [preview, setPreview] = useState('')
     const [showAlert, setShowAlert] = useState(false);
     const [noti, setNoti] = useState('');
@@ -140,11 +138,11 @@ function Navigation(props: Props) {
                                         }
                                     </NavLink>
                                 </NavItem>
-                                {/* <NavItem className='mx-2'>
+                                <NavItem className='mx-2'>
                                     <ButtonSvg aria-label="Thích" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                         <path d="M16.792 3.904A4.989 4.989 0 0121.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 014.708-5.218 4.21 4.21 0 013.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 013.679-1.938m0-2a6.04 6.04 0 00-4.797 2.127 6.052 6.052 0 00-4.787-2.127A6.985 6.985 0 00.5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 003.518 3.018 2 2 0 002.174 0 45.263 45.263 0 003.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 00-6.708-7.218z"></path>
                                     </ButtonSvg>
-                                </NavItem> */}
+                                </NavItem>
                                 <UncontrolledDropdown inNavbar nav >
                                     <DropdownToggle nav >
                                         <div className="avatar">
@@ -157,24 +155,24 @@ function Navigation(props: Props) {
                                         </div>
                                     </DropdownToggle>
                                     <DropdownMenuStyled end>
-                                        <NavLink to='/user' className="text-decoration-none text-dark d-flex align-items-center">
+                                        <NavLink to={`/${user._id}`} className="text-decoration-none text-dark d-flex align-items-center">
                                             <DropdownItem>
                                                 <svg aria-label="Trang cá nhân" className="_8-yf5" color="#262626" fill="#262626" height="16" role="img" viewBox="0 0 24 24" width="16"><circle cx="12.004" cy="12.004" fill="none" r="10.5" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></circle><path d="M18.793 20.014a6.08 6.08 0 00-1.778-2.447 3.991 3.991 0 00-2.386-.791H9.38a3.994 3.994 0 00-2.386.791 6.09 6.09 0 00-1.779 2.447" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></path><circle cx="12.006" cy="9.718" fill="none" r="4.109" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></circle></svg>
-                                                <span className='mx-2  font-14'>Trang cá nhân</span>
+                                                <TextNavStyled className='mx-2'>Trang cá nhân</TextNavStyled>
                                             </DropdownItem>
                                         </NavLink>
                                         <NavLink to='account/setting' className="text-decoration-none text-dark d-flex align-items-center">
                                             <DropdownItem>
                                                 <svg aria-label="Cài đặt" className="_8-yf5" color="#262626" fill="#262626" height="16" role="img" viewBox="0 0 24 24" width="16"><circle cx="12" cy="12" fill="none" r="8.635" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></circle><path d="M14.232 3.656a1.269 1.269 0 01-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 01-.796.66m-.001 16.688a1.269 1.269 0 01.796.66l.505.996h1.862l.505-.996a1.269 1.269 0 01.796-.66M3.656 9.768a1.269 1.269 0 01-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 01.66.796m16.688-.001a1.269 1.269 0 01.66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 01-.66-.796M7.678 4.522a1.269 1.269 0 01-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 01-.096 1.03m11.8 11.799a1.269 1.269 0 011.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 01.096-1.03m-14.956.001a1.269 1.269 0 01.096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 011.03.096m11.799-11.8a1.269 1.269 0 01-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 01-1.03-.096" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path></svg>
-                                                <span className='mx-2  font-14'>Cài đặt</span>
+                                                <TextNavStyled className='mx-2'>Cài đặt</TextNavStyled>
                                             </DropdownItem>
                                         </NavLink>
                                         <DropdownItem divider />
                                         <NavLink to='/login' className="text-decoration-none text-dark">
                                             <DropdownItem onClick={logout}>
-                                                <span className='mx-1  font-14'>
+                                                <TextNavStyled className='mx-1'>
                                                     Đăng xuất
-                                                </span>
+                                                </TextNavStyled>
                                             </DropdownItem>
                                         </NavLink>
                                     </DropdownMenuStyled>
@@ -207,7 +205,7 @@ function Navigation(props: Props) {
                             />
                             <button
                                 onClick={handleUpload}
-                                className="btn btn-outline-primary py-1 px-2 my-2 shadow-none font-14"
+                                className="btn btn-outline-primary py-1 px-2 my-2 shadow-none"
                             >
                                 Tải lên
                             </button>
@@ -229,23 +227,23 @@ function Navigation(props: Props) {
                                     }
 
                                     <div className='mx-3'>
-                                        <TitleStyled className='mb-0 font-14' tag="h6">
+                                        <TitleStyled className='mb-0' tag="h6">
                                             {user.name}
                                         </TitleStyled>
-                                        <TitleStyled className="text-muted mb-0 font-14" >
+                                        <TitleStyled className="text-muted mb-0" >
                                             {user.address}
                                         </TitleStyled>
                                     </div>
                                 </div>
                                 <ButtonPostStyled
-                                    className='text-primary px-1 font-14'
+                                    className='text-primary px-1'
                                     onClick={handleCreatePost}
                                 >
                                     Chia sẻ
                                 </ButtonPostStyled>
                             </div>
                             <ContentArea
-                                className='d-block my-3 font-14'
+                                className='d-block my-3'
                                 name='caption'
                                 value={postContent}
                                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setPostContent(e.target.value)}
@@ -299,6 +297,7 @@ const AvatarStyled = styled.img`
 const ButtonPostStyled = styled.button`
     background-color: transparent;
     border: none;
+    font-size: 14px;
 `
 
 const ButtonSvg = styled.svg`
@@ -327,6 +326,10 @@ const ModalStyled = styled(Modal)`
     }
 `
 
+const TextNavStyled = styled.span`
+    font-size: 14px;
+`
+
 const ImgStyled = styled.img`
     width: 400px;
     height: 400px;
@@ -338,10 +341,15 @@ const ContentArea = styled.textarea`
     border-radius: 4px;
     padding: 5px 10px;
     outline: none;
+    font-size: 14px;
     width: 100%;
 `
 
 const TitleStyled = styled(CardTitle)`
+    font-size: 14px;
+    span{
+        font-size: 14px;
+    }
     .text-muted{
         cursor: pointer;
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, Input } from 'reactstrap';
 import styled from 'styled-components';
@@ -46,7 +46,6 @@ const PostNoSetting = (props: Props) => {
             dataComment.push(mycomment)
             CommentPost(user.profilePicture, user._id, user.name, comment, post._id)
             setComment('')
-            console.log(dataComment);
             setCommentByPost(dataComment)
         }
 
@@ -155,7 +154,7 @@ const PostNoSetting = (props: Props) => {
                         className="font-14"
                         type="text"
                         placeholder="Thêm bình luận ..."
-                        onChange={(e: any) => setComment(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
                         className='text-primary px-1'
