@@ -13,7 +13,6 @@ interface Props {
 
 const NewFeed = (props: Props) => {
     const { newsFeed, user, CommentPost } = props
-    console.log(newsFeed);
     return (
         <div>
             {newsFeed !== undefined

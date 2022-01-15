@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import { setComment } from '../../action/post.action';
 import { getCommentByIDPost, submitComment } from '../../api/comment.api';
 import { getPostDetail, handleLike } from '../../api/post.api';
-import PostDetail from '../../conponents/post/PostDetail';
+import PostDetail from '../../conponents/post/PostDetail'
+import { RootState } from '../../reducer';
+import { CommentType } from '../../type/commentType';
 import { PostDetailType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 
@@ -39,13 +41,13 @@ function PostDetailPage(props:Props) {
             setLiked(postDetail?.post.likes.includes(user._id))
         }
     }
-    const CommentPost = (profilePicture: string, userId: string, name: string, comment: string, postID: string) => {
-        submitComment(profilePicture, userId, name, comment, postID).then((response: any) => {
-            if (response) {
-                getCommentByIDPost(postID).then((data: any) => {
-                    dispatch(setComment(data))
-                })
-            }
+    const CommentPost = (profilePicture:string,userId:string,name: string, comment: string, postID:string)=>{
+        submitComment(profilePicture,userId,name,comment,postID).then((response: {msg : string})=>{
+           if(response){
+            getCommentByIDPost(postID).then((data:{data : CommentType[]})=>{
+                dispatch(setComment(data))
+            })
+           }
         })
 
     }

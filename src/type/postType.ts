@@ -24,6 +24,5 @@ export interface UserPostType {
     id:string,
 }
 export interface StatePostType {
-    listPost: PostType[],
-    isLoading: boolean
+    listPost : PostType[]
 }

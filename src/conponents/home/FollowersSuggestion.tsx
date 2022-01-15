@@ -12,8 +12,8 @@ const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
     console.log('flowing',following);
     const [suggestion, setSuggestion] = useState(following)
-    const handleFollowing = (id:string,user: string, userFollow: string) =>{
-        const index:number = suggestion.findIndex((item:UserSuggestion) => item._id === id) 
+    const handleFollowing = (id: string, user: string, userFollow: string) => {
+        const index: number = suggestion.findIndex((item: UserSuggestion) => item._id === id)
         const newData = [...suggestion];
         newData.splice(index, 1);
         setSuggestion(newData);
@@ -30,18 +30,18 @@ const FollowersSuggestion = (props: Props) => {
                     }
 
                     <div className="px-3">
-                        <NameText className="h6 mb-0">{user.name}</NameText>
+                        <NameText className="h6 mb-0 font-14">{user.name}</NameText>
                     </div>
                 </div>
-                <ButtonStyled className='text-primary col-3'>Chuyển</ButtonStyled>
+                <ButtonStyled className='text-primary font-14 col-3'>Chuyển</ButtonStyled>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-                <p className="h6 text-muted mt-1">Gợi ý cho bạn</p>
+                <p className="h6 text-muted font-14 mt-1">Gợi ý cho bạn</p>
                 <ButtonStyled className="text-dark h6">Xem tất cả</ButtonStyled>
             </div>
             <div>
                 {
-                    suggestion?.map((item: any, key: number) => {
+                    suggestion?.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 {
@@ -53,7 +53,7 @@ const FollowersSuggestion = (props: Props) => {
                                     <p className="h6 mb-0">{item.name}</p>
                                 </div>
                             </div>
-                            <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id,user.name, item.name)}>Theo dõi</ButtonStyled>
+                            <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id, user.name, item.name)}>Theo dõi</ButtonStyled>
                         </div>
                     })
                 }
@@ -68,9 +68,6 @@ const FollowersSuggestion = (props: Props) => {
 const RightSide = styled.div`
     position: fixed;
     width: 293px !important;
-    p, .text-primary{
-        font-size: 14px;
-    }
 `
 
 const CopyrightStyled = styled.p`

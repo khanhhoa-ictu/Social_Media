@@ -19,10 +19,10 @@ function Comment(props: CommentProps) {
                 }
 
                 <div className='mx-3 d-flex align-items-center'>
-                    <TitleStyled className='mb-0' tag="h6">
+                    <TitleStyled className='font-14 mb-0 h6'>
                         {name}
                     </TitleStyled>
-                    <TitleStyled className="text-muted mx-2 pt-1" >
+                    <TitleStyled className="font-14 text-muted mx-2 my-1" >
                         {comment}
                     </TitleStyled>
                 </div>
@@ -39,10 +39,6 @@ const AvatarStyled = styled.img`
     border: 1px solid #e6e6e6;
 `
 const TitleStyled = styled(CardTitle)`
-    font-size: 14px;
-    span{
-        font-size: 14px;
-    }
     .text-muted{
         cursor: pointer;
     }

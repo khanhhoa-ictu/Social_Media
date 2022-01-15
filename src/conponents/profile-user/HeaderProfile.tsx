@@ -18,12 +18,12 @@ function HeaderProfile(props:Props) {
     const {user,post} = props
     console.log('user ne',user);
     return (
-        <DivHeader className='d-flex'>
+        <DivHeader className='d-flex justify-content-around'>
 
-            <div className='col-4 '>
-                {user.coverPicture === ''
+            <div className='col-4 profile-picture'>
+                {user.profilePicture === ''
                     ? <img className='img__header-profile' src={avatar} alt='avatar' />
-                    : <img src={user.coverPicture} alt='avatar' />
+                    : <img className='img__header-profile' src={user.profilePicture} alt='avatar' />
                 }
 
             </div>
@@ -49,7 +49,15 @@ const DivHeader = styled.div`
     .img__header-profile{
         width:130px;
         height:130px;
-        margin-left: 45px;
+        border-radius: 50%;
+    }
+    .profile-picture{
+        width:130px;
+        height:130px;
+
+        img{
+            width:100%;
+        }
     }
     .name__profile{
         h1{
@@ -62,7 +70,6 @@ const DivHeader = styled.div`
             border: 1px solid rgba(var(--ca6,219,219,219),1);
             color: rgba(var(--f75,38,38,38),1);
             border-radius: 4px;
-            font-size: 14px;
             font-weight: 600;
             padding: 5px 9px;
             text-align: center;

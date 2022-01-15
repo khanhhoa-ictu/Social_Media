@@ -21,7 +21,7 @@ function CheckOTP(props: Props) {
 
     return (
         <StyledDiv className='d-flex justify-content-center'>
-            <DivFullHeight className='d-flex flex-column'>
+            <DivFullHeight className='d-flex flex-column font-14'>
                 <div className="bg-white border-bottom">
                     <Nav className="container py-2">
                         <img src={logo} alt="logo" height='42px;' />
@@ -45,21 +45,21 @@ function CheckOTP(props: Props) {
                                 <InputStyled
                                     type='text'
                                     value={code}
-                                    className='shadow-none bg-light'
+                                    className='shadow-none bg-light font-14'
                                     placeholder='Nhập mã OTP'
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setCode(e.target.value)} />
                                 <p className='text-danger'>{notificationCode}</p>
                             </FormGroup>
                             <hr />
                             <FormGroup>
-                                <ButtonStyled
+                                <Button
                                     type="submit"
-                                    className='w-100'
+                                    className='w-100 font-14'
                                     color="primary"
                                     disabled={code.length === 6 ? false : true}
                                 >
                                     Gửi mã
-                                </ButtonStyled>
+                                </Button>
                             </FormGroup>
                         </Form>
                     </div>
@@ -80,14 +80,9 @@ const Footer = styled.p`
     margin-top: -7px;
 `
 
-const ButtonStyled = styled(Button)`
-    font-size: 14px;
-`
-
 const DivFullHeight = styled.div`
     background-color : #f0f2f5;
     width: inherit;
-    font-size: 14px;
 `
 
 const ImgStyled = styled.div`
@@ -102,7 +97,6 @@ const ImgStyled = styled.div`
 const InputStyled = styled(Input)`
     background-color: #fafafa;
     padding: 7px 10px;
-    font-size: 14px;
     &:focus{
         background-color: #fafafa;
     }

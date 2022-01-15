@@ -5,13 +5,14 @@ import { FollowingsType } from "../../type/folloingType";
 import Navigation from '../navbar/Navigation'
 import FollowersSuggestion from './FollowersSuggestion'
 import NewsFeedPage from '../../page/post/NewsFeedPage'
+import { PostType } from '../../type/postType';
 
 interface Props {
     logout: () => void,
     user: UserType,
     following: FollowingsType[],
     handleFollow: (currentUser: string, userFollow: string) => void,
-    newsFeed: any
+    newsFeed: PostType[],
 }
 
 function Home(props: Props) {

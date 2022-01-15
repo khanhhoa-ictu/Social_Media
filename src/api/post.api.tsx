@@ -1,21 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import { post } from '../mockData/post'
 import { PostDetailType } from "../type/postType";
 
 const url = `http://localhost:8080`;
 
-// export function getPost(): Promise<any> {
-//   return new Promise((resolve) => {
-//     resolve(post);
-//   })
-// }
-
-export const createPost = (userId: string, desc: string, file: any) => {
+export const createPost = (userId: string, desc: string, file: string | Blob) => {
   let data = new FormData()
   data.append('userId', userId)
   data.append('desc', desc)
   data.append('file', file)
-  return axios.post(url + '/post/create',data).then((response: AxiosResponse) => response.data)
+  return axios.post(url + '/post/create', data).then((response: AxiosResponse) => response.data)
 }
 
 export const getListTimeline = () => {
@@ -23,9 +16,9 @@ export const getListTimeline = () => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const updatePost = (userId : string ,postId: string, postContent: string, imgUrl: string) => {
+export const updatePost = (userId: string, postId: string, postContent: string, imgUrl: string) => {
   return axios.post(url + '/post/update', {
-    userId : userId,
+    userId: userId,
     idPost: postId,
     desc: postContent,
     img: imgUrl
@@ -48,12 +41,12 @@ export const handleLike = (userId: string, idPost: string) => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const getPostTimeline = (id : string,page: number) => {
+export const getPostTimeline = (id: string, page: number) => {
   return axios.get(url + `/newsFeed/${id}/${page}/10`)
     .then((response: AxiosResponse) => response.data)
 }
 
-export const getPostDetail = (id : string): Promise<PostDetailType> => {
+export const getPostDetail = (id: string): Promise<PostDetailType> => {
   return axios.get(url + `/post/${id}`)
     .then((response: AxiosResponse<PostDetailType>) => response.data)
 }

@@ -7,7 +7,6 @@ import { createPost } from '../../api/post.api'
 import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { setIsLoading } from '../../action/post.action'
 import ToastAlert from '../alert/ToastAlert'
 import {to_slug} from './slug'
 interface Props {
@@ -17,8 +16,6 @@ interface Props {
 
 
 function Navigation(props: Props) {
-    const dispatch = useDispatch()
-    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
 
     let { logout, user } = props
     const history = useHistory()
@@ -26,7 +23,7 @@ function Navigation(props: Props) {
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<any>();
+    const [uploadFileName, setUploadFileName] = useState<Blob>();
     const [preview, setPreview] = useState('')
     const [showAlert, setShowAlert] = useState(false);
     const [noti, setNoti] = useState('');

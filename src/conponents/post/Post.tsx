@@ -7,6 +7,7 @@ import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 import avatar from './../../assets/image/no-avatar.png'
 import { NavLink, Route } from 'react-router-dom';
+import DeleteAlert from '../alert/DeleteAlert';
 
 interface Props {
     liked: boolean,
@@ -56,6 +57,8 @@ const Post = (props: Props) => {
     }
     const [comment, setComment] = useState('')
     const [commentByPost, setCommentByPost] = useState(post.comments)
+    const [showDelete, setShowDelete] = useState(false);
+
     const submitCommentPost = () => {
         if (comment !== '') {
             let test = [...commentByPost]
@@ -113,16 +116,24 @@ const Post = (props: Props) => {
                             <DropdownMenuStyled end>
                                 <DropdownItem onClick={setShowModal}>
                                     <div className="text-decoration-none text-dark d-flex align-items-center">
-                                        <TextNavStyled className='mx-2'>Chỉnh sửa bài viết</TextNavStyled>
+                                        <p className='mx-2 font-14'>Chỉnh sửa bài viết</p>
                                     </div>
                                 </DropdownItem>
-                                <DropdownItem onClick={handleDeletePost}>
+                                <DropdownItem onClick={() => setShowDelete(true)}>
                                     <div className="text-decoration-none text-dark d-flex align-items-center">
-                                        <TextNavStyled className='mx-2'>Xoá bài viết</TextNavStyled>
+                                        <p className='mx-2 font-14'>Xoá bài viết</p>
                                     </div>
                                 </DropdownItem>
                             </DropdownMenuStyled>
                         </UncontrolledDropdown>
+                        {
+                            showDelete &&
+                            <DeleteAlert
+                                showDelete={showDelete}
+                                setShowDelete={setShowDelete}
+                                handleDeletePost={handleDeletePost}
+                            />
+                        }
                         <ModalStyled
                             isOpen={show}
                             toggle={setShowModal}
@@ -180,7 +191,7 @@ const Post = (props: Props) => {
                                         </ButtonPostStyled>
                                     </div>
                                     <ContentArea
-                                        className='d-block my-3'
+                                        className='d-block my-3 font-14'
                                         name='caption'
                                         value={postContent}
                                         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setPostContent(e.target.value)}
@@ -235,20 +246,20 @@ const Post = (props: Props) => {
                         </ButtonSvg>
                     </span>
                     <span className="d-block">
-                        <span className="h6">{likePost} người thích</span>
+                        <span className="h6 font-14">{likePost} người thích</span>
                     </span>
                     <div className="comment mb-2">
-                        <span className="h6 ">{userPost?.name} </span> {post.desc}
+                        <span className="h6 font-14">{userPost?.name} </span> {post.desc}
                     </div>
                     {
                         sumComment <= 0
                             ? null
-                            : <span className="d-block text-muted" onClick={handleSumComment}>Xem tất cả {sumComment} bình luận</span>
+                            : <span className="d-block text-muted font-14" onClick={handleSumComment}>Xem tất cả {sumComment} bình luận</span>
                     }
                     {
                         commentByPost.slice(0, visible).map((comment, key) => {
-                            return <div className="comment mb-1" key={key}>
-                                <span className="h6">{comment.name} </span> {comment.comment}
+                            return <div className="comment mb-1 font-14" key={key}>
+                                <span className="h6 font-14">{comment.name} </span> {comment.comment}
                             </div>
                         })
                     }
@@ -263,12 +274,12 @@ const Post = (props: Props) => {
                     <CommentInput
                         value={comment}
                         type="text"
-                        className='shadow-none'
+                        className='shadow-none font-14'
                         placeholder="Thêm bình luận ..."
-                        onChange={(e: any) => setComment(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
-                        className='text-primary px-1'
+                        className='text-primary px-1 font-14'
                         onClick={submitCommentPost}
                     >
                         Đăng
@@ -304,10 +315,6 @@ const ImagePost = styled.div`
     overflow: hidden;
 `
 const TitleStyled = styled(CardTitle)`
-    font-size: 14px;
-    span{
-        font-size: 14px;
-    }
     .text-muted{
         cursor: pointer;
     }
@@ -326,7 +333,6 @@ const ContentArea = styled.textarea`
     border-radius: 4px;
     padding: 5px 10px;
     outline: none;
-    font-size: 14px;
     width: 100%;
 `
 const ModalStyled = styled(Modal)`
@@ -362,10 +368,6 @@ const DropdownMenuStyled = styled(DropdownMenu)`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 `
 
-const TextNavStyled = styled.span`
-    font-size: 14px;
-`
-
 const ButtonSvg = styled.svg`
     cursor: pointer;
 `
@@ -378,7 +380,6 @@ const ButtonPostStyled = styled.button`
 const CommentInput = styled(Input)`
     border: none;
     outline: none;
-    font-size: 14px;
 `
 
 export default Post

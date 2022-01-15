@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { auth, loginFail, setUser } from './../action/user.action'
 import Navigation from './../conponents/navbar/Navigation'
@@ -9,13 +8,14 @@ import DirectMessage from './../conponents/inbox/DirectMessage'
 import RecentMessages from './../conponents/inbox/RecentMessages'
 import { getEmail } from '../config/locastorga.config'
 import { getUser } from '../api/user.api'
+import { RootState } from '../reducer'
 
 const InboxPage = () => {
 
     const dispatch = useDispatch()
     const [showInbox, setShowInbox] = useState(false);
 
-    let user = useSelector((state: any) => state.UserReducer.user.state)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
 
     const logout = () => {
         localStorage.removeItem("user");
