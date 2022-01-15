@@ -10,7 +10,7 @@ interface Props {
     user: UserType
     email: string,
     submitButton: (name: string, address: string, phone: string, gender: string, desc: string) => void,
-    handleDelete:()=>void
+    handleDelete: () => void
 }
 
 
@@ -254,17 +254,16 @@ function AccountSettingDetail(props: Props) {
                             >
                                 Gửi
                             </Button>
-                           
-                        </Col>
-                         
-                    </FormGroup>
-                  
-                </Form>
-                <DeleteStyle 
-                            onClick={handleDelete}
-                            style={{ border: '0', backgroundColor: "white", color: "#0095f6", marginLeft: "40px", fontSize: "14px", fontWeight: "600px" }}>
+                            <DeleteStyle
+                                onClick={handleDelete}>
                                 Tạm thời vô hiệu hóa tài khoản
                             </DeleteStyle>
+
+                        </Col>
+
+                    </FormGroup>
+
+                </Form>
             </article>
         </div>
     )
@@ -275,10 +274,6 @@ background-color: white;
 color: rgb(0, 149, 246);
 margin-left: 40px;
 font-size: 14px;
-position: absolute;
-bottom: -15px;
-z-index: 1;
-right: 230px;
 `
 const AvatarStyle = styled.div`
     width:40px;
