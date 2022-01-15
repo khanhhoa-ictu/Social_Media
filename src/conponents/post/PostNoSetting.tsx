@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Card, CardBody, CardImg, CardTitle, Input } from 'reactstrap'
-import styled from 'styled-components'
+import React, { ChangeEvent, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Card, CardBody, CardImg, CardTitle, Input } from 'reactstrap';
+import styled from 'styled-components';
+import { format } from 'timeago.js';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
-import { format } from 'timeago.js'
-import avatar from './../../assets/image/no-avatar.png'
-import { NavLink } from 'react-router-dom';
+import avatar from './../../assets/image/no-avatar.png';
 interface Props {
     liked: boolean,
     postContent: string,
@@ -14,7 +14,7 @@ interface Props {
     post: PostType,
     user: UserType,
     userPost: UserType | undefined,
-    CommentPost: (profilePicture:string,userId: string, name: string, comment: string, postID: string) => void,
+    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void,
 }
 
 const PostNoSetting = (props: Props) => {
@@ -44,7 +44,7 @@ const PostNoSetting = (props: Props) => {
                 comment: comment,
             }
             dataComment.push(mycomment)
-            CommentPost(user.profilePicture,user._id, user.name, comment, post._id)
+            CommentPost(user.profilePicture, user._id, user.name, comment, post._id)
             setComment('')
             setCommentByPost(dataComment)
         }
@@ -73,10 +73,10 @@ const PostNoSetting = (props: Props) => {
 
                             }
                             <div className='mx-3'>
-                                <TitleStyled className='mb-0' tag="h6">
+                                <TitleStyled className='font-14 mb-0' tag="h6">
                                     {userPost?.name}
                                 </TitleStyled>
-                                <TitleStyled className="text-muted mb-0" >
+                                <TitleStyled className="font-14 text-muted mb-0" >
                                     {userPost?.address}
                                 </TitleStyled>
                             </div>
@@ -112,7 +112,7 @@ const PostNoSetting = (props: Props) => {
                                     <path d="M20.656 17.008a9.993 9.993 0 10-3.59 3.615L22 22z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
                                 </ButtonSvg>
                             </NavLink>
-                            
+
                             <ButtonSvg aria-label="Chia sẻ bài viết" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <line fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
                                 <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></polygon>
@@ -149,8 +149,19 @@ const PostNoSetting = (props: Props) => {
                     <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                         <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
                     </ButtonSvg>
-                    <CommentInput value={comment} type="text" placeholder="Thêm bình luận ..." onChange={(e:  ChangeEvent<HTMLInputElement>) => setComment(e.target.value)} />
-                    <ButtonPostStyled className='text-primary px-1' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
+                    <CommentInput
+                        value={comment}
+                        className="font-14"
+                        type="text"
+                        placeholder="Thêm bình luận ..."
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
+                    />
+                    <ButtonPostStyled
+                        className='text-primary px-1'
+                        onClick={submitCommentPost}
+                    >
+                        Đăng
+                    </ButtonPostStyled>
                 </span>
             </TitleStyled>
         </Card>
@@ -169,10 +180,6 @@ const ImagePost = styled.div`
     overflow: hidden;
 `
 const TitleStyled = styled(CardTitle)`
-    font-size: 14px;
-    span{
-        font-size: 14px;
-    }
     .text-muted{
         cursor: pointer;
     }
@@ -180,7 +187,6 @@ const TitleStyled = styled(CardTitle)`
         font-size: 10.5px !important;
     }
 `
-
 const ButtonSvg = styled.svg`
     cursor: pointer;
 `
@@ -193,7 +199,6 @@ const ButtonPostStyled = styled.button`
 const CommentInput = styled(Input)`
     border: none;
     outline: none;
-    font-size: 14px;
 `
 
 export default PostNoSetting

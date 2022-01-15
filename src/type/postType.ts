@@ -4,7 +4,7 @@ export interface PostType {
     comments: CommentType[],
     createdAt: string,
     desc: string,
-    name:string,
+    name: string,
     img: string,
     likes: string[],
     updatedAt: string,
@@ -13,14 +13,14 @@ export interface PostType {
     _id: string
 }
 
-export interface PostDetailType{
+export interface PostDetailType {
     userPost: UserPostType,
     post: PostType,
 }
-export interface UserPostType{
-    name:string,
+export interface UserPostType {
+    name: string,
     address: string,
-    profilePicture:string,
+    profilePicture: string,
 }
 export interface StatePostType {
     listPost : PostType[]

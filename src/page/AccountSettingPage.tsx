@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import AccountSettingDetail from '../conponents/account-setting/AccountSettingDe
 import AccountSettingNavigation from '../conponents/account-setting/AccountSettingNavigation'
 import ChangePassword from '../conponents/account-setting/ChangePassword'
 import Help from '../conponents/account-setting/Help'
-import ToastAlert from '../conponents/account-setting/ToastAlert'
+import ToastAlert from '../conponents/alert/ToastAlert'
 import Navigation from '../conponents/navbar/Navigation'
 import { RootState } from '../reducer'
 
@@ -37,14 +37,14 @@ function AccountSettingPage() {
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false);
-                }, 2000)
+                }, 1500)
             })
             .catch((err) => {
                 setNoti('Đã sãy ra lỗi vui lòng thử lại')
                 setShowAlert(true)
                 setTimeout(() => {
                     setShowAlert(false);
-                }, 2000)
+                }, 1500)
             })
     }
 
@@ -66,13 +66,13 @@ function AccountSettingPage() {
                         setShowAlert(true)
                         setTimeout(() => {
                             setShowAlert(false);
-                        }, 2000)
+                        }, 1500)
                     }).catch((error) => {
                         setNotice('Mật khẩu không chính xác')
                         setShowAlert(true)
                         setTimeout(() => {
                             setShowAlert(false);
-                        }, 2000)
+                        }, 1500)
                     })
             } else {
                 setNoti('')
@@ -80,7 +80,7 @@ function AccountSettingPage() {
                 setShowAlert(true);
                 setTimeout(() => {
                     setShowAlert(false);
-                }, 2000)
+                }, 1500)
             }
         }
 
@@ -94,8 +94,8 @@ function AccountSettingPage() {
     useEffect(() => {
         const Authentication = async () => {
             let res = await dispatch(auth());
-            if(!res){
-              history.push('/login');
+            if (!res) {
+                history.push('/login');
             }
         }
         Authentication()
@@ -107,7 +107,7 @@ function AccountSettingPage() {
             <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
                 {user
                     ? <div>
-                        <DivStyle className='container d-flex border rounded'>
+                        <DivStyle className='container px-0 d-flex border rounded'>
                             <div className='col-3 border-end'>
                                 <AccountSettingNavigation />
                             </div>
@@ -135,19 +135,20 @@ function AccountSettingPage() {
                         </DivStyle>
                     </div>
                     : null}
-                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti} notice={notice} />
+                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
             </DivFullHeight>
         </>
     )
 }
 
 const DivStyle = styled.div`
-    margin-top:85px;
+    margin-top: 24px;
     height: 75vh;
+    position: relative;
 `
 
 const DivFullHeight = styled.div`
-    height: 100vh;
+    height: 100%;
 `
 
 export default AccountSettingPage

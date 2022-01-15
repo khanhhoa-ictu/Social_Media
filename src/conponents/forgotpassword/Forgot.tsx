@@ -23,11 +23,11 @@ function Forgot(props: Props) {
     return (
         <DivFullHeight>
             <div className="bg-white border-bottom">
-                <Nav className="container py-2">
+                <Nav className="container d-flex justify-content-center py-2">
                     <img src={logo} alt="logo" height='42px;' />
                 </Nav>
             </div>
-            <StyledDiv className='container d-flex justify-content-center align-items-center'>
+            <StyledDiv className='container d-flex justify-content-center align-items-center font-14'>
                 <div className='bg-white col-lg-11 border rounded text-center'>
                     <ImgStyled className='my-4'>
                         <img src={lock} width='70' alt="lock" />
@@ -45,21 +45,21 @@ function Forgot(props: Props) {
                                 type='email'
                                 value={email}
                                 placeholder='Email'
-                                className='shadow-none'
+                                className='shadow-none font-14'
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                             <p className='text-danger'>{notificationEmail}</p>
                         </FormGroup>
-                        <ButtonStyled
+                        <Button
                             type="submit"
                             color="primary"
-                            className="w-100 mb-5"
+                            className="w-100 mb-5 font-14"
                             disabled={email ? false : true}
                         >
                             Gửi mã xác nhận
-                        </ButtonStyled>
+                        </Button>
                     </Form>
                     <div className='bg-light py-3 cursor-pointer text-secondary border-none' onClick={loginButton}>
-                        Quay lại đăng nhập
+                        Quay lại trang trước
                     </div>
 
                 </div>
@@ -71,17 +71,12 @@ function Forgot(props: Props) {
 
 const StyledDiv = styled.div`
     padding : 5rem 15rem;
-    font-size: 14px;
     height: 90vh;
 `
 
 const Footer = styled.p`
     font-size: 12px;
     margin-top: -7px;
-`
-
-const ButtonStyled = styled(Button)`
-    font-size: 14px;
 `
 
 const DivFullHeight = styled.div`
@@ -101,7 +96,6 @@ const ImgStyled = styled.div`
 const InputStyled = styled(Input)`
     background-color: #fafafa;
     padding: 7px 10px;
-    font-size: 14px;
     &:focus{
         background-color: #fafafa;
     }

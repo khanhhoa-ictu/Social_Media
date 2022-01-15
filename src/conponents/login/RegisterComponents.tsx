@@ -39,7 +39,7 @@ const RegisterComponents = (props: Props) => {
 
 
     return (
-        <StyledDiv className="py-5">
+        <StyledDiv className="py-5 font-14">
             <CenterDiv className="pt-5">
                 <div className="container d-flex align-items-end justify-content-between flex-column">
                     <div className="border rounded mx-auto col-5 bg-white px-4">
@@ -57,48 +57,48 @@ const RegisterComponents = (props: Props) => {
                                 <InputStyled
                                     type='email'
                                     placeholder='Email'
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     value={email}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                                 <p className='text-danger'>{notificationEmail}</p>
                                 <InputStyled
                                     type='text'
                                     placeholder='Tên người dùng'
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     value={userName}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} />
                                 <p className='text-danger'>{notificationUserName}</p>
                                 <InputStyled
                                     type='password'
                                     placeholder='Nhập mật khẩu'
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     value={passWord}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassWord(e.target.value)} />
                                 <p className='text-danger'>{notificationPassWord}</p>
                                 <InputStyled
                                     type='password'
                                     placeholder='Nhập lại mật khẩu'
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     value={passWordConfirm}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassWordConfirm(e.target.value)} />
                                 <p className='text-danger'>{notificationPassWordConfirm}</p>
                                 {email && userName && passWord && passWordConfirm ?
-                                    <ButtonStyled
+                                    <Button
                                         type="submit"
-                                        className='w-100'
+                                        className='w-100 font-14'
                                         outline color='primary'
                                     >
                                         Đăng ký
-                                    </ButtonStyled>
+                                    </Button>
                                     :
-                                    <ButtonStyled
+                                    <Button
                                         type="submit"
-                                        className='w-100'
+                                        className='w-100 font-14'
                                         outline color='secondary'
                                         disabled={true}
                                     >
                                         Đăng ký
-                                    </ButtonStyled>
+                                    </Button>
                                 }
                                 <PolicyText className="text-muted text-center mx-auto mt-3 px-3">
                                     Bằng cách đăng ký, bạn đồng ý với Điều khoản, Chính sách dữ liệu và Chính sách cookie của chúng tôi.
@@ -121,13 +121,11 @@ const RegisterComponents = (props: Props) => {
 const StyledDiv = styled.div`
     height : 100vh;
     background-color: #fafafa;
-    font-size: 14px;
 `
 const InputStyled = styled(Input)`
     background-color: #fafafa;
     padding: 7px 10px;
     margin-bottom: 0;
-    font-size: 14px;
     &:focus{
         background-color: #fafafa;
     }
@@ -144,10 +142,6 @@ const CenterDiv = styled.div`
 const Footer = styled.p`
     font-size: 12px;
     margin-top: 6px;
-`
-
-const ButtonStyled = styled(Button)`
-    font-size: 14px;
 `
 
 

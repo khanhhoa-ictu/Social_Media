@@ -62,10 +62,10 @@ function AccountSettingDetail(props: Props) {
     }, [name, email, phone, adress, gender])
 
     return (
-        <DivStyled className="p-4">
+        <div className="p-4 font-14">
             <article>
                 <div className='wapper__change-avatar d-flex mb-5'>
-                    <AvatarStyle>
+                    <AvatarStyle className="font-14">
                         {user.profilePicture === ''
                             ? <img src={avatar} alt='avatar' />
                             : <img src={user.profilePicture} alt='avatar' />
@@ -73,7 +73,7 @@ function AccountSettingDetail(props: Props) {
 
                     </AvatarStyle>
                     <div className='text__change-name d-flex flex-column ms-4'>
-                        <p className='h6 mb-0'>{user.name}</p>
+                        <p className='h6 mb-0 font-14'>{user.name}</p>
                         <div >
                             <button
                                 onClick={handleUpload}
@@ -96,10 +96,11 @@ function AccountSettingDetail(props: Props) {
                         </Label>
 
                         <Col sm={9}>
-                            <InputStyled
-                                className='col-9 shadow-none'
+                            <Input
+                                className='col-9 shadow-none font-14'
                                 placeholder="Tên"
                                 type="text"
+                                name='exampleName'
                                 value={name}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                     setName(e.target.value)
@@ -120,13 +121,13 @@ function AccountSettingDetail(props: Props) {
                             Email
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
+                            <Input
                                 disabled
                                 id="exampleEmail"
                                 name="email"
                                 placeholder="email"
                                 type="email"
-                                className='shadow-none'
+                                className='shadow-none font-14'
                                 value={user.email}
                             />
                         </Col>
@@ -139,13 +140,12 @@ function AccountSettingDetail(props: Props) {
                             Tiểu sử
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
-                                id="exampleText"
-                                name="text"
-                                type="textarea"
+                            <TextAreaStyled
+                                id="exampleDesc"
+                                name="desc"
                                 value={desc}
-                                className='shadow-none'
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setDesc(e.target.value) }}
+                                className='shadow-none form-control font-14'
+                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setDesc(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -158,13 +158,13 @@ function AccountSettingDetail(props: Props) {
                             Số điện thoại
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
+                            <Input
                                 id="examplePhone"
                                 name="phone"
                                 placeholder="phone"
                                 type="text"
                                 value={phone}
-                                className='shadow-none'
+                                className='shadow-none font-14'
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => { setPhone(e.target.value) }}
                             />
                         </Col>
@@ -172,19 +172,18 @@ function AccountSettingDetail(props: Props) {
 
                     <FormGroup row>
                         <Label
-                            for="exampleText"
+                            for="exampleAdd"
                             sm={3}
                         >
                             Địa chỉ
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
-                                className='shadow-none'
-                                id="exampleText"
-                                name="text"
-                                type="textarea"
+                            <TextAreaStyled
+                                className='shadow-none form-control font-14'
+                                id="exampleAdd"
+                                name="exampleAdd"
                                 value={adress}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setAdress(e.target.value) }}
+                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setAdress(e.target.value) }}
                             />
                         </Col>
                     </FormGroup>
@@ -200,10 +199,10 @@ function AccountSettingDetail(props: Props) {
                             Giới tính
                         </Label>
                         <Col sm={9}>
-                            <InputStyled
+                            <Input
                                 id="exampleGender"
-                                name="text"
-                                className='shadow-none'
+                                name="exampleGender"
+                                className='shadow-none font-14'
                                 type="text"
                                 value={gender}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => { setGender(e.target.value) }}
@@ -215,6 +214,7 @@ function AccountSettingDetail(props: Props) {
                         <Label
                             for="checkbox2"
                             sm={3}
+                            className="py-0"
                         >
                             Gợi ý tài khoản tương tự
                         </Label>
@@ -224,10 +224,10 @@ function AccountSettingDetail(props: Props) {
                             }}
                         >
                             <FormGroup check>
-                                <InputStyled
+                                <Input
                                     id="checkbox2"
                                     type="checkbox"
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                 />
                                 {' '}
                                 <Label check>
@@ -262,14 +262,13 @@ function AccountSettingDetail(props: Props) {
                     </FormGroup>
                 </Form>
             </article>
-        </DivStyled>
+        </div>
     )
 }
 
 const AvatarStyle = styled.div`
     width:40px;
     height:40px;
-    font-size: 14px !important;
     img{
         width:100%;
         height:100%;
@@ -277,12 +276,8 @@ const AvatarStyle = styled.div`
     }
 `
 
-const InputStyled = styled(Input)`
-    font-size: 14px;
-`
-
-const DivStyled = styled.div`
-    font-size: 14px;
+const TextAreaStyled = styled.textarea`
+    resize: none;
 `
 
 export default AccountSettingDetail

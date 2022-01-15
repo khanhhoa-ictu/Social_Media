@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setComment } from '../../action/post.action';
@@ -15,7 +15,7 @@ interface RouteParams {
 
 function PostDetailPage() {
     const params = useParams<RouteParams>();
-    let id=params.id;
+    let id = params.id;
     let dispatch = useDispatch()
     const [liked, setLiked] = useState<boolean>(false);
     let user = useSelector((state: RootState) => state.UserReducer.user.user)
@@ -24,14 +24,14 @@ function PostDetailPage() {
         handleLike(user._id, IdPost)
         setLiked(!liked);
     }
-   
-    const [postDetail,setPostDetail] = useState<PostDetailType>()
+
+    const [postDetail, setPostDetail] = useState<PostDetailType>()
     useEffect(() => {
-        getPostDetail(id).then((data:PostDetailType)=>{
+        getPostDetail(id).then((data: PostDetailType) => {
             setPostDetail(data)
         })
         handleCheckLiked();
-    },[postDetail?.post.likes.length])
+    }, [postDetail?.post.likes.length])
     const handleCheckLiked = () => {
         if(postDetail){
             setLiked(postDetail?.post.likes.includes(user._id))
@@ -50,17 +50,17 @@ function PostDetailPage() {
     return (
         <div>
             {
-                postDetail &&  <PostDetail 
-                id= {id}
-                user={user}
-                liked = {liked}
-                setLiked = {setLiked}
-                handleLikePost = {handleLikePost}
-                postDetail = {postDetail}
-                CommentPost={CommentPost}
-            />
+                postDetail && <PostDetail
+                    id={id}
+                    user={user}
+                    liked={liked}
+                    setLiked={setLiked}
+                    handleLikePost={handleLikePost}
+                    postDetail={postDetail}
+                    CommentPost={CommentPost}
+                />
             }
-           
+
         </div>
     )
 }
