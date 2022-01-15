@@ -8,19 +8,22 @@ import PostDetail from '../../conponents/post/PostDetail'
 import { RootState } from '../../reducer';
 import { CommentType } from '../../type/commentType';
 import { PostDetailType } from '../../type/postType';
+import { UserType } from '../../type/userType';
 
 interface RouteParams {
     id: string
 }
-
-function PostDetailPage() {
+interface Props{
+    user:UserType
+}
+function PostDetailPage(props:Props) {
+    const {user} = props;
     const params = useParams<RouteParams>();
     let id = params.id;
     let dispatch = useDispatch()
     const [liked, setLiked] = useState<boolean>(false);
-    let user = useSelector((state: RootState) => state.UserReducer.user.user)
 
-    const handleLikePost = (IdPost:string) => {
+    const handleLikePost = (IdPost: string) => {
         handleLike(user._id, IdPost)
         setLiked(!liked);
     }
@@ -28,12 +31,13 @@ function PostDetailPage() {
     const [postDetail, setPostDetail] = useState<PostDetailType>()
     useEffect(() => {
         getPostDetail(id).then((data: PostDetailType) => {
+            console.log(data);
             setPostDetail(data)
         })
         handleCheckLiked();
     }, [postDetail?.post.likes.length])
     const handleCheckLiked = () => {
-        if(postDetail){
+        if (postDetail) {
             setLiked(postDetail?.post.likes.includes(user._id))
         }
     }

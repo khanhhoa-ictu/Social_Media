@@ -73,10 +73,10 @@ const PostNoSetting = (props: Props) => {
 
                             }
                             <div className='mx-3'>
-                                <TitleStyled className='font-14 mb-0' tag="h6">
+                                <UserLinkStyle className='mb-0 h6' to={`/${post.userId}`}>
                                     {userPost?.name}
-                                </TitleStyled>
-                                <TitleStyled className="font-14 text-muted mb-0" >
+                                </UserLinkStyle>
+                                <TitleStyled className="text-muted mb-0" >
                                     {userPost?.address}
                                 </TitleStyled>
                             </div>
@@ -167,6 +167,15 @@ const PostNoSetting = (props: Props) => {
         </Card>
     )
 }
+
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
 
 const AvatarStyled = styled.img`
     width: 32px;

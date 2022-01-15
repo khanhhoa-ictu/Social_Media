@@ -30,22 +30,25 @@ function AccountSettingPage() {
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
         setNoti('');
         setNotice('');
-        updateInfor(user.email, name, phone, address, gender, desc)
-            .then((data) => {
-                dispatch(setUser(data.user))
-                setNoti('Thay đổi thông tin thành công')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
-            .catch((err) => {
-                setNoti('Đã sãy ra lỗi vui lòng thử lại')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
+        if (user) {
+            updateInfor(user.email, name, phone, address, gender, desc)
+                .then((data) => {
+                    setNoti('Thay đổi thông tin thành công')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                    // dispatch(setUser(data.user))
+                })
+                .catch((err) => {
+                    setNoti('Đã sãy ra lỗi vui lòng thử lại')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                })
+        }
+
     }
 
     const logout = () => {
@@ -100,14 +103,15 @@ function AccountSettingPage() {
         }
         Authentication()
     }, []);
-
+    console.log('user', user);
     return (
         <>
-            <Navigation logout={logout} user={user} />
-            <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
-                {user
-                    ? <div>
-                        <DivStyle className='container px-0 d-flex border rounded'>
+            {user && <div>
+                <Navigation logout={logout} user={user} />
+
+                <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
+                    <div>
+                        <DivStyle className='container d-flex border rounded'>
                             <div className='col-3 border-end'>
                                 <AccountSettingNavigation />
                             </div>
@@ -134,9 +138,16 @@ function AccountSettingPage() {
                             </div>
                         </DivStyle>
                     </div>
-                    : null}
-                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
-            </DivFullHeight>
+
+                    <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
+                </DivFullHeight>
+            </div>
+
+            }
+
+
+
+
         </>
     )
 }

@@ -21,6 +21,7 @@ export interface UserPostType {
     name: string,
     address: string,
     profilePicture: string,
+    id:string,
 }
 export interface StatePostType {
     listPost : PostType[]

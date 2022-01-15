@@ -1,37 +1,59 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Route, useParams } from 'react-router-dom';
 import { loginFail, setUser } from '../action/user.action';
-import { getUser } from '../api/user.api';
+import { getPostUser, getUser } from '../api/user.api';
 import { getEmail } from '../config/locastorga.config';
 import Navigation from '../conponents/navbar/Navigation'
 import ContentProfile from '../conponents/profile-user/ContentProfile';
 import HeaderProfile from '../conponents/profile-user/HeaderProfile';
-import { RootState } from '../reducer';
+import { PostType } from '../type/postType';
+import { UserType } from '../type/userType';
+import PostDetailPage from './post/PostDetailPage';
+interface RouteParams {
+    name: string
+}
 
 function ProfileUserPage() {
-    let email = getEmail()?.email;
+    let { name } = useParams<RouteParams>()
+    let [user, setUser] = useState<UserType>()
+    let [post, setPost] = useState<PostType[]>()
+
     useEffect(() => {
-        getUser(email).then(user => {
-            dispatch(setUser(user))
-        })
-    }, [])
+        getPostUser(name)
+            .then((data) => {
+                setUser(data.user)
+                setPost(data.post)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [name])
 
     const dispatch = useDispatch()
     const logout = () => {
-
         localStorage.removeItem("user");
         dispatch(loginFail())
     }
-    
-    let user = useSelector((state: RootState) => state.UserReducer.user.user)
-    console.log(user)
     return (
         <div>
-            <Navigation logout={logout} user={user} />
-            <div className='container'>
-                <HeaderProfile  user = {user}/>
-                <ContentProfile />
-            </div>
+            {
+                user && post && <div>
+                    <Navigation logout={logout} user={user} />
+                    <div className='container'>
+                        <HeaderProfile user={user} post={post}  />
+                        <ContentProfile post={post} />
+                    </div>
+                </div>
+                
+            }
+            <Route exact path="/profile/:id" render={() =>
+                user &&  <PostDetailPage user = {user} />
+            
+            }
+               
+            />
+
 
         </div>
     )

@@ -18,19 +18,6 @@ function NewsFeedPage(props: Props) {
     const dispatch = useDispatch()
 
     const { user,newsFeed } = props
-    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
-
-    // useEffect(() => {
-    //     getPostTimeline(user._id)
-    //     .then((data) => {
-    //         dispatch(setPost(data))
-    //     })
-    //     .catch((err) => {
-    //         console.log(err, 'err')
-    //     })
-    // }, [user,isLoading])
-
-    
     const CommentPost = (profilePicture: string, userId: string, name: string, comment: string, postID: string) => {
         submitComment(profilePicture, userId, name, comment, postID).then((response:  {msg : string}) => {
             if (response) {

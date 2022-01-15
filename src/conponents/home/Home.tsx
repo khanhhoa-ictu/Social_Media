@@ -25,9 +25,13 @@ function Home(props: Props) {
                 <div className="col-sm-8 mr-3 mt-4">
                     <NewsFeedPage user={user} newsFeed={newsFeed} />
                 </div>
-                <FixedSuggestion className="pt-2 col-sm-4">
-                    <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
-                </FixedSuggestion>
+                {
+                    following.length > 0
+                    && <FixedSuggestion className="pt-2 col-sm-4">
+                        <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
+                    </FixedSuggestion>
+                }
+
             </Content>
         </div>
     )

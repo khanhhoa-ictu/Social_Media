@@ -65,9 +65,9 @@ export function getUser(email: string): Promise<UserType> {
     .then((response: AxiosResponse<UserType>) => response.data)
 }
 
-export function getUserPost(userId: string): Promise<UserType> {
-  return axios.get('http://localhost:8080/user/getUserPost/' + userId)
-    .then((response: AxiosResponse<UserType>) => response.data)
+export function getUserPost(userId: string): Promise<any> {
+  return axios.get('http://localhost:8080/user/getuserpost/' + userId)
+    .then((response: AxiosResponse<any>) => response.data)
 }
 export function ChangeAvatar(file: string | Blob, email: string): Promise<{msg : string, data : UserType}> {
   let data = new FormData()
@@ -88,4 +88,14 @@ export function followUser(currentUser: string, UserFollow: string): Promise<str
     name: currentUser
   })
     .then((response: AxiosResponse<string>) => response.data)
+}
+
+export function searchUser(name:string): Promise<any> {
+  return axios.get(`http://localhost:8080/user/${name}`)
+    .then((response: AxiosResponse<any>) => response.data)
+}
+
+export function getPostUser(id: string): Promise<any> {
+  return axios.get(`http://localhost:8080/user/getuserprofile/${id}`)
+    .then((response: AxiosResponse<any>) => response.data)
 }

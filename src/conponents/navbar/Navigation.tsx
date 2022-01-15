@@ -8,6 +8,7 @@ import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
 import ToastAlert from '../alert/ToastAlert'
+import {to_slug} from './slug'
 interface Props {
     logout: () => void,
     user: UserType

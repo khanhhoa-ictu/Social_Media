@@ -4,6 +4,7 @@ import { UserType } from './../../type/userType';
 import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
 import { ChangeAvatar } from '../../api/user.api';
+import { useRouteMatch } from 'react-router-dom';
 
 interface Props {
     user: UserType
@@ -18,11 +19,6 @@ function AccountSettingDetail(props: Props) {
         email,
         submitButton
     } = props
-
-    // const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
-    // useEffect(() => {
-    //     setInputFile(document.getElementById("input-file") as HTMLInputElement);
-    // }, []);
 
     const inputFile = useRef<HTMLInputElement>(null);
     const handleUpload = () => {
@@ -61,6 +57,7 @@ function AccountSettingDetail(props: Props) {
         validateForm()
     }, [name, email, phone, adress, gender])
 
+    const params = useRouteMatch();
     return (
         <div className="p-4 font-14">
             <article>
