@@ -22,7 +22,7 @@ function Comment(props: CommentProps) {
                     <TitleStyled className='font-14 mb-0 h6'>
                         {name}
                     </TitleStyled>
-                    <TitleStyled className="font-14 text-muted mx-2 my-1" >
+                    <TitleStyled className="font-14 text-muted mx-2" >
                         {comment}
                     </TitleStyled>
                 </div>
@@ -45,5 +45,6 @@ const TitleStyled = styled(CardTitle)`
     .span-time{
         font-size: 10.5px !important;
     }
+    margin-bottom: 3px;
 `
 export default Comment

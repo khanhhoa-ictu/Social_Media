@@ -15,6 +15,12 @@ const DeleteAlert = (props: DeleteProps) => {
         setShowDelete(false);
     }
 
+    const doDelete = () => {
+        handleDeletePost();
+        setShowDelete(false);
+        window.location.reload();
+    }
+
     return (
         <Modal
             centered
@@ -26,7 +32,7 @@ const DeleteAlert = (props: DeleteProps) => {
                 Bạn chắc chắn muốn xoá bài viết?
             </ModalBody>
             <p
-                onClick={handleDeletePost}
+                onClick={doDelete}
                 className='text-center text-danger font-14 h6 py-3 mb-0 border-bottom cursor-pointer'
             >
                 Xoá bài viết
