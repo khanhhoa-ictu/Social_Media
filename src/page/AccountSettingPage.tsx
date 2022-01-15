@@ -108,7 +108,7 @@ function AccountSettingPage() {
             <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
                 {user
                     ? <div>
-                        <DivStyle className='container d-flex border rounded'>
+                        <DivStyle className='container px-0 d-flex border rounded'>
                             <div className='col-3 border-end'>
                                 <AccountSettingNavigation />
                             </div>
