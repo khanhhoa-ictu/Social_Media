@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { createPost } from '../../api/post.api'
 import { searchUser } from '../../api/user.api'
 import logo from '../../assets/image/logo.png'
+import logoicon from '../../assets/image/logo-icon.png'
 import { UserType } from '../../type/userType'
 import ToastAlert from '../alert/ToastAlert'
 import PostModal from '../post/modal/PostModal'
@@ -81,15 +82,18 @@ function Navigation(props: Props) {
     }
     return (
         <>
-            <NavigationStyled className="d-flex justify-content-lg-center justify-content-md-between">
+            <NavigationStyled>
                 <Navbar
                     color="light"
                     expand="md"
                     light
-                    className='navigation'
+                    className='navigation justify-content-md-around justify-content-xs-evenly'
                 >
                     <NavbarBrand href="/" className="d-none d-sm-block">
                         <LogoImageStyled src={logo} alt="logo" />
+                    </NavbarBrand>
+                    <NavbarBrand href="/" className="d-block d-sm-none">
+                        <LogoImageStyled src={logoicon} alt="logo" />
                     </NavbarBrand>
                     <div>
                         <InputStyled className="rounded-5 search" type="text" placeholder="Tìm kiếm" onChange={changeSerch} />
@@ -160,7 +164,7 @@ function Navigation(props: Props) {
                                             }
                                         </div>
                                     </DropdownToggle>
-                                    <DropdownMenuStyled className="dropdown-menu-right">
+                                    <DropdownMenuStyled>
                                         <NavLink to={`/${user._id}`} className="text-decoration-none text-dark d-flex align-items-center">
                                             <DropdownItem>
                                                 <svg aria-label="Trang cá nhân" className="_8-yf5" color="#262626" fill="#262626" height="16" role="img" viewBox="0 0 24 24" width="16"><circle cx="12.004" cy="12.004" fill="none" r="10.5" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></circle><path d="M18.793 20.014a6.08 6.08 0 00-1.778-2.447 3.991 3.991 0 00-2.386-.791H9.38a3.994 3.994 0 00-2.386.791 6.09 6.09 0 00-1.779 2.447" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></path><circle cx="12.006" cy="9.718" fill="none" r="4.109" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2"></circle></svg>
@@ -240,6 +244,7 @@ const NavigationStyled = styled.div`
 const DropdownMenuStyled = styled(DropdownMenu)`
     border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    margin-right: -100px;
 `
 
 const LogoImageStyled = styled.img`

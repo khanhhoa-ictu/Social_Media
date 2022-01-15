@@ -48,12 +48,12 @@ const PostModal = (props: ModalProps) => {
             isOpen={show}
             toggle={setShowModal}
             centered
-            className='modal border-none'
+            className='modal border-none mx-auto'
         >
             <ModalHeader toggle={setShowModal} className=''>
                 {title}
             </ModalHeader>
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-md-row flex-sm-column-reverse flex-column-reverse">
                 <ModalBody className="col-7 border-end text-center">
                     Nhập ảnh từ thiết bị &nbsp;
                     <input
@@ -66,12 +66,12 @@ const PostModal = (props: ModalProps) => {
                             showPreview();
                         }}
                     />
-                    <button
+                    <ButtonPostStyled
                         onClick={handleUpload}
-                        className="btn btn-outline-primary py-1 px-2 my-2 shadow-none"
+                        className="text-primary py-1 my-2"
                     >
                         Tải lên
-                    </button>
+                    </ButtonPostStyled>
                     {
                         title === 'Chỉnh sửa bài viết' &&
                         post?.img &&
@@ -112,14 +112,14 @@ const PostModal = (props: ModalProps) => {
                         </ButtonPostStyled>
                     </div>
                     <ContentArea
-                        className='d-block my-4 font-14 form-control shadow-none'
+                        className='d-block mt-4 font-14 form-control shadow-none'
                         name='caption'
                         value={postContent}
                         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setPostContent(e.target.value)}
                         placeholder='Chú thích bài viết...'
-                        rows={10}
+                        rows={5}
                     />
-                    <svg aria-label="Biểu tượng cảm xúc" className="_8-yf5 cursor-pointer" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+                    <svg aria-label="Biểu tượng cảm xúc" className="_8-yf5 mt-3 cursor-pointer d-none d-md-block" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                         <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
                     </svg>
                 </ModalBody>
@@ -175,11 +175,22 @@ const ModalStyled = styled(Modal)`
     .modal-backdrop.show{
         opacity: 0.85;
     }
+    @media (max-width: 768px) {
+        width: 90%;
+        .modal-body{
+            width: 100%;
+            height: inherit;
+        }
+    }
 `
 const ImgStyled = styled.img`
     width: 400px;
     height: 400px;
-    object-fit: cover;
+    object-fit: contain;
+    @media (max-width: 768px) {
+        max-width: 200px;
+        height: 200px;
+    }
 `
 
 export default PostModal
