@@ -60,7 +60,7 @@ export function getUser(email: string): Promise<any> {
 }
 
 export function getUserPost(userId: string): Promise<any> {
-  return axios.get('http://localhost:8080/user/getUserPost/' + userId)
+  return axios.get('http://localhost:8080/user/getuserpost/' + userId)
     .then((response: AxiosResponse<any>) => response.data)
 }
 export function ChangeAvatar(file: any, email: string): Promise<any> {

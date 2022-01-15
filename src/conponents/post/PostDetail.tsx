@@ -55,7 +55,6 @@ const PostDetail = (props: PostDetailProps) => {
         }
 
     }
-
     return (
         <ModalStyled
             isOpen={id ? true : false}

@@ -75,9 +75,9 @@ const PostNoSetting = (props: Props) => {
 
                             }
                             <div className='mx-3'>
-                                <TitleStyled className='mb-0' tag="h6">
+                                <UserLinkStyle className='mb-0 h6' to={`/${post.userId}`}>
                                     {userPost?.name}
-                                </TitleStyled>
+                                </UserLinkStyle>
                                 <TitleStyled className="text-muted mb-0" >
                                     {userPost?.address}
                                 </TitleStyled>
@@ -159,6 +159,15 @@ const PostNoSetting = (props: Props) => {
     )
 }
 
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
+
 const AvatarStyled = styled.img`
     width: 32px;
     height: 32px;
@@ -181,56 +190,6 @@ const TitleStyled = styled(CardTitle)`
     .span-time{
         font-size: 10.5px !important;
     }
-`
-
-const ButtonStyled = styled.button`
-    background-color: white;
-    border: none;
-`
-
-const ContentArea = styled.textarea`
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    padding: 5px 10px;
-    outline: none;
-    font-size: 14px;
-    width: 100%;
-`
-const ModalStyled = styled(Modal)`
-    width: 750px;
-    height: 600px;
-    max-width: none !important;   
-    .modal-body{
-        height: 535px;
-    }
-    .modal-dialog, .modal-content{
-        height: 600px;
-    }
-    .modal-content{
-        border-radius: 15px;
-        border: none;
-        .modal-header>.modal-title{
-            font-size: 16px;
-        }
-    }
-    .modal-backdrop.show{
-        opacity: 0.85;
-    }
-`
-const ImgStyled = styled.img`
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-`
-
-
-const DropdownMenuStyled = styled(DropdownMenu)`
-    border: none;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-`
-
-const TextNavStyled = styled.span`
-    font-size: 14px;
 `
 
 const ButtonSvg = styled.svg`

@@ -93,7 +93,7 @@ function HomePage() {
         <AppStyle onScroll={handleScroll}>
             {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} newsFeed ={newsFeed} /> : null}
             <Route exact path="/post/:id" render={() =>  
-            <PostDetailPage  /> }
+            <PostDetailPage user ={user} /> }
             />
            
         </AppStyle>

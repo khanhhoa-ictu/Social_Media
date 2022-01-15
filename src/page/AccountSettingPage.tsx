@@ -24,28 +24,30 @@ function AccountSettingPage() {
     const [showAlert, setShowAlert] = useState(false);
 
     let user = useSelector((state: any) => state.UserReducer.user.state)
-    console.log(user);
     const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
         setNoti('');
         setNotice('');
-        updateInfor(user.email, name, phone, address, gender, desc)
-            .then((data) => {
-                dispatch(setUser(data.user))
-                setNoti('Thay đổi thông tin thành công')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
-            .catch((err) => {
-                setNoti('Đã sãy ra lỗi vui lòng thử lại')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
+        if (user) {
+            updateInfor(user.email, name, phone, address, gender, desc)
+                .then((data) => {
+                    setNoti('Thay đổi thông tin thành công')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                    // dispatch(setUser(data.user))
+                })
+                .catch((err) => {
+                    setNoti('Đã sãy ra lỗi vui lòng thử lại')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                })
+        }
+
     }
 
     const logout = () => {
@@ -102,45 +104,51 @@ function AccountSettingPage() {
         }
         Authentication()
     }, []);
-
+    console.log('user', user);
     return (
         <>
-            <Navigation logout={logout} user={user} />
-            {
-              user && <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
-              <div>
-                 <DivStyle className='container d-flex border rounded'>
-                     <div className='col-3 border-end'>
-                         <AccountSettingNavigation />
-                     </div>
+            {user && <div>
+                <Navigation logout={logout} user={user} />
 
-                     <div className='col-9'>
-                         <Route exact path="/account/help" render={() => <Help />} />
-                         <Route exact path="/account/changepassword" render={() => <ChangePassword
-                             user={user}
-                             oldPassword={oldPassword}
-                             newPassword={newPassword}
-                             confirmPassword={confirmPassword}
-                             submitButtonPassWord={submitButtonPassWord}
-                             setOldPassWord={(value) => setOldPassWord(value)}
-                             setNewPassWord={(value) => setNewPassWord(value)}
-                             setConfirmPassWord={(value) => setConfirmPassWord(value)}
-                         />} />
+                <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
+                    <div>
+                        <DivStyle className='container d-flex border rounded'>
+                            <div className='col-3 border-end'>
+                                <AccountSettingNavigation />
+                            </div>
 
-                         <Route exact path="/account/setting" render={() => <AccountSettingDetail
-                             user={user}
-                             email={email}
-                             submitButton={submitButton}
-                         />}
-                         />
-                     </div>
-                 </DivStyle>
-             </div>
-      
-         <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
-     </DivFullHeight>
+                            <div className='col-9'>
+                                <Route exact path="/account/help" render={() => <Help />} />
+                                <Route exact path="/account/changepassword" render={() => <ChangePassword
+                                    user={user}
+                                    oldPassword={oldPassword}
+                                    newPassword={newPassword}
+                                    confirmPassword={confirmPassword}
+                                    submitButtonPassWord={submitButtonPassWord}
+                                    setOldPassWord={(value) => setOldPassWord(value)}
+                                    setNewPassWord={(value) => setNewPassWord(value)}
+                                    setConfirmPassWord={(value) => setConfirmPassWord(value)}
+                                />} />
+
+                                <Route exact path="/account/setting" render={() => <AccountSettingDetail
+                                    user={user}
+                                    email={email}
+                                    submitButton={submitButton}
+                                />}
+                                />
+                            </div>
+                        </DivStyle>
+                    </div>
+
+                    <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
+                </DivFullHeight>
+            </div>
+
             }
-            
+
+
+
+
         </>
     )
 }

@@ -16,7 +16,7 @@ interface Props {
 }
 function HeaderProfile(props:Props) {
     const {user,post} = props
-
+    console.log('user ne',user);
     return (
         <DivHeader className='d-flex'>
 

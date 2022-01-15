@@ -16,7 +16,7 @@ function ContentProfile(props: Props) {
 
     return (
         <Content__Profile className='Content__Profile'>
-            <Nav className='border-top border-bottom-0 justify-content-center ml-5 mt-5 mb-1 nav' variant="tabs" defaultActiveKey="/home">
+            <Nav className='border-top border-bottom-0 justify-content-center ml-5 mt-5 mb-1 nav' variant="tabs">
                 <Nav>
                     <Nav href="" className='navlink' style={{ color: "#262626", fontSize: "18px" }}>
                         Bài viết
@@ -28,9 +28,9 @@ function ContentProfile(props: Props) {
             <div className='list-img'>
                 {
                     post.map((item, key) => {
-                        return <NavLink to={`/profile/${item._id}`} className='img-item'>
+                        return <NavLink to={`/profile/${item._id}`} className='img-item'  key={key}>
                             <ImgStyle
-                                key={key}
+                               
                                 alt="Card image cap"
                                 src={item.img}
                                 className="image-post"

@@ -28,14 +28,13 @@ function ProfileUserPage() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [name])
 
     const dispatch = useDispatch()
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
     }
-    console.log(post);
     return (
         <div>
             {
@@ -46,9 +45,13 @@ function ProfileUserPage() {
                         <ContentProfile post={post} />
                     </div>
                 </div>
+                
             }
             <Route exact path="/profile/:id" render={() =>
-                <PostDetailPage />}
+                user &&  <PostDetailPage user = {user} />
+            
+            }
+               
             />
 
 
