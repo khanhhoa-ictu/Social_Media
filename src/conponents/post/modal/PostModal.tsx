@@ -1,4 +1,4 @@
-import React, { ChangeEvent, RefObject, useState } from 'react'
+import React, { ChangeEvent, RefObject, useEffect, useState } from 'react'
 import { CardTitle, Modal, ModalBody, ModalHeader } from 'reactstrap'
 import styled from 'styled-components'
 import avatar from '../../../assets/image/no-avatar.png'
@@ -41,6 +41,7 @@ const PostModal = (props: ModalProps) => {
             setPreview(URL.createObjectURL(inputRef.current.files[0]))
         }
     }
+
 
     return (
         <ModalStyled

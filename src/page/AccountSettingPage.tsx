@@ -4,7 +4,7 @@ import { Route, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { auth, loginFail, setUser } from '../action/user.action'
 import { changePasswordUser, updateInfor } from '../api/contact'
-import { getUser } from '../api/user.api'
+import { deleteUser, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
 import AccountSettingDetail from '../conponents/account-setting/AccountSettingDetail'
 import AccountSettingNavigation from '../conponents/account-setting/AccountSettingNavigation'
@@ -12,6 +12,7 @@ import ChangePassword from '../conponents/account-setting/ChangePassword'
 import Help from '../conponents/account-setting/Help'
 import ToastAlert from '../conponents/alert/ToastAlert'
 import Navigation from '../conponents/navbar/Navigation'
+import { RootState } from '../reducer'
 
 function AccountSettingPage() {
     const dispatch = useDispatch()
@@ -23,28 +24,31 @@ function AccountSettingPage() {
     const [confirmPassword, setConfirmPassWord] = useState('')
     const [showAlert, setShowAlert] = useState(false);
 
-    let user = useSelector((state: any) => state.UserReducer.user.state)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
     const history = useHistory()
 
     const submitButton = (name: string, phone: string, address: string, gender: string, desc: string,) => {
         setNoti('');
         setNotice('');
-        updateInfor(user.email, name, phone, address, gender, desc)
-            .then((data) => {
-                dispatch(setUser(data.user))
-                setNoti('Thay đổi thông tin thành công')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
-            .catch((err) => {
-                setNoti('Đã sãy ra lỗi vui lòng thử lại')
-                setShowAlert(true)
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 1500)
-            })
+        if (user) {
+            updateInfor(user.email, name, phone, address, gender, desc)
+                .then((data) => {
+                    setNoti('Thay đổi thông tin thành công')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                    // dispatch(setUser(data.user))
+                })
+                .catch((err) => {
+                    setNoti('Đã sãy ra lỗi vui lòng thử lại')
+                    setShowAlert(true)
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 1500)
+                })
+        }
+
     }
 
     const logout = () => {
@@ -53,7 +57,6 @@ function AccountSettingPage() {
     }
 
     const submitButtonPassWord = () => {
-        console.log(oldPassword, newPassword, confirmPassword)
         if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
             setNotice('Không được để trống các trường')
         } else {
@@ -81,11 +84,21 @@ function AccountSettingPage() {
                 setTimeout(() => {
                     setShowAlert(false);
                 }, 1500)
-                console.log(notice)
             }
         }
 
 
+    }
+    
+    const handleDelete = () =>{
+        if(user._id){
+            deleteUser(user._id).then((data:any) =>{
+                console.log(data);
+                logout()
+                history.push('/login')
+            })
+           
+        }
     }
     useEffect(() => {
         getUser(email).then(user => {
@@ -101,14 +114,14 @@ function AccountSettingPage() {
         }
         Authentication()
     }, []);
-
     return (
         <>
-            <Navigation logout={logout} user={user} />
-            <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
-                {user
-                    ? <div>
-                        <DivStyle className='container px-0 d-flex border rounded'>
+            {user._id && <div>
+                <Navigation logout={logout} user={user} />
+
+                <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
+                    <div>
+                        <DivStyle className='container d-flex border rounded'>
                             <div className='col-3 border-end'>
                                 <AccountSettingNavigation />
                             </div>
@@ -130,14 +143,22 @@ function AccountSettingPage() {
                                     user={user}
                                     email={email}
                                     submitButton={submitButton}
+                                    handleDelete={handleDelete}
                                 />}
                                 />
                             </div>
                         </DivStyle>
                     </div>
-                    : null}
-                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
-            </DivFullHeight>
+
+                    <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
+                </DivFullHeight>
+            </div>
+
+            }
+
+
+
+
         </>
     )
 }

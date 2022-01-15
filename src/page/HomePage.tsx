@@ -8,6 +8,8 @@ import { getPostTimeline } from '../api/post.api'
 import { followUser, getFriendSuggestion, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
 import Home from '../conponents/home/Home'
+import { RootState } from '../reducer'
+import { PostType } from '../type/postType'
 import PostDetailPage from './post/PostDetailPage'
 
 
@@ -16,11 +18,9 @@ function HomePage() {
 
     const history = useHistory()
 
-    let user = useSelector((state: any) => state.UserReducer.user.state)
-    let following = useSelector((state: any) => state.FollowingReducer.following.followings)
-    // let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin);
+    let user = useSelector((state: any) => state.UserReducer.user.user)
+    let following = useSelector((state: RootState) => state.FollowingReducer.following.followings)
 
-    
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
@@ -46,8 +46,9 @@ function HomePage() {
         })  
     }, [])
     useEffect(() => {
-        if(user !== undefined){
+        if(user._id){
             getFriendSuggestion(user._id).then(followings => {
+                console.log('flơ',followings);
                 dispatch(setFollowing(followings))
             })
         }
@@ -56,15 +57,15 @@ function HomePage() {
 
     const handleFollow = (currentUser:string,UserFollow:string) =>{
         followUser(currentUser,UserFollow)
-        .then((data:any) => {
+        .then((data: string) => {
             console.log('Following user success');
         })
-        .catch((error:any) =>{
+        .catch((error) =>{
             console.log(error);
         })
     }
     const [loading, setLoading] = useState(true);
-    const [newsFeed, setNewFeed] = useState([]);
+    const [newsFeed, setNewFeed] = useState<PostType[]>([]);
     const [page, setPage] = useState(0);
     const handleScroll = (event:any) => {
         console.log('object');
@@ -76,7 +77,7 @@ function HomePage() {
       };
 
     useEffect(() => {
-        if(user){
+        if(user._id){
         const loadUsers = async () => {
             setLoading(true);
             getPostTimeline(user._id, page).then((data) => {
@@ -93,7 +94,7 @@ function HomePage() {
         <AppStyle onScroll={handleScroll}>
             {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} newsFeed ={newsFeed} /> : null}
             <Route exact path="/post/:id" render={() =>  
-            <PostDetailPage  /> }
+            <PostDetailPage user ={user} /> }
             />
            
         </AppStyle>
