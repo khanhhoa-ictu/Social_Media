@@ -10,7 +10,7 @@ export function updateInfor(email: string, name: string, phone_number: string, a
     email: email,
     gender: gender
   })
-    .then((response: AxiosResponse<any>) => {
+    .then((response: AxiosResponse<UpdateInforType>) => {
       return response.data
     })
 }
@@ -21,5 +21,5 @@ export function changePasswordUser(oldPassword: string, newPassword: string, ema
     newpassword: newPassword,
     email: email,
   })
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<{msg : string}>) => response.data)
 }

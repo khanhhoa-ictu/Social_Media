@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { auth, loginFail } from '../../action/user.action'
 import { registerUser } from '../../api/user.api'
 import RegisterComponents from '../../conponents/login/RegisterComponents'
+import { RootState } from '../../reducer'
 
 function RegisterPage() {
     const history = useHistory()
@@ -73,7 +74,7 @@ function RegisterPage() {
         dispatch(loginFail())
         history.push('/login')
     }
-    let isLogin = useSelector((state: any) => state.LoginReducer.login.isLogin)
+    let isLogin = useSelector((state: RootState) => state.LoginReducer.login.isLogin)
 
     useEffect(() => {
         const Authentication = async () => {

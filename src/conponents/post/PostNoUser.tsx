@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
-import { deletePost, handleLike, updatePost } from '../../api/post.api';
+import { handleLike } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
-import Post from '../../conponents/post/Post'
+import { RootState } from '../../reducer';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 import PostNoSetting from './PostNoSetting';
@@ -16,7 +16,7 @@ interface Props {
 
 function PostNoUser(props: Props) {
     const { post, user, CommentPost } = props
-    const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
+    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
 
     const [postContent, setPostContent] = useState(post.desc);

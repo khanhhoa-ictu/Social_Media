@@ -20,11 +20,6 @@ function AccountSettingDetail(props: Props) {
         submitButton
     } = props
 
-    // const [inputFile, setInputFile] = useState<HTMLInputElement | null>(null);
-    // useEffect(() => {
-    //     setInputFile(document.getElementById("input-file") as HTMLInputElement);
-    // }, []);
-
     const inputFile = useRef<HTMLInputElement>(null);
     const handleUpload = () => {
         inputFile.current?.click();
@@ -63,7 +58,6 @@ function AccountSettingDetail(props: Props) {
     }, [name, email, phone, adress, gender])
 
     const params = useRouteMatch();
-    console.log(params);
     return (
         <div className="p-4 font-14">
             <article>

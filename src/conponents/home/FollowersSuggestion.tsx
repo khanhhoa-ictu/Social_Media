@@ -10,7 +10,7 @@ interface Props {
 }
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
-    console.log(following);
+    console.log('flowing',following);
     const [suggestion, setSuggestion] = useState(following)
     const handleFollowing = (id: string, user: string, userFollow: string) => {
         const index: number = suggestion.findIndex((item: UserSuggestion) => item._id === id)
@@ -41,7 +41,7 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    suggestion?.map((item: any, key: number) => {
+                    suggestion?.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 {

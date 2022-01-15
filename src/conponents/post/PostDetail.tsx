@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CardImg, CardTitle, Input, Modal, ModalBody } from 'reactstrap';
 import avatar from './../../assets/image/no-avatar.png'
@@ -8,6 +8,7 @@ import { PostDetailType } from '../../type/postType';
 import Comment from './Comment'
 import { format } from 'timeago.js';
 import { UserType } from '../../type/userType';
+import { CommentType } from '../../type/commentType';
 
 interface PostDetailProps {
     liked: boolean;
@@ -55,11 +56,10 @@ const PostDetail = (props: PostDetailProps) => {
         }
 
     }
-
     return (
         <ModalStyled
             isOpen={id ? true : false}
-            toggle={() => history.push('/')}
+            toggle={() => history.goBack()}
             centered
             className='modal border-none'
         >
@@ -113,7 +113,7 @@ const PostDetail = (props: PostDetailProps) => {
                                     </div>
                                 </div>
                                 {
-                                    commentByPost.map((comment: any, key: number) => {
+                                    commentByPost.map((comment: CommentType, key: number) => {
                                         return <Comment
                                             key={key}
                                             profilePicture={comment.profilePicture}
@@ -169,7 +169,7 @@ const PostDetail = (props: PostDetailProps) => {
                                 value={comment}
                                 className="shadow-none font-14"
                                 placeholder="Thêm bình luận ..."
-                                onChange={(e: any) => setComment(e.target.value)}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                             />
                             <ButtonPostStyled className='text-primary px-1 font-14' onClick={submitCommentPost}>Đăng</ButtonPostStyled>
                         </span>

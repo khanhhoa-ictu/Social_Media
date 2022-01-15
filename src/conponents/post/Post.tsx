@@ -87,7 +87,7 @@ const Post = (props: Props) => {
         setVisible(visible + 4);
         setSumComment(post.comments.length - (visible + 4))
     }
-
+    console.log('ra chua ae',userPost);
     return (
         <Card className="mb-4">
             <CardBody className='p-0'>
@@ -96,10 +96,10 @@ const Post = (props: Props) => {
                         <div className="d-flex align-items-center">
                             <AvatarStyled src={userPost?.profilePicture ? userPost.profilePicture : avatar} alt="avatar" />
                             <div className='mx-3'>
-                                <TitleStyled className=' font-14 mb-0' tag="h6">
+                                <UserLinkStyle className='mb-0 h6 navLink' to={`/${post.userId}`}>
                                     {userPost?.name}
-                                </TitleStyled>
-                                <TitleStyled className=" font-14 text-muted mb-0" >
+                                </UserLinkStyle>
+                                <TitleStyled className="text-muted mb-0" >
                                     {userPost?.address ? userPost.address + ', vn' : null}
                                 </TitleStyled>
                             </div>
@@ -226,7 +226,7 @@ const Post = (props: Props) => {
                         type="text"
                         className='shadow-none font-14'
                         placeholder="Thêm bình luận ..."
-                        onChange={(e: any) => setComment(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
                         className='text-primary px-1 font-14'
@@ -239,6 +239,15 @@ const Post = (props: Props) => {
         </Card>
     )
 }
+
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
 
 const AvatarStyled = styled.img`
     width: 32px;

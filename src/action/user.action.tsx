@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Dispatch } from "react";
 import { verifyAuth } from "../api/user.api";
 import { dispatchLogin } from "../reducer/Login.reducer";

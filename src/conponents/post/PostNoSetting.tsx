@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, Input } from 'reactstrap';
 import styled from 'styled-components';
@@ -46,7 +46,6 @@ const PostNoSetting = (props: Props) => {
             dataComment.push(mycomment)
             CommentPost(user.profilePicture, user._id, user.name, comment, post._id)
             setComment('')
-            console.log(dataComment);
             setCommentByPost(dataComment)
         }
 
@@ -74,10 +73,10 @@ const PostNoSetting = (props: Props) => {
 
                             }
                             <div className='mx-3'>
-                                <TitleStyled className='font-14 mb-0' tag="h6">
+                                <UserLinkStyle className='mb-0 h6' to={`/${post.userId}`}>
                                     {userPost?.name}
-                                </TitleStyled>
-                                <TitleStyled className="font-14 text-muted mb-0" >
+                                </UserLinkStyle>
+                                <TitleStyled className="text-muted mb-0" >
                                     {userPost?.address}
                                 </TitleStyled>
                             </div>
@@ -155,7 +154,7 @@ const PostNoSetting = (props: Props) => {
                         className="font-14"
                         type="text"
                         placeholder="Thêm bình luận ..."
-                        onChange={(e: any) => setComment(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
                         className='text-primary px-1'
@@ -168,6 +167,15 @@ const PostNoSetting = (props: Props) => {
         </Card>
     )
 }
+
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
 
 const AvatarStyled = styled.img`
     width: 32px;
