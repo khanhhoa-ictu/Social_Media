@@ -90,6 +90,13 @@ export function followUser(currentUser: string, UserFollow: string): Promise<str
     .then((response: AxiosResponse<string>) => response.data)
 }
 
+export function unFollowUser(currentUserId: string, UserFollowId: string): Promise<string> {
+  return axios.put(`http://localhost:8080/user/${UserFollowId}/unfollower`, {
+    userId: currentUserId
+  })
+    .then((response: AxiosResponse<string>) => response.data)
+}
+
 export function searchUser(name:string): Promise<any> {
   return axios.get(`http://localhost:8080/user/${name}`)
     .then((response: AxiosResponse<any>) => response.data)

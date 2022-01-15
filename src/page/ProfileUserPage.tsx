@@ -7,6 +7,7 @@ import { getEmail } from '../config/locastorga.config';
 import Navigation from '../conponents/navbar/Navigation'
 import ContentProfile from '../conponents/profile-user/ContentProfile';
 import HeaderProfile from '../conponents/profile-user/HeaderProfile';
+import { RootState } from '../reducer';
 import { PostType } from '../type/postType';
 import { UserType } from '../type/userType';
 import PostDetailPage from './post/PostDetailPage';
@@ -16,22 +17,31 @@ interface RouteParams {
 
 function ProfileUserPage() {
     let { name } = useParams<RouteParams>()
-    let [userProfile, setUser] = useState<UserType>()
+    const dispatch = useDispatch()
+    console.log(name);
+    let [userProfile, setUserProfile] = useState<UserType>()
     let [post, setPost] = useState<PostType[]>()
-    let user = useSelector((state: any) => state.UserReducer.user.user)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
 
     useEffect(() => {
         getPostUser(name)
             .then((data) => {
-                setUser(data.user)
-                setPost(data.post)
+                setUserProfile(data.user);
+                setPost(data.post);
+                let email
+                if(getEmail() !== null){
+                    email = getEmail().email;
+                }
+                getUser(email).then(user => {
+                    dispatch(setUser(user))
+                })  
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [name])
+    }, [])
 
-    const dispatch = useDispatch()
+    
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
@@ -39,10 +49,10 @@ function ProfileUserPage() {
     return (
         <div>
             {
-                userProfile && post && <div>
+                userProfile && post && user._id &&<div>
                     <Navigation logout={logout} user={user} />
                     <div className='container'>
-                        <HeaderProfile userProfile={userProfile} post={post}  />
+                        <HeaderProfile userProfile={userProfile} post={post} user = {user}  />
                         <ContentProfile post={post} />
                     </div>
                 </div>
