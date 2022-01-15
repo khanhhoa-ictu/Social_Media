@@ -1,9 +1,9 @@
 import React, { ChangeEvent, RefObject, useState } from 'react'
 import { CardTitle, Modal, ModalBody, ModalHeader } from 'reactstrap'
 import styled from 'styled-components'
+import avatar from '../../../assets/image/no-avatar.png'
 import { PostType } from '../../../type/postType'
 import { UserType } from '../../../type/userType'
-import avatar from '../../../assets/image/no-avatar.png'
 
 interface ModalProps {
     show: boolean;
@@ -75,7 +75,7 @@ const PostModal = (props: ModalProps) => {
                         title === 'Chỉnh sửa bài viết' &&
                         post?.img &&
                         <div className="my-1">
-                            <ImgStyled className='img-thumbnail' src={post?.img} alt="temp" />
+                            <ImgStyled className='img-thumbnail' src={preview ? preview : post?.img} alt="temp" />
                         </div>
                     }
                     {

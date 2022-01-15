@@ -1,22 +1,20 @@
-import { AxiosResponse } from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
-// import { getUserPost } from '../../api/user.api';
-import Post from '../../conponents/post/Post'
+import Post from '../../conponents/post/Post';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 
 interface Props {
-    post : PostType,
-    user : UserType
-    CommentPost:(profilePicture: string,userId:string,name:string, comment:string,postID:string)=> void
+    post: PostType,
+    user: UserType
+    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void
 }
 
-function PostPage(props : Props) {
-    const {post , user,CommentPost} = props
+function PostPage(props: Props) {
+    const { post, user, CommentPost } = props
     const isLoading = useSelector((state: any) => state.HomeReducer.post.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
@@ -24,7 +22,7 @@ function PostPage(props : Props) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<string>(post.img);
     const [userPost, setUserPost] = useState<UserType>()
-    let  dispatch = useDispatch()
+    let dispatch = useDispatch()
     const handleUpload = () => {
         inputRef.current?.click();
     }
@@ -46,7 +44,7 @@ function PostPage(props : Props) {
             dispatch(setIsLoading(!isLoading))
         }
         window.location.reload();
-    } 
+    }
 
     const handleDeletePost = () => {
         deletePost(user._id, post._id)
@@ -75,26 +73,26 @@ function PostPage(props : Props) {
     }, [post])
     return (
         <div>
-            <Post 
-                liked = {liked}
-                show = {show}
-                postContent = {postContent}
-                inputRef = {inputRef}
-                uploadFileName = {uploadFileName}
-                setLiked = {setLiked}
-                setShow = {setShow}
-                setPostContent = {setPostContent}
-                setUploadFileName = {setUploadFileName}
-                handleUpload = {handleUpload}
-                handleDisplayFileDetails = {handleDisplayFileDetails}
-                setShowModal = {setShowModal}
-                handleUpdatePost = {handleUpdatePost}
-                handleDeletePost = {handleDeletePost}
-                handleLikePost = {handleLikePost}
+            <Post
+                liked={liked}
+                show={show}
+                postContent={postContent}
+                inputRef={inputRef}
+                uploadFileName={uploadFileName}
+                setLiked={setLiked}
+                setShow={setShow}
+                setPostContent={setPostContent}
+                setUploadFileName={setUploadFileName}
+                handleUpload={handleUpload}
+                handleDisplayFileDetails={handleDisplayFileDetails}
+                setShowModal={setShowModal}
+                handleUpdatePost={handleUpdatePost}
+                handleDeletePost={handleDeletePost}
+                handleLikePost={handleLikePost}
                 CommentPost={CommentPost}
-                post = {post}
-                user = {user}
-                userPost = {userPost}
+                post={post}
+                user={user}
+                userPost={userPost}
             />
         </div>
     )

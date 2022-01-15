@@ -1,13 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, Modal, ModalBody, ModalHeader, UncontrolledDropdown } from 'reactstrap';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, UncontrolledDropdown } from 'reactstrap';
 import styled from 'styled-components';
 import { format } from 'timeago.js';
-import PostDetailPage from '../../page/post/PostDetailPage';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
-import avatar from './../../assets/image/no-avatar.png'
-import { NavLink, Route } from 'react-router-dom';
 import DeleteAlert from '../alert/DeleteAlert';
+import avatar from './../../assets/image/no-avatar.png';
 import PostModal from './modal/PostModal';
 
 interface Props {
@@ -87,6 +86,7 @@ const Post = (props: Props) => {
         setVisible(visible + 4);
         setSumComment(post.comments.length - (visible + 4))
     }
+
 
     return (
         <Card className="mb-4">
@@ -264,41 +264,6 @@ const ButtonStyled = styled.button`
     background-color: white;
     border: none;
 `
-
-const ContentArea = styled.textarea`
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    padding: 5px 10px;
-    outline: none;
-    width: 100%;
-`
-const ModalStyled = styled(Modal)`
-    width: 750px;
-    height: 600px;
-    max-width: none !important;   
-    .modal-body{
-        height: 535px;
-    }
-    .modal-dialog, .modal-content{
-        height: 600px;
-    }
-    .modal-content{
-        border-radius: 15px;
-        border: none;
-        .modal-header>.modal-title{
-            font-size: 16px;
-        }
-    }
-    .modal-backdrop.show{
-        opacity: 0.85;
-    }
-`
-const ImgStyled = styled.img`
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-`
-
 
 const DropdownMenuStyled = styled(DropdownMenu)`
     border: none;
