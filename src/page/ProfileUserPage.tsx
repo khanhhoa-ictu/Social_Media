@@ -16,8 +16,9 @@ interface RouteParams {
 
 function ProfileUserPage() {
     let { name } = useParams<RouteParams>()
-    let [user, setUser] = useState<UserType>()
+    let [userProfile, setUser] = useState<UserType>()
     let [post, setPost] = useState<PostType[]>()
+    let user = useSelector((state: any) => state.UserReducer.user.user)
 
     useEffect(() => {
         getPostUser(name)
@@ -38,10 +39,10 @@ function ProfileUserPage() {
     return (
         <div>
             {
-                user && post && <div>
+                userProfile && post && <div>
                     <Navigation logout={logout} user={user} />
                     <div className='container'>
-                        <HeaderProfile user={user} post={post}  />
+                        <HeaderProfile userProfile={userProfile} post={post}  />
                         <ContentProfile post={post} />
                     </div>
                 </div>

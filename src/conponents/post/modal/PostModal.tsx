@@ -76,7 +76,7 @@ const PostModal = (props: ModalProps) => {
                         title === 'Chỉnh sửa bài viết' &&
                         post?.img &&
                         <div className="my-1">
-                            <ImgStyled className='img-thumbnail' src={post?.img} alt="temp" />
+                            <ImgStyled className='img-thumbnail' src={preview ? preview : post?.img} alt="temp" />
                         </div>
                     }
                     {

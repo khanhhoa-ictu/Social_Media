@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
-import Post from '../../conponents/post/Post'
-import { RootState } from '../../reducer';
+import Post from '../../conponents/post/Post';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 
@@ -16,12 +15,13 @@ interface Props {
 
 function PostPage(props : Props) {
     const {post , user,CommentPost} = props
-    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
+    const isLoading = useSelector((state: any) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState(post.desc);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [uploadFileName, setUploadFileName] = useState<string>(post.img);
+    const [uploadFileName, setUploadFileName] = useState<any>(post.img);
+    const [file,setFile] = useState<any>(null)
     const [userPost, setUserPost] = useState<UserType>()
     let  dispatch = useDispatch()
     const handleUpload = () => {
@@ -29,8 +29,10 @@ function PostPage(props : Props) {
     }
 
     const handleDisplayFileDetails = () => {
-        inputRef.current?.files && (inputRef.current.files?.length !== 0) &&
+        if(inputRef.current?.files && inputRef.current.files?.length !== 0){
             setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
+            setFile(inputRef.current.files[0])
+        } 
     }
 
     const setShowModal = () => {
@@ -39,12 +41,19 @@ function PostPage(props : Props) {
 
 
     const handleUpdatePost = () => {
+        setShowModal();
         if (uploadFileName) {
-            updatePost(user._id, post._id, postContent, uploadFileName)
-            setShowModal();
-            dispatch(setIsLoading(!isLoading))
+            updatePost(user._id, post._id, postContent, file)
+                .then(() =>{
+                    dispatch(setIsLoading(!isLoading))
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+           
+            
         }
-        window.location.reload();
     } 
 
     const handleDeletePost = () => {

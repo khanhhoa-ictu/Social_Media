@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { FollowingsType } from '../../type/folloingType'
 import { UserSuggestion, UserType } from '../../type/userType'
@@ -10,7 +11,7 @@ interface Props {
 }
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
-    console.log('flowing',following);
+    console.log('flowing', following);
     const [suggestion, setSuggestion] = useState(following)
     const handleFollowing = (id: string, user: string, userFollow: string) => {
         const index: number = suggestion.findIndex((item: UserSuggestion) => item._id === id)
@@ -29,9 +30,9 @@ const FollowersSuggestion = (props: Props) => {
                             : <MainAvatar src={user.profilePicture} />
                     }
 
-                    <div className="px-3">
+                    <UserLinkStyle className="px-3" to={`/${user._id}`}>
                         <NameText className="h6 mb-0 font-14">{user.name}</NameText>
-                    </div>
+                    </UserLinkStyle>
                 </div>
                 <ButtonStyled className='text-primary font-14 col-3'>Chuyển</ButtonStyled>
             </div>
@@ -41,7 +42,7 @@ const FollowersSuggestion = (props: Props) => {
             </div>
             <div>
                 {
-                    suggestion?.map((item: FollowingsType, key: number) => {
+                   suggestion.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 {
@@ -49,9 +50,9 @@ const FollowersSuggestion = (props: Props) => {
                                         ? <SubAvatar src={avatar} />
                                         : <SubAvatar src={item.profilePicture} />
                                 }
-                                <div className="px-3">
+                                <UserLinkStyle className="px-3" to={`/${item._id}`}>
                                     <p className="h6 mb-0">{item.name}</p>
-                                </div>
+                                </UserLinkStyle>
                             </div>
                             <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id, user.name, item.name)}>Theo dõi</ButtonStyled>
                         </div>
@@ -64,6 +65,14 @@ const FollowersSuggestion = (props: Props) => {
         </RightSide>
     )
 }
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
 
 const RightSide = styled.div`
     position: fixed;

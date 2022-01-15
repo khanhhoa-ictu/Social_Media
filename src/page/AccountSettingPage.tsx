@@ -4,7 +4,7 @@ import { Route, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { auth, loginFail, setUser } from '../action/user.action'
 import { changePasswordUser, updateInfor } from '../api/contact'
-import { getUser } from '../api/user.api'
+import { deleteUser, getUser } from '../api/user.api'
 import { getEmail } from '../config/locastorga.config'
 import AccountSettingDetail from '../conponents/account-setting/AccountSettingDetail'
 import AccountSettingNavigation from '../conponents/account-setting/AccountSettingNavigation'
@@ -89,6 +89,17 @@ function AccountSettingPage() {
 
 
     }
+    
+    const handleDelete = () =>{
+        if(user._id){
+            deleteUser(user._id).then((data:any) =>{
+                console.log(data);
+                logout()
+                history.push('/login')
+            })
+           
+        }
+    }
     useEffect(() => {
         getUser(email).then(user => {
             dispatch(setUser(user))
@@ -103,10 +114,9 @@ function AccountSettingPage() {
         }
         Authentication()
     }, []);
-    console.log('user', user);
     return (
         <>
-            {user && <div>
+            {user._id && <div>
                 <Navigation logout={logout} user={user} />
 
                 <DivFullHeight className="d-flex flex-column align-items-center justify-content-between">
@@ -133,6 +143,7 @@ function AccountSettingPage() {
                                     user={user}
                                     email={email}
                                     submitButton={submitButton}
+                                    handleDelete={handleDelete}
                                 />}
                                 />
                             </div>

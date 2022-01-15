@@ -16,13 +16,13 @@ export const getListTimeline = () => {
     .then((response: AxiosResponse) => response.data)
 }
 
-export const updatePost = (userId: string, postId: string, postContent: string, imgUrl: string) => {
-  return axios.post(url + '/post/update', {
-    userId: userId,
-    idPost: postId,
-    desc: postContent,
-    img: imgUrl
-  })
+export const updatePost = (userId: string, postId: string, postContent: string, imgUrl: any) => {
+  let data = new FormData()
+  data.append('userId', userId)
+  data.append('idPost', postId)
+  data.append('desc', postContent)
+  data.append('file', imgUrl)
+  return axios.post(url + '/post/update', data)
     .then((response: AxiosResponse) => response.data)
 }
 

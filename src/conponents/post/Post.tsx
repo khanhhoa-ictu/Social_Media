@@ -87,7 +87,6 @@ const Post = (props: Props) => {
         setVisible(visible + 4);
         setSumComment(post.comments.length - (visible + 4))
     }
-    console.log('ra chua ae',userPost);
     return (
         <Card className="mb-4">
             <CardBody className='p-0'>
