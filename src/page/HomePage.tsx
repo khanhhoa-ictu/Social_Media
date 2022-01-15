@@ -18,7 +18,7 @@ function HomePage() {
 
     const history = useHistory()
 
-    let user = useSelector((state: any) => state.UserReducer.user.user)
+    let user = useSelector((state: RootState) => state.UserReducer.user.user)
     let following = useSelector((state: RootState) => state.FollowingReducer.following.followings)
 
     const logout = () => {
