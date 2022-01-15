@@ -16,7 +16,7 @@ interface Props {
 
 function PostPage(props : Props) {
     const {post , user,CommentPost} = props
-    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
+    const isLoading = useSelector((state: any) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState(post.desc);

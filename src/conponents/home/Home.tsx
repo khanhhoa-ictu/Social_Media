@@ -26,8 +26,8 @@ function Home(props: Props) {
                     <NewsFeedPage user={user} newsFeed={newsFeed} />
                 </div>
                 {
-                    following.length > 0
-                    && <FixedSuggestion className="pt-2 col-sm-4">
+                  
+                  following.length > 0 && <FixedSuggestion className="pt-2 col-sm-4">
                         <FollowersSuggestion user={user} following={following} handleFollow={handleFollow} />
                     </FixedSuggestion>
                 }

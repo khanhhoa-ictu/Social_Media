@@ -8,7 +8,8 @@ import { UserType } from '../../type/userType'
 import avatar from './../../assets/image/no-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
 import ToastAlert from '../alert/ToastAlert'
-import {to_slug} from './slug'
+import { to_slug } from './slug'
+import { searchUser } from '../../api/user.api'
 interface Props {
     logout: () => void,
     user: UserType
@@ -70,7 +71,14 @@ function Navigation(props: Props) {
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
+    const changeSerch = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.value !== '') {
+            searchUser(e.target.value).then((users) => {
+                console.log(users);
+            })
+        }
 
+    }
     return (
         <>
             <NavigationStyled className="d-flex justify-content-center">
@@ -84,7 +92,7 @@ function Navigation(props: Props) {
                         <LogoImageStyled src={logo} alt="logo" />
                     </NavbarBrand>
                     <div>
-                        <InputStyled className="rounded-5" type="text" placeholder="Tìm kiếm" />
+                        <InputStyled className="rounded-5" type="text" placeholder="Tìm kiếm" onChange={changeSerch} />
                     </div>
                     <div>
                         <NavbarToggler onClick={function noRefCheck() { }} />
