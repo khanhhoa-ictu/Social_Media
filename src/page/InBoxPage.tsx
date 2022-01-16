@@ -90,55 +90,53 @@ const InboxPage = () => {
                                     {/* <Conversation conversation={c} currentUser={user} /> */}
                                 </div>
                             ))}
-
-
                         </div>
-                        {
-                            currentChat
-                                ? <div className="col-8">
-                                    <div className="h-100">
+                        <div className="d-flex justify-content-center w-100">
+                            {
+                                currentChat
+                                    ? <div className="col-8">
+                                        <div className="h-100">
 
-                                        <div className="d-flex h-100 justify-content-end flex-column pb-4">
-                                            <div className="p-3 w-100 border-bottom">
-                                                {
-                                                    showInbox?.profilePicture === ''
-                                                        ? <MainAvatar src={avatar} />
-                                                        : <MainAvatar src={showInbox?.profilePicture} />
+                                            <div className="d-flex h-100 justify-content-end flex-column pb-4">
+                                                <div className="p-3 w-100 border-bottom">
+                                                    {
+                                                        showInbox?.profilePicture === ''
+                                                            ? <MainAvatar src={avatar} />
+                                                            : <MainAvatar src={showInbox?.profilePicture} />
 
-                                                }
-
-                                                <span className="h6 mx-3">{showInbox?.name} </span>
-                                            </div>
-                                            {messages.map((m, index) => (
-                                                <div key={index} >
-                                                    {showInbox && <DirectMessage
-                                                        message={m}
-                                                        own={m.sender === user._id}
-                                                        showInbox={showInbox}
-                                                        user={user}
-                                                    />}
+                                                    }
+                                                    <span className="h6 mx-3">{showInbox?.name} </span>
                                                 </div>
-                                            ))}
-                                            <BoxInput className="mt-auto d-flex align-items-center mx-4 border">
-                                                <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
-                                                    <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
-                                                </ButtonSvg>
-                                                <CommentInput
-                                                    type="text"
-                                                    className="shadow-none font-14"
-                                                    placeholder="Nhắn tin ..."
-                                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
-                                                    value={newMessage}
-                                                />
-                                                <ButtonPostStyled className='text-primary px-1 font-14' onClick={handleSubmit}>Gửi</ButtonPostStyled>
-                                            </BoxInput>
+                                                {messages.map((m, index) => (
+                                                    <div key={index} >
+                                                        {showInbox && <DirectMessage
+                                                            message={m}
+                                                            own={m.sender === user._id}
+                                                            showInbox={showInbox}
+                                                            user={user}
+                                                        />}
+                                                    </div>
+                                                ))}
+                                                <BoxInput className="mt-auto d-flex align-items-center mx-4 border">
+                                                    <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
+                                                        <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
+                                                    </ButtonSvg>
+                                                    <CommentInput
+                                                        type="text"
+                                                        className="shadow-none font-14"
+                                                        placeholder="Nhắn tin ..."
+                                                        onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
+                                                        value={newMessage}
+                                                    />
+                                                    <ButtonPostStyled className='text-primary px-1 font-14' onClick={handleSubmit}>Gửi</ButtonPostStyled>
+                                                </BoxInput>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                : <BlankMessage />
-                        }
-
-
+                                    :
+                                    <BlankMessage />
+                            }
+                        </div>
                     </BorderDiv>
                 </div>
             </DivStyled>

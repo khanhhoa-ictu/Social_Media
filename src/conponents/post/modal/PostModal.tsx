@@ -186,10 +186,11 @@ const ModalStyled = styled(Modal)`
 const ImgStyled = styled.img`
     width: 400px;
     height: 400px;
-    object-fit: contain;
+    object-fit: cover;
     @media (max-width: 768px) {
         max-width: 200px;
         height: 200px;
+        object-fit: contain;
     }
 `
 
