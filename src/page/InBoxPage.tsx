@@ -32,7 +32,6 @@ const InboxPage = () => {
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
         socket.current.on("getMessage", (data: any) => {
-            console.log(data);
             setArrivalMessage({
                 sender: data.senderId,
                 text: data.text,
@@ -40,7 +39,6 @@ const InboxPage = () => {
             });
         });
     }, []);
-    console.log('thy doi',arrivalMessage);
      useEffect(() => {
         arrivalMessage &&
             currentChat?.members.includes(arrivalMessage.sender) &&

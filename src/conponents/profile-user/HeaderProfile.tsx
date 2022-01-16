@@ -14,7 +14,6 @@ interface Props {
 }
 function HeaderProfile(props: Props) {
     const { userProfile, post, user } = props
-    console.log(user);
     const [follow, setFollow] = useState(user.followings.includes(userProfile._id))
     useEffect(() => {
         setFollow(user.followings.includes(userProfile._id))
@@ -24,7 +23,7 @@ function HeaderProfile(props: Props) {
             unFollowUser(user._id, userProfile._id).then((data) => {
                 console.log(data);
             }).catch((err) => {
-                console.log('loi ne');
+                console.log(err);
             })
         } else {
             followUser(user.name, userProfile.name).then((data) => {
@@ -34,7 +33,6 @@ function HeaderProfile(props: Props) {
         }
         setFollow(!follow)
     }
-    console.log(follow);
     return (
         <DivHeader className='d-flex justify-content-around'>
 
@@ -62,8 +60,8 @@ function HeaderProfile(props: Props) {
                 </div>
                 <div className='d-flex flowing'>
                     <p><span className='h6'>{post.length} </span>  bài viết</p>
-                    <p><span className='h6'>{userProfile.followers.length}</span>  người theo dõi</p>
-                    <p>Đang theo dõi <span className='h6'>{userProfile.followings.length}</span>  người dùng</p>
+                    <NavLink to={`/${userProfile._id}/follower`}><span className='h6'>{userProfile.followers.length}</span>  người theo dõi</NavLink>
+                    <NavLink to={`/${userProfile._id}/following`}>Đang theo dõi <span className='h6'>{userProfile.followings.length}</span>người dùng</NavLink>
                 </div>
                 <div>
                     <p className='mt-3'>{userProfile.desc}</p>
