@@ -1,7 +1,7 @@
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
+import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import { createPost } from '../../api/post.api'
 import { searchUser } from '../../api/user.api'
@@ -27,7 +27,7 @@ function Navigation(props: Props) {
     const [postContent, setPostContent] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const [uploadFileName, setUploadFileName] = useState<any>();
-
+    const [userSearch, setUserSearch] = useState<UserType[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [noti, setNoti] = useState('');
 
@@ -72,11 +72,14 @@ function Navigation(props: Props) {
     useEffect(() => {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
+
     const changeSerch = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.value !== '') {
             searchUser(e.target.value).then((users) => {
-                console.log(users);
+                setUserSearch(users.data);
             })
+        }else{
+            setUserSearch([]);
         }
 
     }
@@ -96,7 +99,32 @@ function Navigation(props: Props) {
                         <LogoImageStyled src={logoicon} alt="logo" />
                     </NavbarBrand>
                     <div>
-                        <InputStyled className="rounded-5 search" type="text" placeholder="Tìm kiếm" onChange={changeSerch} />
+                        <div className="position-relative">
+                            <InputStyled className="rounded-5 search" type="search" placeholder="Tìm kiếm" onChange={changeSerch} />
+                            <SearchStyled>
+
+                            
+                            {
+                                userSearch.length > 0 && userSearch?.map((item: any, key: number) => {
+                                    return <div className="d-flex align-items-center mb-3" key={key}>
+                                        <AvatarStyled src={item?.profilePicture ? item.profilePicture : avatar} alt="avatar" />
+                                        <div className='mx-3'>
+                                            <UserLinkStyle className='mb-0 h6 navLink' to={`/${item._id}`}>
+                                                {item?.name}
+                                            </UserLinkStyle>
+                                            <TitleStyled className="text-muted mb-0" >
+                                                {item?.address ? item.address + ', vn' : null}
+                                            </TitleStyled>
+                                        </div>
+                                    </div>
+                                })
+
+
+                            }
+                            </SearchStyled>
+                        </div>
+
+
                     </div>
                     <div>
                         <NavbarToggler onClick={function noRefCheck() { }} />
@@ -222,6 +250,16 @@ function Navigation(props: Props) {
     )
 }
 
+const SearchStyled = styled.div`
+position: absolute;
+left: 0;
+width: 100%;
+background: #fcfcfc;
+padding-left: 5px;
+max-height: 300px;
+background: #ff0d0d;
+`
+
 const NavigationStyled = styled.div`
     background-color:rgb(248,249,250);
     position: sticky;
@@ -259,5 +297,27 @@ const InputStyled = styled.input`
     outline: none;
     width: 270px;
 `
-
+const AvatarStyled = styled.img`
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #e6e6e6;
+`
+const UserLinkStyle = styled(NavLink)`
+    text-decoration: none;
+    color:#212529;
+    font-size: 14px;
+    &:hover{
+        color:#212529
+    }
+`
+const TitleStyled = styled(CardTitle)`
+    .text-muted{
+        cursor: pointer;
+    }
+    .span-time{
+        font-size: 10.5px !important;
+    }
+`
 export default Navigation
