@@ -21,9 +21,9 @@ const FollowersSuggestion = (props: Props) => {
         handleFollow(user, userFollow);
     }
     return (
-        <RightSide className="mx-3 px-1">
+        <RightSide className="ps-md-4">
             <div className="py-4 d-flex justify-content-between align-items-center ">
-                <div className="d-flex align-items-center col-8">
+                <div className="d-flex align-items-center">
                     {
                         user.profilePicture === ''
                             ? <MainAvatar src={avatar} />
@@ -34,15 +34,15 @@ const FollowersSuggestion = (props: Props) => {
                         <NameText className="h6 mb-0 font-14">{user.name}</NameText>
                     </UserLinkStyle>
                 </div>
-                <ButtonStyled className='text-primary font-14 col-3'>Chuyển</ButtonStyled>
+                <p className='text-primary text-end font-14 cursor-pointer mb-0 px-2'>Chuyển</p>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-                <p className="h6 text-muted font-14 mt-1">Gợi ý cho bạn</p>
-                <ButtonStyled className="text-dark h6">Xem tất cả</ButtonStyled>
+                <p className="h6 text-muted font-14">Gợi ý cho bạn</p>
+                <p className="text-dark h6 font-14 px-2">Xem tất cả</p>
             </div>
             <div>
                 {
-                   suggestion.map((item: FollowingsType, key: number) => {
+                    suggestion.map((item: FollowingsType, key: number) => {
                         return <div className="py-2 d-flex justify-content-between align-items-center " key={key}>
                             <div className="d-flex align-items-center">
                                 {
@@ -54,7 +54,12 @@ const FollowersSuggestion = (props: Props) => {
                                     <p className="h6 mb-0">{item.name}</p>
                                 </UserLinkStyle>
                             </div>
-                            <ButtonStyled className='text-primary' onClick={() => handleFollowing(item._id, user.name, item.name)}>Theo dõi</ButtonStyled>
+                            <ButtonStyled
+                                className='text-primary'
+                                onClick={() => handleFollowing(item._id, user.name, item.name)}
+                            >
+                                Theo dõi
+                            </ButtonStyled>
                         </div>
                     })
                 }
@@ -76,7 +81,9 @@ const UserLinkStyle = styled(NavLink)`
 
 const RightSide = styled.div`
     position: fixed;
-    width: 293px !important;
+    @media (min-width: 992px) {
+        width: 293px;
+    }
 `
 
 const CopyrightStyled = styled.p`

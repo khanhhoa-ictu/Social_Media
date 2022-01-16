@@ -65,6 +65,12 @@ export function getUser(email: string): Promise<UserType> {
     .then((response: AxiosResponse<UserType>) => response.data)
 }
 
+export function getUserID(id: string): Promise<UserType> {
+  console.log(id);
+  return axios.get(`http://localhost:8080/user/getuser/${id}`)
+    .then((response: AxiosResponse<UserType>) => response.data)
+}
+
 export function getUserPost(userId: string): Promise<any> {
   return axios.get('http://localhost:8080/user/getuserpost/' + userId)
     .then((response: AxiosResponse<any>) => response.data)
