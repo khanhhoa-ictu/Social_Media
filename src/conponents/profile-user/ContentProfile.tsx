@@ -18,8 +18,8 @@ function ContentProfile(props: Props) {
         <Content__Profile className='Content__Profile'>
             <Nav className='border-top border-bottom-0 justify-content-center ml-5 mt-5 mb-1 nav' variant="tabs">
                 <Nav>
-                    <Nav href="" className='navlink mt-2' style={{ color: "#262626", fontSize: "18px" }}>
-                        Bài viết
+                    <Nav href="" className='navlink font-14 mt-2' style={{ color: "#262626", fontSize: "18px" }}>
+                        BÀI VIẾT
                     </Nav>
                 </Nav>
             </Nav>
@@ -28,10 +28,9 @@ function ContentProfile(props: Props) {
                     post.map((item, key) => {
                         return <NavLink to={`/profile/${item._id}`} className='img-item' key={key}>
                             <ImgStyle
-
                                 alt="Card image cap"
                                 src={item.img}
-                                className="image-post"
+                                className="image-post img-fluid"
                                 onClick={() => setShowDetailPost(true)}
                             />
                             <div className="img-box">
@@ -46,19 +45,30 @@ function ContentProfile(props: Props) {
     )
 }
 const ImgStyle = styled(CardImg)`
-object-fit: cover;
+    object-fit: cover;
 `
 const Content__Profile = styled.div`
 .list-img{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 30px 30px;
-    overflow:hidden;
+    @media (max-width: 992px){
+        grid-gap: 12px 12px;
+    }
     .image-post{
-        width:100%;
-        height:300px;
+        min-width:100%;
+        height: 283px;
         display:block;
         position:relative;
+        @media (max-width: 992px){
+            height: 224px;
+        }
+        @media (max-width: 768px){
+            height: 164px;
+        }
+        @media (max-width: 576px){
+            height: 122px;
+        }
     }
     .img-item{
         position:relative;
@@ -73,7 +83,6 @@ const Content__Profile = styled.div`
             background-color:#000;
             opacity:0;
             transition: opacity ease-in-out 0.3s;
-
             &:hover{
                 opacity:0.4;
                 transition: opacity ease-in-out 0.3s;
@@ -86,9 +95,6 @@ const Content__Profile = styled.div`
 .nav{
     height:52px;
     color: #262626;
-    .navlink{
-        
-    }
 }
 .navlink{
     color: #262626;

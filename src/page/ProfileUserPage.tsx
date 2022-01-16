@@ -29,19 +29,19 @@ function ProfileUserPage() {
                 setUserProfile(data.user);
                 setPost(data.post);
                 let email
-                if(getEmail() !== null){
+                if (getEmail() !== null) {
                     email = getEmail().email;
                 }
                 getUser(email).then(user => {
                     dispatch(setUser(user))
-                })  
+                })
             })
             .catch((error) => {
                 console.log(error);
             })
     }, [])
 
-    
+
     const logout = () => {
         localStorage.removeItem("user");
         dispatch(loginFail())
@@ -49,20 +49,19 @@ function ProfileUserPage() {
     return (
         <div>
             {
-                userProfile && post && user._id &&<div>
+                userProfile && post && user._id && <div>
                     <Navigation logout={logout} user={user} />
                     <div className='container'>
-                        <HeaderProfile userProfile={userProfile} post={post} user = {user}  />
+                        <HeaderProfile userProfile={userProfile} post={post} user={user} />
                         <ContentProfile post={post} />
                     </div>
                 </div>
-                
+
             }
             <Route exact path="/profile/:id" render={() =>
-                user &&  <PostDetailPage user = {user} />
-            
+                user && <PostDetailPage user={user} />
             }
-               
+
             />
 
 

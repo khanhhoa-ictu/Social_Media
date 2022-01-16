@@ -27,14 +27,14 @@ const Login = (props: Props) => {
     } = props
 
     return (
-        <StyledDiv className='row d-md-flex justify-content-between align-items-center font-14'>
-            <div className="col-md-7">
+        <StyledDiv className='row d-md-flex justify-content-around align-items-center font-14'>
+            <div className="col-md-7 col-sm-4 d-md-block d-none">
                 <ImgBackground src={background} alt="background" />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-5 col-sm-6">
                 <div className='border px-3 rounded bg-white'>
                     <div className='py-5 text-center'>
-                        <img src={logo} alt='name' />
+                        <img src={logo} alt='name' className='d-block w-100' />
                         <p className='h6 mt-4'>Where you share, where we laugh</p>
                     </div>
 
@@ -52,7 +52,7 @@ const Login = (props: Props) => {
                             <InputStyled
                                 type='password'
                                 value={passWord}
-                                className='shadow-none'
+                                className='shadow-none font-14'
                                 placeholder='Mật khẩu'
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setPassWord(e.target.value)} />
                             <p className='text-danger'>{notificationPassword}</p>
@@ -86,12 +86,18 @@ const Login = (props: Props) => {
 
 const StyledDiv = styled.div`
     margin: auto;
-    padding: 0;\
+    padding: 0;
     width: 1120px;
+    @media (max-width: 1120px){
+        width: 100%;
+    }
 `
 
 const ImgBackground = styled.img`
     width: 650px;
+    @media (max-width: 1120px){
+        width: 100%;
+    }
 `
 
 const InputStyled = styled(Input)`

@@ -51,7 +51,7 @@ const FollowersSuggestion = (props: Props) => {
                                         : <SubAvatar src={item.profilePicture} />
                                 }
                                 <UserLinkStyle className="px-3" to={`/${item._id}`}>
-                                    <p className="h6 mb-0">{item.name}</p>
+                                    <p className="h6 mb-0 font-14">{item.name}</p>
                                 </UserLinkStyle>
                             </div>
                             <ButtonStyled

@@ -61,9 +61,9 @@ function AccountSettingDetail(props: Props) {
 
     const params = useRouteMatch();
     return (
-        <div className="p-4 font-14">
+        <div className="p-sm-4 p-2 font-14">
             <article>
-                <div className='wapper__change-avatar d-flex mb-5'>
+                <div className='wapper__change-avatar d-flex mb-md-5 mb-2'>
                     <AvatarStyle className="font-14">
                         {user.profilePicture === ''
                             ? <img src={avatar} alt='avatar' />
@@ -76,8 +76,8 @@ function AccountSettingDetail(props: Props) {
                         <div >
                             <button
                                 onClick={handleUpload}
-                                className='p-0'
-                                style={{ border: '0', backgroundColor: "white", color: "#0095f6", fontSize: "14px", fontWeight: "600px", cursor: "pointer" }}>
+                                className='p-0 bg-white font-14 h6 cursor-pointer'
+                                style={{ color: "#0095f6", border: 'none' }}>
                                 Thay đổi ảnh đại diện
                             </button>
                             <input id="input-file" className="d-none" type="file" ref={inputFile} onChange={handleChangeAvatar} />
@@ -243,19 +243,21 @@ function AccountSettingDetail(props: Props) {
                     >
                         <Col
                             sm={{
-                                offset: 2,
-                                size: 9
+                                offset: 0,
+                                size: 11
                             }}
                         >
-                            {/* style={{ backgroundColor: "#0095f6" }} */}
                             <Button
                                 type='submit'
                                 outline color='primary'
+                                className='font-14'
                             >
                                 Gửi
                             </Button>
                             <DeleteStyle
-                                onClick={handleDelete}>
+                                onClick={handleDelete}
+                                className='font-14 ms-2'
+                            >
                                 Tạm thời vô hiệu hóa tài khoản
                             </DeleteStyle>
 

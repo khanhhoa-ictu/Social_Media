@@ -53,7 +53,7 @@ const PostModal = (props: ModalProps) => {
             <ModalHeader toggle={setShowModal} className=''>
                 {title}
             </ModalHeader>
-            <div className="d-flex flex-md-row flex-sm-column-reverse flex-column-reverse">
+            <div className="d-flex flex-md-row w- flex-sm-column-reverse flex-column-reverse">
                 <ModalBody className="col-7 border-end text-center">
                     Nhập ảnh từ thiết bị &nbsp;
                     <input

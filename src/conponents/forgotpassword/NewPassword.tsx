@@ -29,8 +29,8 @@ function NewPassword(props: Props) {
     return (
         <StyledDiv className='bg-light d-flex justify-content-center align-items-center'>
             <DivFullHeight className='d-flex flex-column font-14'>
-                <StyledDiv className='container d-flex flex-column justify-content-between align-items-center'>
-                    <div className='w-50 my-5 p-4 border text-center bg-white rounded'>
+                <StyledDiv className='container pt-5 d-flex flex-column justify-content-between align-items-center'>
+                    <div className='col-lg-6 col-md-7 col-sm-9 col-10 my-5 p-4 border text-center bg-white rounded'>
                         <ImgStyled className='my-4'>
                             <img src={lock} width='70' alt="lock" />
                         </ImgStyled>
@@ -51,7 +51,7 @@ function NewPassword(props: Props) {
                                 <InputStyled
                                     type='password'
                                     value={confirmPassword}
-                                    className='shadow-none'
+                                    className='shadow-none font-14'
                                     placeholder='Nhập lại mật khẩu mới'
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} />
                                 <p className='notification'>{notificationConfirmPassword}</p>

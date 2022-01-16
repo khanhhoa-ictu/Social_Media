@@ -21,18 +21,21 @@ function Forgot(props: Props) {
         loginButton
     } = props
     return (
-        <DivFullHeight>
+        <DivFullHeight className="d-flex flex-column">
             <div className="bg-white border-bottom">
                 <Nav className="container d-flex justify-content-center py-2">
                     <img src={logo} alt="logo" height='42px;' />
                 </Nav>
             </div>
-            <StyledDiv className='container d-flex justify-content-center align-items-center font-14'>
-                <div className='bg-white col-lg-11 border rounded text-center'>
+            <StyledDiv className=' d-flex justify-content-center align-items-center font-14'>
+                <div className='bg-white col-xl-6 col-md-10 col-sm-12 col-12 border rounded text-center'>
                     <ImgStyled className='my-4'>
                         <img src={lock} width='70' alt="lock" />
                     </ImgStyled>
-                    <Form onSubmit={getCodeButton} className='border-bottom pb-5 px-5'>
+                    <Form
+                        onSubmit={getCodeButton}
+                        className='border-bottom p-lg-5 p-sm-3 w-100'
+                    >
                         <p className='h6 text-secondary'>
                             Bạn gặp sự cố khi đăng nhập?
                         </p>
@@ -61,7 +64,6 @@ function Forgot(props: Props) {
                     <div className='bg-light py-3 cursor-pointer text-secondary border-none' onClick={loginButton}>
                         Quay lại trang trước
                     </div>
-
                 </div>
             </StyledDiv>
             <Footer className="text-muted text-center">&copy; 2022 MARGASTNI FROM UNIVERSE</Footer>
@@ -72,6 +74,21 @@ function Forgot(props: Props) {
 const StyledDiv = styled.div`
     padding : 5rem 15rem;
     height: 90vh;
+    width: 100%;
+    @media (max-width: 992px){
+        .bg-white{
+            width: 350px;
+        }
+    @media (max-width: 576px){
+        .bg-white{
+            max-width: 100%;
+            form{
+                padding: 12px !important;
+            }
+        }
+        padding: 0 20px;
+    }
+    }
 `
 
 const Footer = styled.p`

@@ -134,7 +134,9 @@ const InboxPage = () => {
                                         </div>
                                     </div>
                                     :
-                                    <BlankMessage />
+                                    <div className="px-sm-0 px-4">
+                                        <BlankMessage />
+                                    </div>
                             }
                         </div>
                     </BorderDiv>
