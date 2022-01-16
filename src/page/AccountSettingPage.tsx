@@ -37,15 +37,15 @@ function AccountSettingPage() {
                     setShowAlert(true)
                     setTimeout(() => {
                         setShowAlert(false);
-                    }, 1500)
-                    // dispatch(setUser(data.user))
+                    }, 1000)
+                    dispatch(setUser(data.user))
                 })
                 .catch((err) => {
                     setNoti('Đã sãy ra lỗi vui lòng thử lại')
                     setShowAlert(true)
                     setTimeout(() => {
                         setShowAlert(false);
-                    }, 1500)
+                    }, 1000)
                 })
         }
 
@@ -159,7 +159,6 @@ function AccountSettingPage() {
 
 const DivStyle = styled.div`
     margin-top: 24px;
-    height: 85vh;
     position: relative;
 `
 

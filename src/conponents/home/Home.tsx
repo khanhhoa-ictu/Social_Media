@@ -24,7 +24,9 @@ function Home(props: Props) {
             <Navigation logout={logout} user={user} />
             <Content className="container pt-2 d-flex justify-content-md-between justify-content-center">
                 <div className="col-md-8 col-10 col-sm-10 mt-4 d-flex justify-content-center">
+
                     <NewsFeedPage user={user} newsFeed={newsFeed} />
+
                 </div>
                 {
                     <FixedSuggestion className="col-xl-4 d-md-block d-none">

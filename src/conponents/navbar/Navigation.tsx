@@ -56,7 +56,7 @@ function Navigation(props: Props) {
                     setTimeout(() => {
                         setShowAlert(false);
                         window.location.reload();
-                    }, 1500)
+                    }, 1000)
                 })
                 .catch((error) => {
                     setShowAlert(true);
@@ -64,7 +64,7 @@ function Navigation(props: Props) {
                     setTimeout(() => {
                         setShowAlert(false);
                         window.location.reload();
-                    }, 1500)
+                    }, 1000)
                 })
             setShowModal();
         }

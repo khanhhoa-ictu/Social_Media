@@ -40,7 +40,7 @@ function ProfileUserPage() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [name])
 
 
     const logout = () => {

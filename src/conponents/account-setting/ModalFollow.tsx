@@ -14,13 +14,15 @@ function ModalFollow() {
     let { id } = useParams<RouteParams>()
     const [follower, setFollower] = useState<FollowingsType[]>([])
     useEffect(() => {
+        console.log(id)
         getFollower(id).then((data) => {
+            console.log(data)
             setFollower(data)
         })
     }, [])
     return (
         <ModalStyled
-            isOpen={id}
+            isOpen={true}
             toggle={() => history.goBack()}
             centered
             className='modal border-none'

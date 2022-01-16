@@ -5,6 +5,7 @@ import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
 import { ChangeAvatar } from '../../api/user.api';
 import { useRouteMatch } from 'react-router-dom';
+import ToastAlert from '../alert/ToastAlert';
 
 interface Props {
     user: UserType
@@ -29,8 +30,15 @@ function AccountSettingDetail(props: Props) {
         inputFile.current?.files && (inputFile.current.files?.length !== 0) &&
             ChangeAvatar(inputFile.current.files[0], user.email).then((data) => {
                 console.log(data);
+                setShowAlert(true)
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 1000)
             });
     }
+    useEffect(() => {
+        setUserSetting(user)
+    },[user.profilePicture])
 
     const [name, setName] = useState(user.name)
     const [desc, setDesc] = useState(user.desc)
@@ -38,8 +46,8 @@ function AccountSettingDetail(props: Props) {
     const [adress, setAdress] = useState(user.address)
     const [gender, setGender] = useState(user.gender)
     const [isSubmit, setIsSubmit] = useState(false)
-
-
+    const [userSetting,setUserSetting] = useState<UserType>(user)
+    const [showAlert, setShowAlert] = useState(false);
     const validateForm = () => {
         if (!name || !email || !phone || !adress || !gender) {
             setIsSubmit(false)
@@ -58,15 +66,17 @@ function AccountSettingDetail(props: Props) {
         validateForm()
     }, [name, email, phone, adress, gender])
 
-    const params = useRouteMatch();
     return (
         <div className="p-sm-4 p-2 font-14">
+                <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={'thay doi anh dai dien thanh cong'} />
+
             <article>
                 <div className='wapper__change-avatar d-flex mb-md-5 mb-2'>
+
                     <AvatarStyle className="font-14">
-                        {user.profilePicture === ''
+                        {userSetting.profilePicture === ''
                             ? <img src={avatar} alt='avatar' />
-                            : <img src={user.profilePicture} alt='avatar' />
+                            : <img src={userSetting.profilePicture} alt='avatar' />
                         }
 
                     </AvatarStyle>

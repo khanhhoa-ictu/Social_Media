@@ -15,8 +15,7 @@ function ModalFollowing() {
     const [follower,setFollower] = useState<FollowingsType[]>([])
     useEffect(()=>{
         getFollowing(id).then((data)=>{
-            console.log(data)
-            // setFollower(data)
+            setFollower(data)
         })
     },[])
     return (
