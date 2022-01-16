@@ -101,22 +101,22 @@ const InboxPage = () => {
                                         <div className="d-flex h-100 justify-content-end flex-column pb-4">
                                             <div className="p-3 w-100 border-bottom">
                                                 {
-                                                     showInbox?.profilePicture === '' 
-                                                     ? <MainAvatar src={avatar} />  
-                                                     : <MainAvatar src={showInbox?.profilePicture} />
-                                                       
+                                                    showInbox?.profilePicture === ''
+                                                        ? <MainAvatar src={avatar} />
+                                                        : <MainAvatar src={showInbox?.profilePicture} />
+
                                                 }
 
                                                 <span className="h6 mx-3">{showInbox?.name} </span>
                                             </div>
                                             {messages.map((m, index) => (
                                                 <div key={index} >
-                                                    {showInbox && <DirectMessage 
-                                                                        message={m} 
-                                                                        own={m.sender === user._id} 
-                                                                        showInbox={showInbox} 
-                                                                        user={user}
-                                                                    />}
+                                                    {showInbox && <DirectMessage
+                                                        message={m}
+                                                        own={m.sender === user._id}
+                                                        showInbox={showInbox}
+                                                        user={user}
+                                                    />}
                                                 </div>
                                             ))}
                                             <BoxInput className="mt-auto d-flex align-items-center mx-4 border">
@@ -126,7 +126,7 @@ const InboxPage = () => {
                                                 <CommentInput
                                                     type="text"
                                                     className="shadow-none font-14"
-                                                    placeholder="Thêm bình luận ..."
+                                                    placeholder="Nhắn tin ..."
                                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
                                                     value={newMessage}
                                                 />
