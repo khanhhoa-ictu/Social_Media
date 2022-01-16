@@ -26,7 +26,7 @@ function HeaderProfile(props: Props) {
                 console.log(err);
             })
         } else {
-            followUser(user.name, userProfile.name).then((data) => {
+            followUser(user._id, userProfile._id).then((data) => {
                 console.log(data);
             })
 
@@ -60,8 +60,8 @@ function HeaderProfile(props: Props) {
                 </div>
                 <div className='d-md-flex d-none flowing'>
                     <p><span className='h6'>{post.length} </span>  bài viết</p>
-                    <NavLink to={`/${userProfile._id}/follower`}><span className='h6'>{userProfile.followers.length}</span>  người theo dõi</NavLink>
-                    <NavLink to={`/${userProfile._id}/following`}>Đang theo dõi <span className='h6'>{userProfile.followings.length}</span>người dùng</NavLink>
+                    <NavLink className='me-4' to={`/${userProfile._id}/follower`}><span className='h6'>{userProfile.followers.length}</span>  người theo dõi</NavLink>
+                    <NavLink to={`/${userProfile._id}/following`}> Đang theo dõi <span className='h6'> {userProfile.followings.length}</span>người dùng</NavLink>
                 </div>
                 <div>
                     <p className='mt-3'>{userProfile.desc}</p>
@@ -118,6 +118,11 @@ const DivHeader = styled.div`
         margin-top: 15px;
         p{
             margin: 0 20px 0 0;
+        }
+        a{
+            color:#212529;
+            text-decoration:none;
+            display:inline-block;
         }
     }
 `

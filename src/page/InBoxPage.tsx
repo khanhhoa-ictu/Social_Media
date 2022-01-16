@@ -48,7 +48,6 @@ const InboxPage = () => {
     useEffect(() => {
         socket.current?.emit("addUser", user._id);
     }, [user]);
-
     useEffect(() => {
         if (user._id !== '') {
             getConversations(user._id).then((data) => {
@@ -112,7 +111,7 @@ const InboxPage = () => {
     }, [messages]);
 
 
-
+    console.log(arrivalMessage)
     return (
         <div>
             {
@@ -140,7 +139,7 @@ const InboxPage = () => {
                                 {
                                     currentChat
                                         ?
-                                        <div className="col-8">
+                                        <div className="col-12">
                                             <div className="h-100">
                                                 <div className="d-flex h-100 justify-content-end flex-column pb-4">
                                                     <div className="p-3 w-100 border-bottom">

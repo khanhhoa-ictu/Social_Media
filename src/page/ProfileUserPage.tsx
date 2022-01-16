@@ -20,7 +20,6 @@ interface RouteParams {
 function ProfileUserPage() {
     let { name } = useParams<RouteParams>()
     const dispatch = useDispatch()
-    console.log(name);
     let [userProfile, setUserProfile] = useState<UserType>()
     let [post, setPost] = useState<PostType[]>()
     let user = useSelector((state: RootState) => state.UserReducer.user.user)
@@ -41,7 +40,7 @@ function ProfileUserPage() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [name])
 
 
     const logout = () => {

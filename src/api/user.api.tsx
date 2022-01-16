@@ -88,9 +88,9 @@ export function getFriendSuggestion(id: string): Promise<FollowingsType[]> {
     .then((response: AxiosResponse<FollowingsType[]>) => response.data)
 }
 
-export function followUser(currentUser: string, UserFollow: string): Promise<string> {
-  return axios.post(`http://localhost:8080/user/${UserFollow}/follower`, {
-    name: currentUser
+export function followUser(currentUserId: string, UserFollowId: string): Promise<string> {
+  return axios.post(`http://localhost:8080/user/${UserFollowId}/follower`, {
+    id: currentUserId
   })
     .then((response: AxiosResponse<string>) => response.data)
 }
