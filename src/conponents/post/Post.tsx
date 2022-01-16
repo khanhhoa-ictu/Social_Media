@@ -195,7 +195,7 @@ const Post = (props: Props) => {
                             <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></polygon>
                         </svg>
                     </span>
-                    <span className="d-block">
+                    <span className="d-block font-14">
                         <span className="h6 font-14">{likePost} người thích</span>
                     </span>
                     <div className="comment mb-2 font-14">

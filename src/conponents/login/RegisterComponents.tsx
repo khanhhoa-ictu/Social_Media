@@ -40,9 +40,9 @@ const RegisterComponents = (props: Props) => {
 
     return (
         <StyledDiv className="py-5 font-14">
-            <CenterDiv className="pt-5">
+            <CenterDiv className="pt-md-5">
                 <div className="container d-flex align-items-end justify-content-between flex-column">
-                    <div className="border rounded mx-auto col-5 bg-white px-4">
+                    <div className="border rounded mx-auto col-lg-5 col-md-6 col-10 bg-white px-4">
                         <div className='py-3 text-center'>
                             <img
                                 src={logo}
@@ -106,7 +106,7 @@ const RegisterComponents = (props: Props) => {
                             </Form>
                         </div>
                     </div>
-                    <div className="border rounded bg-white my-2 mx-auto col-5 text-center py-4">
+                    <div className="border rounded bg-white my-2 mx-auto col-lg-5 col-md-6 col-10 text-center py-4">
                         <span>Bạn có tài khoản? </span>
                         <span className='cursor-pointer text-primary' onClick={loginButton} >Đăng nhập</span>
                     </div>

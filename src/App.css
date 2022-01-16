@@ -30,4 +30,11 @@
 }
 
 @media screen and (max-width: 576px) {
+    .navbar-toggler {
+        padding: 6px !important;
+        font-size: 15px !important;
+    }
+    .font-14 {
+        font-size: 10px !important;
+    }
 }

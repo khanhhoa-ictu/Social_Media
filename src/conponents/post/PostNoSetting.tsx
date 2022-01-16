@@ -76,7 +76,7 @@ const PostNoSetting = (props: Props) => {
                                 <UserLinkStyle className='mb-0 h6' to={`/${post.userId}`}>
                                     {userPost?.name}
                                 </UserLinkStyle>
-                                <TitleStyled className="text-muted mb-0" >
+                                <TitleStyled className="text-muted mb-0 font-14" >
                                     {userPost?.address}
                                 </TitleStyled>
                             </div>
@@ -123,10 +123,10 @@ const PostNoSetting = (props: Props) => {
                         </ButtonSvg>
                     </span>
                     <span className="d-block">
-                        <span className="h6">{likePost} người thích</span>
+                        <span className="h6 font-14">{likePost} người thích</span>
                     </span>
-                    <div className="comment mb-2">
-                        <span className="h6 ">{post.name}: </span> {post.desc}
+                    <div className="comment mb-2 font-14">
+                        <span className="h6 font-14">{post.name}: </span> {post.desc}
                     </div>
                     {
                         sumComment <= 0
@@ -157,7 +157,7 @@ const PostNoSetting = (props: Props) => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value)}
                     />
                     <ButtonPostStyled
-                        className='text-primary px-1'
+                        className='text-primary px-1 font-14'
                         onClick={submitCommentPost}
                     >
                         Đăng

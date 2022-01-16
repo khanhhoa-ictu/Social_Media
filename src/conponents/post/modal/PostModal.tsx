@@ -53,7 +53,7 @@ const PostModal = (props: ModalProps) => {
             <ModalHeader toggle={setShowModal} className=''>
                 {title}
             </ModalHeader>
-            <div className="d-flex flex-md-row flex-sm-column-reverse flex-column-reverse">
+            <div className="d-flex flex-md-row w- flex-sm-column-reverse flex-column-reverse">
                 <ModalBody className="col-7 border-end text-center">
                     Nhập ảnh từ thiết bị &nbsp;
                     <input
@@ -190,6 +190,7 @@ const ImgStyled = styled.img`
     @media (max-width: 768px) {
         max-width: 200px;
         height: 200px;
+        object-fit: contain;
     }
 `
 

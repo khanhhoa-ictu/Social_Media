@@ -28,7 +28,7 @@ function CheckOTP(props: Props) {
                     </Nav>
                 </div>
                 <StyledDiv className='container d-flex justify-content-center align-items-center'>
-                    <div className='bg-white col-lg-5 p-4 border rounded text-center'>
+                    <div className='bg-white col-lg-5 col-md-7 col-sm-8 col-10 p-4 border rounded text-center'>
                         <ImgStyled className='my-4'>
                             <img src={lock} width='70' alt="lock" />
                         </ImgStyled>
