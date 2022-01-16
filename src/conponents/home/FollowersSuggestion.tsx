@@ -11,7 +11,6 @@ interface Props {
 }
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
-    console.log('flowing', following);
     const [suggestion, setSuggestion] = useState(following)
     const handleFollowing = (id: string, user: string, userFollow: string) => {
         const index: number = suggestion.findIndex((item: UserSuggestion) => item._id === id)

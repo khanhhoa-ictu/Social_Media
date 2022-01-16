@@ -92,8 +92,7 @@ function AccountSettingPage() {
     
     const handleDelete = () =>{
         if(user._id){
-            deleteUser(user._id).then((data:any) =>{
-                console.log(data);
+            deleteUser(user._id).then((data:{msg:string}) =>{
                 logout()
                 history.push('/login')
             })

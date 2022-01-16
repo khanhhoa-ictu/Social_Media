@@ -4,6 +4,7 @@ import { setIsLoading } from '../../action/post.action';
 import { deletePost, handleLike, updatePost } from '../../api/post.api';
 import { getUserPost } from '../../api/user.api';
 import Post from '../../conponents/post/Post';
+import { RootState } from '../../reducer';
 import { PostType } from '../../type/postType';
 import { UserType } from '../../type/userType';
 
@@ -15,7 +16,7 @@ interface Props {
 
 function PostPage(props: Props) {
     const { post, user, CommentPost } = props
-    const isLoading = useSelector((state: any) => state.HomeReducer.loading.isLoading)
+    const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [postContent, setPostContent] = useState(post.desc);
