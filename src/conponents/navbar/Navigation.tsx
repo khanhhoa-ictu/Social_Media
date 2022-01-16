@@ -1,15 +1,16 @@
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { CardTitle, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
+import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, UncontrolledDropdown } from 'reactstrap'
 import styled from 'styled-components'
 import { createPost } from '../../api/post.api'
 import { searchUser } from '../../api/user.api'
-import logo from '../../assets/image/logo.png'
 import logoicon from '../../assets/image/logo-icon.png'
+import logo from '../../assets/image/logo.png'
 import { UserType } from '../../type/userType'
 import ToastAlert from '../alert/ToastAlert'
 import PostModal from '../post/modal/PostModal'
+import close from './../../assets/icon/close.png'
 import avatar from './../../assets/image/no-avatar.png'
 
 interface Props {
@@ -78,7 +79,7 @@ function Navigation(props: Props) {
             searchUser(e.target.value).then((users) => {
                 setUserSearch(users.data);
             })
-        }else{
+        } else {
             setUserSearch([]);
         }
 
@@ -100,31 +101,28 @@ function Navigation(props: Props) {
                     </NavbarBrand>
                     <div>
                         <div className="position-relative">
-                            <InputStyled className="rounded-5 search" type="search" placeholder="Tìm kiếm" onChange={changeSerch} />
-                            <SearchStyled>
-
-                            
-                            {
-                                userSearch.length > 0 && userSearch?.map((item: any, key: number) => {
-                                    return <div className="d-flex align-items-center mb-3" key={key}>
-                                        <AvatarStyled src={item?.profilePicture ? item.profilePicture : avatar} alt="avatar" />
-                                        <div className='mx-3'>
-                                            <UserLinkStyle className='mb-0 h6 navLink' to={`/${item._id}`}>
-                                                {item?.name}
-                                            </UserLinkStyle>
-                                            <TitleStyled className="text-muted mb-0" >
-                                                {item?.address ? item.address + ', vn' : null}
-                                            </TitleStyled>
+                            <InputStyled className="rounded-5 search font-14" type="search" placeholder="Tìm kiếm" onChange={changeSerch} />
+                            <SearchStyled className='bg-white'>
+                                {
+                                    userSearch.length > 0 && userSearch?.map((item: any, key: number) => {
+                                        return <div className="d-flex align-items-center" key={key}>
+                                            <NavLinkHover
+                                                className='text-decoration-none font-14 text-dark d-flex align-items-center w-100 px-3 py-2'
+                                                to={`/${item._id}`}
+                                            >
+                                                <AvatarStyled src={item?.profilePicture ? item.profilePicture : avatar} alt="avatar" />
+                                                <div className="mx-2">
+                                                    <span>{item?.name}</span>
+                                                    <p className="text-muted mb-0" >
+                                                        {item?.address ? item.address + ', vn' : null}
+                                                    </p>
+                                                </div>
+                                            </NavLinkHover>
                                         </div>
-                                    </div>
-                                })
-
-
-                            }
+                                    })
+                                }
                             </SearchStyled>
                         </div>
-
-
                     </div>
                     <div>
                         <NavbarToggler onClick={function noRefCheck() { }} />
@@ -251,13 +249,11 @@ function Navigation(props: Props) {
 }
 
 const SearchStyled = styled.div`
-position: absolute;
-left: 0;
-width: 100%;
-background: #fcfcfc;
-padding-left: 5px;
-max-height: 300px;
-background: #ff0d0d;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 `
 
 const NavigationStyled = styled.div`
@@ -278,11 +274,16 @@ const NavigationStyled = styled.div`
         }
 `
 
-
 const DropdownMenuStyled = styled(DropdownMenu)`
     border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     margin-right: -100px;
+`
+
+const NavLinkHover = styled(NavLink)`
+    &:hover{
+        background-color: #f1f1f1;
+    }
 `
 
 const LogoImageStyled = styled.img`
@@ -304,20 +305,5 @@ const AvatarStyled = styled.img`
     border-radius: 50%;
     border: 1px solid #e6e6e6;
 `
-const UserLinkStyle = styled(NavLink)`
-    text-decoration: none;
-    color:#212529;
-    font-size: 14px;
-    &:hover{
-        color:#212529
-    }
-`
-const TitleStyled = styled(CardTitle)`
-    .text-muted{
-        cursor: pointer;
-    }
-    .span-time{
-        font-size: 10.5px !important;
-    }
-`
+
 export default Navigation

@@ -18,19 +18,17 @@ function ContentProfile(props: Props) {
         <Content__Profile className='Content__Profile'>
             <Nav className='border-top border-bottom-0 justify-content-center ml-5 mt-5 mb-1 nav' variant="tabs">
                 <Nav>
-                    <Nav href="" className='navlink' style={{ color: "#262626", fontSize: "18px" }}>
+                    <Nav href="" className='navlink mt-2' style={{ color: "#262626", fontSize: "18px" }}>
                         Bài viết
                     </Nav>
                 </Nav>
-
-
             </Nav>
             <div className='list-img'>
                 {
                     post.map((item, key) => {
-                        return <NavLink to={`/profile/${item._id}`} className='img-item'  key={key}>
+                        return <NavLink to={`/profile/${item._id}`} className='img-item' key={key}>
                             <ImgStyle
-                               
+
                                 alt="Card image cap"
                                 src={item.img}
                                 className="image-post"
@@ -40,10 +38,8 @@ function ContentProfile(props: Props) {
 
                             </div>
                         </NavLink>
-
                     })
                 }
-               
             </div>
 
         </Content__Profile>
@@ -63,8 +59,6 @@ const Content__Profile = styled.div`
         height:300px;
         display:block;
         position:relative;
-
-        
     }
     .img-item{
         position:relative;
@@ -82,17 +76,12 @@ const Content__Profile = styled.div`
 
             &:hover{
                 opacity:0.4;
-                 transition: opacity ease-in-out 0.3s;
-
+                transition: opacity ease-in-out 0.3s;
+                border-radius: 4px;
             }
-        }
-           
+        }           
     }
-
-
 }
-
-
 
 .nav{
     height:52px;
