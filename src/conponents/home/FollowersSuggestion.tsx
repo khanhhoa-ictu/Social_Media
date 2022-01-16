@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { FollowingsType } from '../../type/folloingType'
@@ -12,12 +12,12 @@ interface Props {
 const FollowersSuggestion = (props: Props) => {
     const { user, following, handleFollow } = props
     const [suggestion, setSuggestion] = useState(following)
-    const handleFollowing = (id: string, user: string, userFollow: string) => {
+    const handleFollowing = (id: string, userId: string, userFollowId: string) => {
         const index: number = suggestion.findIndex((item: UserSuggestion) => item._id === id)
         const newData = [...suggestion];
         newData.splice(index, 1);
         setSuggestion(newData);
-        handleFollow(user, userFollow);
+        handleFollow(userId, userFollowId);
     }
     return (
         <RightSide className="ps-md-4">
@@ -55,7 +55,7 @@ const FollowersSuggestion = (props: Props) => {
                             </div>
                             <ButtonStyled
                                 className='text-primary'
-                                onClick={() => handleFollowing(item._id, user.name, item.name)}
+                                onClick={() => handleFollowing(item._id, user._id, item._id)}
                             >
                                 Theo dõi
                             </ButtonStyled>
@@ -84,25 +84,27 @@ const RightSide = styled.div`
         width: 293px;
     }
 `
-
-const CopyrightStyled = styled.p`
-    color: #c7c7c7;
-    font-size: 12px !important;
-`
-
 const MainAvatar = styled.img`
     width: 56px;
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
 `
-
 const NameText = styled.p`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 130px;
 `
+
+const CopyrightStyled = styled.p`
+    color: #c7c7c7;
+    font-size: 12px !important;
+`
+
+
+
+
 
 const SubAvatar = styled.img`
     width: 32px;

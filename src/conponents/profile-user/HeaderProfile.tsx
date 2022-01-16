@@ -26,7 +26,7 @@ function HeaderProfile(props: Props) {
                 console.log(err);
             })
         } else {
-            followUser(user.name, userProfile.name).then((data) => {
+            followUser(user._id, userProfile._id).then((data) => {
                 console.log(data);
             })
 

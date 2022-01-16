@@ -48,10 +48,11 @@ const InboxPage = () => {
     useEffect(() => {
             socket.current?.emit("addUser", user._id);
     }, [user]);
-    
+    console.log('conver',conversations)
     useEffect(() => {
         if (user._id !== '') {
             getConversations(user._id).then((data) => {
+                console.log(data)
                 setConversations(data)
             })
         }
