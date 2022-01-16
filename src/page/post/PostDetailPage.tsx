@@ -31,7 +31,6 @@ function PostDetailPage(props:Props) {
     const [postDetail, setPostDetail] = useState<PostDetailType>()
     useEffect(() => {
         getPostDetail(id).then((data: PostDetailType) => {
-            console.log(data);
             setPostDetail(data)
         })
         handleCheckLiked();

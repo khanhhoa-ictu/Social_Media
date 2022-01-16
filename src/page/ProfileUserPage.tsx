@@ -4,6 +4,8 @@ import { Route, useParams } from 'react-router-dom';
 import { loginFail, setUser } from '../action/user.action';
 import { getPostUser, getUser } from '../api/user.api';
 import { getEmail } from '../config/locastorga.config';
+import ModalFollow from '../conponents/account-setting/ModalFollow';
+import ModalFollowing from '../conponents/account-setting/ModalFollowing';
 import Navigation from '../conponents/navbar/Navigation'
 import ContentProfile from '../conponents/profile-user/ContentProfile';
 import HeaderProfile from '../conponents/profile-user/HeaderProfile';
@@ -60,10 +62,17 @@ function ProfileUserPage() {
             }
             <Route exact path="/profile/:id" render={() =>
                 user && <PostDetailPage user={user} />
-            }
 
-            />
+            } />
+            <Route exact path="/:id/follower" render={() =>
+                user && <ModalFollow />
 
+            } />
+
+            <Route exact path="/:id/following" render={() =>
+                user && <ModalFollowing />
+
+            } />
 
         </div>
     )

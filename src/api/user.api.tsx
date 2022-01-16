@@ -66,14 +66,13 @@ export function getUser(email: string): Promise<UserType> {
 }
 
 export function getUserID(id: string): Promise<UserType> {
-  console.log(id);
   return axios.get(`http://localhost:8080/user/getuser/${id}`)
     .then((response: AxiosResponse<UserType>) => response.data)
 }
 
-export function getUserPost(userId: string): Promise<any> {
+export function getUserPost(userId: string): Promise<UserType> {
   return axios.get('http://localhost:8080/user/getuserpost/' + userId)
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<UserType>) => response.data)
 }
 export function ChangeAvatar(file: string | Blob, email: string): Promise<{msg : string, data : UserType}> {
   let data = new FormData()
@@ -112,7 +111,16 @@ export function getPostUser(id: string): Promise<any> {
   return axios.get(`http://localhost:8080/user/getuserprofile/${id}`)
     .then((response: AxiosResponse<any>) => response.data)
 }
-export function deleteUser(id: string): Promise<any> {
+export function deleteUser(id: string): Promise<{msg : string}> {
   return axios.get(`http://localhost:8080/user/delete/${id}`)
+    .then((response: AxiosResponse<{msg : string}>) => response.data)
+}
+
+export function getFollower(id: string): Promise<any> {
+  return axios.get(`http://localhost:8080/${id}/follower`)
+    .then((response: AxiosResponse<any>) => response.data)
+}
+export function getFollowing(id: string): Promise<any> {
+  return axios.get(`http://localhost:8080/${id}/following`)
     .then((response: AxiosResponse<any>) => response.data)
 }

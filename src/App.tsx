@@ -31,6 +31,9 @@ function App() {
           <Route exact path='/post/:id' component={HomePage} />
           <Route exact path='/profile/:id' component={ProfileUserPage} />
           <Route exact path="/:name" component={ProfileUserPage} />
+          <Route exact path="/:id/follower" component={ProfileUserPage} />
+          <Route exact path="/:id/following" component={ProfileUserPage} />
+
           <Route component={NotFoundPage} />
 
         </Switch>

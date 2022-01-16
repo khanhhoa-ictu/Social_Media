@@ -16,7 +16,7 @@ function ConfirmPage() {
             console.log('data1', data)
             
         })
-        .catch((err) => console.log('err1',err))
+        .catch((err) => console.log(err))
     }, [])
 
     return (

@@ -48,7 +48,6 @@ function HomePage() {
     useEffect(() => {
         if(user._id){
             getFriendSuggestion(user._id).then(followings => {
-                console.log('flơ',followings);
                 dispatch(setFollowing(followings))
             })
         }
@@ -68,10 +67,10 @@ function HomePage() {
     const [newsFeed, setNewFeed] = useState<PostType[]>([]);
     const [page, setPage] = useState(0);
     const handleScroll = (event:any) => {
-        console.log('object');
         const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
-    
+        
         if (scrollHeight - scrollTop === clientHeight) {
+            console.log('next')
           setPage(prev => prev + 1);
         }
       };

@@ -11,7 +11,6 @@ interface Props {
 }
 function ContentProfile(props: Props) {
     const { post } = props
-    const [showDetailPost, setShowDetailPost] = useState(false)
 
 
     return (
@@ -30,8 +29,7 @@ function ContentProfile(props: Props) {
                             <ImgStyle
                                 alt="Card image cap"
                                 src={item.img}
-                                className="image-post img-fluid"
-                                onClick={() => setShowDetailPost(true)}
+                                className="image-post"
                             />
                             <div className="img-box">
 

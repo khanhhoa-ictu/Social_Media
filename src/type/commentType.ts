@@ -21,3 +21,8 @@ export interface NewCommentType{
     text:string,
     conversationId:string,
 }
+export interface ArrivalMessageType{
+    sender: string,
+    text: string,
+    createdAt: number,
+}

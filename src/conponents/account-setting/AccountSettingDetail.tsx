@@ -21,7 +21,6 @@ function AccountSettingDetail(props: Props) {
         submitButton,
         handleDelete
     } = props
-    console.log(user);
     const inputFile = useRef<HTMLInputElement>(null);
     const handleUpload = () => {
         inputFile.current?.click();
