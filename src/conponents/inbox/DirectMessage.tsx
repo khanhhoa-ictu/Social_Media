@@ -13,20 +13,20 @@ interface Props {
 }
 const DirectMessage = (props: Props) => {
     const { message, own, showInbox, user } = props
-    console.log(message);
     return (
 
         <div >
 
             <div className="recent-inbox">
                 {
-                    own 
-                    ?   <div className="d-flex align-items-end p-3 flex-column">
+                    own
+                        ? <div className="d-flex align-items-end p-3 flex-column">
                             <div className="d-flex">
+                                <ChatLine className="mx-3 mb-0 px-3 py-1 border">{message.text}</ChatLine>
                                 {user.profilePicture === ''
                                     ? <MainAvatar src={avatar} />
                                     : <MainAvatar src={user.profilePicture} />}
-                                <ChatLine className="mx-3 mb-0 px-3 py-1 border">{message.text}</ChatLine>
+
                             </div>
                             <TimeStyle className="d-block text-muted span-time my-1 pb-1">{format(message.createdAt)}</TimeStyle>
                         </div>

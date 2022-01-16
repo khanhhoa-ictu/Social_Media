@@ -1,21 +1,22 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Input } from 'reactstrap'
+import { io } from 'socket.io-client'
 import styled from 'styled-components'
-import { auth, loginFail, setUser } from './../action/user.action'
-import Navigation from './../conponents/navbar/Navigation'
+import { getConversations } from '../api/conversation.api'
+import { createMessages, getMessages } from '../api/message.api'
+import { getUser } from '../api/user.api'
+import { getEmail } from '../config/locastorga.config'
+import { RootState } from '../reducer'
+import { CurrentChat, NewCommentType } from '../type/commentType'
+import { ConversationType } from '../type/conversationType'
+import { UserType } from '../type/userType'
+import { loginFail, setUser } from './../action/user.action'
+import avatar from './../assets/image/no-avatar.png'
 import BlankMessage from './../conponents/inbox/BlankMessage'
 import DirectMessage from './../conponents/inbox/DirectMessage'
 import RecentMessages from './../conponents/inbox/RecentMessages'
-import avatar from './../assets/image/no-avatar.png'
-import { getEmail } from '../config/locastorga.config'
-import { getUser } from '../api/user.api'
-import { RootState } from '../reducer'
-import { getConversations } from '../api/conversation.api'
-import { ConversationType } from '../type/conversationType'
-import { createMessages, getMessages } from '../api/message.api'
-import { Input } from 'reactstrap'
-import { CurrentChat, NewCommentType } from '../type/commentType'
-import { UserType } from '../type/userType'
+import Navigation from './../conponents/navbar/Navigation'
 
 const InboxPage = () => {
     const [conversations, setConversations] = useState<ConversationType[]>([]);
@@ -24,25 +25,40 @@ const InboxPage = () => {
     const [currentChat, setCurrentChat] = useState<ConversationType>();
     const [messages, setMessages] = useState<CurrentChat[]>([]);
     const [newMessage, setNewMessage] = useState("");
-
+    const [arrivalMessage, setArrivalMessage] = useState<any>();
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const socket = useRef<any>();
     let user = useSelector((state: RootState) => state.UserReducer.user.user)
-    const handleSubmit = () => {
-        if (currentChat?._id) {
-            const message: NewCommentType = {
-                sender: user._id,
-                text: newMessage,
-                conversationId: currentChat?._id
-            }
-            createMessages(message).then((data) => {
-                console.log(data);
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket.current.on("getMessage", (data: any) => {
+            console.log(data);
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+    console.log('thy doi',arrivalMessage);
+     useEffect(() => {
+        arrivalMessage &&
+            currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
+
+    useEffect(() => {
+            socket.current?.emit("addUser", user._id);
+    }, [user]);
+    
+    useEffect(() => {
+        if (user._id !== '') {
+            getConversations(user._id).then((data) => {
+                setConversations(data)
             })
         }
+    }, [user._id]);
 
-    }
-    const logout = () => {
-        localStorage.removeItem("user");
-        dispatch(loginFail())
-    }
     useEffect(() => {
         let email
         if (getEmail() !== null) {
@@ -53,14 +69,6 @@ const InboxPage = () => {
         })
     }, [])
     useEffect(() => {
-        if (user._id !== '') {
-            getConversations(user._id).then((data) => {
-                console.log(data);
-                setConversations(data)
-            })
-        }
-    }, [user._id]);
-    useEffect(() => {
         if (currentChat?._id) {
             getMessages(currentChat?._id).then((data: CurrentChat[]) => {
                 setMessages(data)
@@ -68,6 +76,44 @@ const InboxPage = () => {
         }
 
     }, [currentChat]);
+
+
+    const handleSubmit = () => {
+        if (currentChat?._id && newMessage !=='') {
+            const message: NewCommentType = {
+                sender: user._id,
+                text: newMessage,
+                conversationId: currentChat?._id
+            }
+            const receiverId = currentChat?.members.find(
+                (member) => member !== user._id
+            );
+            socket.current?.emit("sendMessage", {
+                senderId: user._id,
+                receiverId,
+                text: newMessage,
+            });
+   
+            createMessages(message).then((data: CurrentChat) => {
+                setMessages([...messages, data])
+                setNewMessage('')
+            })
+        }
+
+    }
+    const logout = () => {
+        localStorage.removeItem("user");
+        dispatch(loginFail())
+    }
+    
+ 
+   
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+   
+    
 
     return (
         <div>
@@ -87,7 +133,6 @@ const InboxPage = () => {
                                         conversation={c}
                                         currentUser={user}
                                     />
-                                    {/* <Conversation conversation={c} currentUser={user} /> */}
                                 </div>
                             ))}
 
@@ -101,24 +146,27 @@ const InboxPage = () => {
                                         <div className="d-flex h-100 justify-content-end flex-column pb-4">
                                             <div className="p-3 w-100 border-bottom">
                                                 {
-                                                     showInbox?.profilePicture === '' 
-                                                     ? <MainAvatar src={avatar} />  
-                                                     : <MainAvatar src={showInbox?.profilePicture} />
-                                                       
+                                                    showInbox?.profilePicture === ''
+                                                        ? <MainAvatar src={avatar} />
+                                                        : <MainAvatar src={showInbox?.profilePicture} />
+
                                                 }
 
                                                 <span className="h6 mx-3">{showInbox?.name} </span>
                                             </div>
-                                            {messages.map((m, index) => (
-                                                <div key={index} >
-                                                    {showInbox && <DirectMessage 
-                                                                        message={m} 
-                                                                        own={m.sender === user._id} 
-                                                                        showInbox={showInbox} 
-                                                                        user={user}
-                                                                    />}
-                                                </div>
-                                            ))}
+                                            <div className="overflow-auto">
+                                                {messages.map((m, index) => (
+                                                    <div key={index} ref={scrollRef}>
+                                                        {showInbox && <DirectMessage
+                                                            message={m}
+                                                            own={m.sender === user._id}
+                                                            showInbox={showInbox}
+                                                            user={user}
+                                                        />}
+                                                    </div>
+                                                ))}
+                                            </div>
+
                                             <BoxInput className="mt-auto d-flex align-items-center mx-4 border">
                                                 <ButtonSvg aria-label="Biểu tượng cảm xúc" className="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                                     <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
