@@ -71,9 +71,9 @@ export function getUserID(id: string): Promise<UserType> {
     .then((response: AxiosResponse<UserType>) => response.data)
 }
 
-export function getUserPost(userId: string): Promise<any> {
+export function getUserPost(userId: string): Promise<UserType> {
   return axios.get('http://localhost:8080/user/getuserpost/' + userId)
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<UserType>) => response.data)
 }
 export function ChangeAvatar(file: string | Blob, email: string): Promise<{msg : string, data : UserType}> {
   let data = new FormData()

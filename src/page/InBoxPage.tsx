@@ -174,7 +174,7 @@ const InboxPage = () => {
                                                 <CommentInput
                                                     type="text"
                                                     className="shadow-none font-14"
-                                                    placeholder="Thêm bình luận ..."
+                                                    placeholder="Nhắn tin ..."
                                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
                                                     value={newMessage}
                                                 />
