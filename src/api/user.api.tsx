@@ -112,7 +112,7 @@ export function getPostUser(id: string): Promise<any> {
   return axios.get(`http://localhost:8080/user/getuserprofile/${id}`)
     .then((response: AxiosResponse<any>) => response.data)
 }
-export function deleteUser(id: string): Promise<any> {
+export function deleteUser(id: string): Promise<{msg : string}> {
   return axios.get(`http://localhost:8080/user/delete/${id}`)
-    .then((response: AxiosResponse<any>) => response.data)
+    .then((response: AxiosResponse<{msg : string}>) => response.data)
 }

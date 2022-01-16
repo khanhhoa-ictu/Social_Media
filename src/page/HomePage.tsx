@@ -70,8 +70,9 @@ function HomePage() {
     const handleScroll = (event:any) => {
         console.log('object');
         const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
-    
+        
         if (scrollHeight - scrollTop === clientHeight) {
+            console.log('next')
           setPage(prev => prev + 1);
         }
       };

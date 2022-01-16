@@ -77,7 +77,8 @@ function Navigation(props: Props) {
     const changeSerch = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.value !== '') {
             searchUser(e.target.value).then((users) => {
-                setUserSearch(users.data);
+                console.log(users)
+                // setUserSearch(users.data);
             })
         } else {
             setUserSearch([]);
