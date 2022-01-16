@@ -89,14 +89,14 @@ function AccountSettingPage() {
 
 
     }
-    
-    const handleDelete = () =>{
-        if(user._id){
-            deleteUser(user._id).then((data:{msg:string}) =>{
+
+    const handleDelete = () => {
+        if (user._id) {
+            deleteUser(user._id).then((data: { msg: string }) => {
                 logout()
                 history.push('/login')
             })
-           
+
         }
     }
     useEffect(() => {
@@ -152,19 +152,14 @@ function AccountSettingPage() {
                     <ToastAlert showAlert={showAlert} setShowAlert={setShowAlert} noti={noti ? noti : notice} />
                 </DivFullHeight>
             </div>
-
             }
-
-
-
-
         </>
     )
 }
 
 const DivStyle = styled.div`
     margin-top: 24px;
-    height: 75vh;
+    height: 85vh;
     position: relative;
 `
 

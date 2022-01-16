@@ -11,13 +11,13 @@ interface RouteParams {
 }
 function ModalFollow() {
     let history = useHistory()
-    let {id} = useParams<RouteParams>()
-    const [follower,setFollower] = useState<FollowingsType[]>([])
-    useEffect(()=>{
-        getFollower(id).then((data)=>{
+    let { id } = useParams<RouteParams>()
+    const [follower, setFollower] = useState<FollowingsType[]>([])
+    useEffect(() => {
+        getFollower(id).then((data) => {
             setFollower(data)
         })
-    },[])
+    }, [])
     return (
         <ModalStyled
             isOpen={id}
