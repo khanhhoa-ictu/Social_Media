@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 import AccountSettingPage from './page/AccountSettingPage';
 import HomePage from './page/HomePage';
@@ -17,27 +17,27 @@ import ProfileUserPage from './page/ProfileUserPage';
 function App() {
   return (
     <div className=''>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
-          <Route exact path="/Social_Media" component={HomePage} />
-          {/* <Route exact path="/register" component={RegisterPage} /> */}
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/Social_Media/register" component={RegisterPage} />
           <Route exact path="Social_Media/login" component={LoginPage} />
-          {/* <Route path="/account/setting" component={AccountSettingPage} />
-          <Route path="/account/changepassword" component={AccountSettingPage} />
-          <Route path="/account/help" component={AccountSettingPage} />
-          <Route exact path="/inbox" component={InboxPage} />
-          <Route exact path="/confirm/:id" component={ConfirmPage} />
-          <Route exact path="/forgot" component={ForgotPage} />
-          <Route exact path='/post/:id' component={HomePage} />
-          <Route exact path='/profile/:id' component={ProfileUserPage} />
-          <Route exact path="/:name" component={ProfileUserPage} />
-          <Route exact path="/:id/follower" component={ProfileUserPage} />
-          <Route exact path="/:id/following" component={ProfileUserPage} /> */}
+          <Route path="/Social_Media/account/setting" component={AccountSettingPage} />
+          <Route path="/Social_Media/account/changepassword" component={AccountSettingPage} />
+          <Route path="/Social_Media/account/help" component={AccountSettingPage} />
+          <Route exact path="/Social_Media/inbox" component={InboxPage} />
+          <Route exact path="/Social_Media/confirm/:id" component={ConfirmPage} />
+          <Route exact path="/Social_Media/forgot" component={ForgotPage} />
+          <Route exact path='/Social_Media/post/:id' component={HomePage} />
+          <Route exact path='/Social_Media/profile/:id' component={ProfileUserPage} />
+          <Route exact path="/Social_Media/:name" component={ProfileUserPage} />
+          <Route exact path="/Social_Media/:id/follower" component={ProfileUserPage} />
+          <Route exact path="/Social_Media/:id/following" component={ProfileUserPage} />
 
           <Route component={NotFoundPage} />
 
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
