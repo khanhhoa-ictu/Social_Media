@@ -19,7 +19,7 @@ function App() {
     <div className=''>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/Social_Media" component={HomePage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route path="/account/setting" component={AccountSettingPage} />
