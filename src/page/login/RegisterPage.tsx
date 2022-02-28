@@ -62,6 +62,7 @@ function RegisterPage() {
                 history.push('/')
             })
             .catch((err) => {
+                console.log(err.response.data.msg)
                 if(err.response.data.msg === "Email already exist"){
                     setNotificationEmail('Email đã tồn tại')
                 }

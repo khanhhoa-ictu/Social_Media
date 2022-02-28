@@ -38,7 +38,7 @@ function AccountSettingDetail(props: Props) {
     }
     useEffect(() => {
         setUserSetting(user)
-    },[user.profilePicture])
+    },[])
 
     const [name, setName] = useState(user.name)
     const [desc, setDesc] = useState(user.desc)

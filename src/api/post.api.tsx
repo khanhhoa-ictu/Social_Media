@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { PostDetailType } from "../type/postType";
 
-const url = `http://localhost:8080`;
+const url = `https://margatsni-team.herokuapp.com`;
 
 export const createPost = (userId: string, desc: string, file: string | Blob) => {
   let data = new FormData()
