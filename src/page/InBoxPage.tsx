@@ -111,7 +111,6 @@ const InboxPage = () => {
     }, [messages]);
 
 
-    console.log(arrivalMessage)
     return (
         <div>
             {

@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { UpdateInforType } from "../type/userType";
-
+const URL = 'https://margatsni-team.herokuapp.com'
 export function updateInfor(email: string, name: string, phone_number: string, address: string, gender: string, desc: string,): Promise<UpdateInforType> {
-  return axios.post('http://localhost:8080/user/updateinfor', {
+  return axios.post(URL + '/user/updateinfor', {
     name: name,
     desc: desc,
     address: address,
@@ -16,7 +16,7 @@ export function updateInfor(email: string, name: string, phone_number: string, a
 }
 
 export function changePasswordUser(oldPassword: string, newPassword: string, email: string): Promise<{msg : string}> {
-  return axios.post('http://localhost:8080/user/updatepassword', {
+  return axios.post(URL + '/user/updatepassword', {
     oldpassword: oldPassword,
     newpassword: newPassword,
     email: email,

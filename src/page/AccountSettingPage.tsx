@@ -38,7 +38,7 @@ function AccountSettingPage() {
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 1000)
-                    dispatch(setUser(data.user))
+                    // dispatch(setUser(data.user))
                 })
                 .catch((err) => {
                     setNoti('Đã sãy ra lỗi vui lòng thử lại')
