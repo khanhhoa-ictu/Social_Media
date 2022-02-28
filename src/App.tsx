@@ -20,9 +20,9 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/Social_Media" component={HomePage} />
-          <Route exact path="/register" component={RegisterPage} />
+          {/* <Route exact path="/register" component={RegisterPage} /> */}
           <Route exact path="Social_Media/login" component={LoginPage} />
-          <Route path="/account/setting" component={AccountSettingPage} />
+          {/* <Route path="/account/setting" component={AccountSettingPage} />
           <Route path="/account/changepassword" component={AccountSettingPage} />
           <Route path="/account/help" component={AccountSettingPage} />
           <Route exact path="/inbox" component={InboxPage} />
@@ -32,7 +32,7 @@ function App() {
           <Route exact path='/profile/:id' component={ProfileUserPage} />
           <Route exact path="/:name" component={ProfileUserPage} />
           <Route exact path="/:id/follower" component={ProfileUserPage} />
-          <Route exact path="/:id/following" component={ProfileUserPage} />
+          <Route exact path="/:id/following" component={ProfileUserPage} /> */}
 
           <Route component={NotFoundPage} />
 
