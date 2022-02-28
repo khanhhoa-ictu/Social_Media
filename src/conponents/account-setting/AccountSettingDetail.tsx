@@ -4,7 +4,6 @@ import { UserType } from './../../type/userType';
 import avatar from './../../assets/image/no-avatar.png'
 import styled from 'styled-components';
 import { ChangeAvatar } from '../../api/user.api';
-import { useRouteMatch } from 'react-router-dom';
 import ToastAlert from '../alert/ToastAlert';
 
 interface Props {
@@ -38,7 +37,7 @@ function AccountSettingDetail(props: Props) {
     }
     useEffect(() => {
         setUserSetting(user)
-    },[])
+    },[user])
 
     const [name, setName] = useState(user.name)
     const [desc, setDesc] = useState(user.desc)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ModalTitle } from 'react-bootstrap'
 import { NavLink, useHistory, useParams } from 'react-router-dom'
-import { CardTitle, Modal, ModalBody } from 'reactstrap'
+import {  Modal, ModalBody } from 'reactstrap'
 import styled from 'styled-components'
 import { getFollower } from '../../api/user.api'
 import { FollowingsType } from '../../type/folloingType'
@@ -14,7 +14,6 @@ function ModalFollow() {
     let { id } = useParams<RouteParams>()
     const [follower, setFollower] = useState<FollowingsType[]>([])
     useEffect(() => {
-        console.log(id)
         getFollower(id).then((data) => {
             console.log(data)
             setFollower(data)

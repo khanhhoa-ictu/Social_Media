@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from "axios";
 import { FollowingsType } from "../type/folloingType";
 import { UpdateInforType, UserType } from "../type/userType";
 const URL = 'https://margatsni-team.herokuapp.com'
-const test = 'http://localhost:8080'
 export function registerUser(email: string, password: string, username: string): Promise<{msg : string}> {
   return axios.post(URL + '/user/register', {
     email: email,
