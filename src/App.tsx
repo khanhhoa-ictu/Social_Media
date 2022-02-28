@@ -21,7 +21,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/Social_Media/register" component={RegisterPage} />
-          <Route exact path="Social_Media/login" component={LoginPage} />
+          <Route exact path="/Social_Media/login" component={LoginPage} />
           <Route path="/Social_Media/account/setting" component={AccountSettingPage} />
           <Route path="/Social_Media/account/changepassword" component={AccountSettingPage} />
           <Route path="/Social_Media/account/help" component={AccountSettingPage} />
