@@ -15,13 +15,14 @@ import avatar from './../../assets/image/no-avatar.png'
 
 interface Props {
     logout: () => void,
-    user: UserType
+    user: UserType,
+    socket?:any,
 }
 
 
 function Navigation(props: Props) {
 
-    let { logout, user } = props
+    let { logout, user, socket } = props
     const history = useHistory()
     const [currentPath, setCurrentPath] = useState(history.location.pathname);
     const [show, setShow] = useState<boolean>(false);
@@ -31,7 +32,7 @@ function Navigation(props: Props) {
     const [userSearch, setUserSearch] = useState<UserType[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [noti, setNoti] = useState('');
-
+    const [notification, setNotification] = useState<any>([])
     const handleUpload = () => {
         inputRef.current?.click();
     }
@@ -74,6 +75,7 @@ function Navigation(props: Props) {
         setCurrentPath(history.location.pathname)
     }, [history.location.pathname])
 
+    console.log(notification);
     const changeSerch = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.value !== '') {
             searchUser(e.target.value).then((users) => {

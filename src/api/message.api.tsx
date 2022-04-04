@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { NewCommentType } from "../type/commentType"
-const URL = 'https://margatsni-team.herokuapp.com'
+const URL = 'http://localhost:8080'
+
 
 export const getMessages = (id: string) => {
     return axios.get(URL + `/message/${id}`)

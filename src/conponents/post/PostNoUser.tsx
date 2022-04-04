@@ -11,11 +11,12 @@ import PostNoSetting from './PostNoSetting';
 interface Props {
     post: PostType,
     user: UserType
-    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void
+    CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void,
+    socket:any;
 }
 
 function PostNoUser(props: Props) {
-    const { post, user, CommentPost } = props
+    const { post, user, CommentPost,socket } = props
     const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
 
@@ -23,9 +24,16 @@ function PostNoUser(props: Props) {
     const [userPost, setUserPost] = useState<UserType>()
 
     const handleLikePost = () => {
+        let type=1;
         handleLike(user._id, post._id)
         setLiked(!liked)
         setIsLoading(!isLoading)
+        socket.current.emit('sendNotification',{
+            senderName: user.name,
+            userId:post.userId,
+            type:1,
+
+        })
     }
 
     const handleCheckLiked = () => {

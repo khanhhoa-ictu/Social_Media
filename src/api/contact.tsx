@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { UpdateInforType } from "../type/userType";
-const URL = 'https://margatsni-team.herokuapp.com'
+const URL = 'http://localhost:8080'
+
 export function updateInfor(email: string, name: string, phone_number: string, address: string, gender: string, desc: string,): Promise<UpdateInforType> {
   return axios.post(URL + '/user/updateinfor', {
     name: name,

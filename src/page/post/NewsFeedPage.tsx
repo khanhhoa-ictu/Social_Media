@@ -12,12 +12,13 @@ import { UserType } from '../../type/userType'
 interface Props {
     user: UserType,
     newsFeed:PostType[],
+    socket:any;
 }
 
 function NewsFeedPage(props: Props) {
     const dispatch = useDispatch()
 
-    const { user,newsFeed } = props
+    const { user,newsFeed,socket } = props
     const CommentPost = (profilePicture: string, userId: string, name: string, comment: string, postID: string) => {
         submitComment(profilePicture, userId, name, comment, postID).then((response:  {msg : string}) => {
             if (response) {
@@ -34,6 +35,7 @@ function NewsFeedPage(props: Props) {
                 CommentPost={CommentPost}
                 newsFeed={newsFeed}
                 user={user}
+                socket={socket}
             />
         </div>
     )

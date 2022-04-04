@@ -12,10 +12,11 @@ interface Props {
     post: PostType,
     user: UserType
     CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void
+    socket:any;
 }
 
 function PostPage(props: Props) {
-    const { post, user, CommentPost } = props
+    const { post, user, CommentPost, socket } = props
     const isLoading = useSelector((state: RootState) => state.HomeReducer.loading.isLoading)
     const [liked, setLiked] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
@@ -82,6 +83,7 @@ function PostPage(props: Props) {
             })
         handleCheckLiked()
     }, [post])
+
     return (
         <div>
             <Post

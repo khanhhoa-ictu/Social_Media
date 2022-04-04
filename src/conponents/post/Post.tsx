@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState,useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, Input, UncontrolledDropdown } from 'reactstrap';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import { UserType } from '../../type/userType';
 import DeleteAlert from '../alert/DeleteAlert';
 import avatar from './../../assets/image/no-avatar.png';
 import PostModal from './modal/PostModal';
-
+import { io } from 'socket.io-client'
 interface Props {
     liked: boolean,
     show: boolean,
@@ -50,9 +50,16 @@ const Post = (props: Props) => {
         CommentPost
     } = props
     const [likePost, setLikePost] = useState(post.likes.length)
-
-    const changeLikePost = () => {
+    const socket = useRef<any>();
+    const changeLikePost = (type:number) => {
         handleLikePost()
+        if(liked === false){
+            socket.current?.emit("sendNotification", {
+                senderName: user.name,
+                userId: post.userId,
+                type,
+              });
+        }
         setLikePost(liked ? likePost - 1 : likePost + 1)
     }
     const [comment, setComment] = useState('')
@@ -169,7 +176,7 @@ const Post = (props: Props) => {
                 <div className="px-3">
                     <span className="d-flex justify-content-between mb-2">
                         <span>
-                            <span onClick={changeLikePost}>
+                            <span onClick={()=>changeLikePost(1)}>
                                 {liked ?
                                     <svg aria-label="Bỏ thích" className="_8-yf5 cursor-pointer" color="#ed4956" fill="#ed4956" height="24" role="img" viewBox="0 0 48 48" width="24">
                                         <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>

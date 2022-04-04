@@ -8,11 +8,11 @@ interface Props {
     newsFeed: PostType[],
     user: UserType,
     CommentPost: (profilePicture: string, userId: string, name: string, comment: string, postID: string) => void
-
+    socket:any;
 }
 
 const NewFeed = (props: Props) => {
-    const { newsFeed, user, CommentPost } = props
+    const { newsFeed, user, CommentPost,socket } = props
     return (
         <div>
             {newsFeed !== undefined
@@ -23,6 +23,7 @@ const NewFeed = (props: Props) => {
                                 post={post}
                                 user={user}
                                 CommentPost={CommentPost}
+                                socket={socket}
                             />
                         </div>
                     } else {
@@ -31,6 +32,7 @@ const NewFeed = (props: Props) => {
                             post={post}
                             user={user}
                             CommentPost={CommentPost}
+                            socket={socket}
                         />
                     }
 

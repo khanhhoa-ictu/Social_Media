@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
@@ -11,15 +11,28 @@ import Home from '../conponents/home/Home'
 import { RootState } from '../reducer'
 import { PostType } from '../type/postType'
 import PostDetailPage from './post/PostDetailPage'
+import { io } from "socket.io-client";
 
 
 function HomePage() {
     const dispatch = useDispatch()
-
+    const socket = useRef<any>();
     const history = useHistory()
 
     let user = useSelector((state: RootState) => state.UserReducer.user.user)
     let following = useSelector((state: RootState) => state.FollowingReducer.following.followings)
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket?.current.on('getNotification',(data:any)=>{
+            console.log(data);
+           })
+      }, []);
+    
+      useEffect(() => {
+          if(user._id !==''){
+            socket?.current.emit("addUser", user._id);
+          }
+      }, [socket, user]);
 
     const logout = () => {
         localStorage.removeItem("user");
@@ -90,7 +103,7 @@ function HomePage() {
     }, [page,user]);
     return (
         <AppStyle onScroll={handleScroll}>
-            {user ? <Home logout={logout} user={user} following ={following} handleFollow = {handleFollow} newsFeed ={newsFeed} /> : null}
+            {user ? <Home socket={socket} logout={logout} user={user} following ={following} handleFollow = {handleFollow} newsFeed ={newsFeed} /> : null}
             <Route exact path="/post/:id" render={() =>  
             <PostDetailPage user ={user} /> }
             />

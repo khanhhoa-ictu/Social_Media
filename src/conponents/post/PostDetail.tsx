@@ -36,6 +36,7 @@ const PostDetail = (props: PostDetailProps) => {
     const changeLikePost = () => {
         handleLikePost(postDetail.post._id)
         setLikePost(liked ? likePost - 1 : likePost + 1)
+
     }
     const [comment, setComment] = useState('')
     const [commentByPost, setCommentByPost] = useState(postDetail.post.comments)

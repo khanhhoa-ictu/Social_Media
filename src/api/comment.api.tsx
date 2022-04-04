@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { CommentType } from "../type/commentType";
-const URL = 'https://margatsni-team.herokuapp.com'
+const URL = 'http://localhost:8080'
 export function submitComment(profilePicture: string, userId: string, name: string, comment: string, id_post: string): Promise<{msg : string}> {
   return axios.post(URL + '/comment', {
     profilePicture: profilePicture,
