@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   Card,
@@ -13,31 +14,19 @@ import {
 } from "reactstrap";
 import styled from "styled-components";
 import { format } from "timeago.js";
+import { setIsLoading } from "../../action/post.action";
+import { deletePost, handleLike, updatePost } from "../../api/post.api";
+import { getUserPost } from "../../api/user.api";
+import DeleteAlert from "../../conponents/alert/DeleteAlert";
+import PostModal from "../../conponents/Modal/PostModal";
+import { RootState } from "../../reducer";
 import { PostType } from "../../type/postType";
 import { UserType } from "../../type/userType";
-import DeleteAlert from "../alert/DeleteAlert";
 import avatar from "./../../assets/image/no-avatar.png";
-import PostModal from "./modal/PostModal";
-import { io } from "socket.io-client";
+
 interface Props {
-  liked: boolean;
-  show: boolean;
-  postContent: string;
-  inputRef: React.RefObject<HTMLInputElement>;
-  uploadFileName: string | null;
-  setLiked: (text: boolean) => void;
-  setShow: (text: boolean) => void;
-  setPostContent: (text: string) => void;
-  setUploadFileName: (text: string) => void;
-  handleUpload: () => void;
-  handleDisplayFileDetails: () => void;
-  setShowModal: () => void;
-  handleUpdatePost: () => void;
-  handleDeletePost: () => void;
-  handleLikePost: () => void;
   post: PostType;
   user: UserType;
-  userPost: UserType | undefined;
   CommentPost: (
     profilePicture: string,
     userId: string,
@@ -45,28 +34,91 @@ interface Props {
     comment: string,
     postID: string
   ) => void;
+  socket: any;
 }
 
-const Post = (props: Props) => {
-  const {
-    liked,
-    show,
-    postContent,
-    inputRef,
-    setPostContent,
-    handleUpload,
-    handleDisplayFileDetails,
-    setShowModal,
-    handleUpdatePost,
-    handleDeletePost,
-    handleLikePost,
-    post,
-    user,
-    userPost,
-    CommentPost,
-  } = props;
+function Post(props: Props) {
+  const { post, user, CommentPost, socket } = props;
+  const isLoading = useSelector(
+    (state: RootState) => state.HomeReducer.loading.isLoading
+  );
+  const [liked, setLiked] = useState<boolean>(false);
+  const [visible, setVisible] = useState(3);
+  const [show, setShow] = useState<boolean>(false);
+  const [postContent, setPostContent] = useState(post.desc);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploadFileName, setUploadFileName] = useState<any>(post.img);
+  const [file, setFile] = useState<any>(null);
+  const [userPost, setUserPost] = useState<UserType>();
+  const [showDelete, setShowDelete] = useState(false);
+  const [commentByPost, setCommentByPost] = useState(post.comments);
+  const [comment, setComment] = useState("");
+  const [sumComment, setSumComment] = useState(() => {
+    const initSumComment = post.comments.length - visible;
+    return initSumComment;
+  });
+
+  let dispatch = useDispatch();
+  const handleUpload = () => {
+    inputRef.current?.click();
+  };
+
+  const handleDisplayFileDetails = () => {
+    if (inputRef.current?.files && inputRef.current.files?.length !== 0) {
+      setUploadFileName(URL.createObjectURL(inputRef.current.files[0]));
+      setFile(inputRef.current.files[0]);
+    }
+  };
+
+  const setShowModal = () => {
+    setShow(!show);
+  };
+
+  const handleUpdatePost = () => {
+    setShowModal();
+    if (uploadFileName) {
+      updatePost(user._id, post._id, postContent, file)
+        .then(() => {
+          dispatch(setIsLoading(!isLoading));
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const handleDeletePost = () => {
+    deletePost(user._id, post._id);
+    dispatch(setIsLoading(!isLoading));
+  };
+
+  const handleLikePost = () => {
+    handleLike(user._id, post._id);
+    setLiked(!liked);
+    dispatch(setIsLoading(!isLoading));
+  };
+
+  const handleCheckLiked = () => {
+    setLiked(post.likes.includes(user._id));
+  };
+
+  useEffect(() => {
+    getUserPost(post.userId)
+      .then((data) => {
+        setUserPost(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    handleCheckLiked();
+  }, [post]);
+
+  const handleSumComment = () => {
+    setVisible(visible + 4);
+    setSumComment(post.comments.length - (visible + 4));
+  };
   const [likePost, setLikePost] = useState(post.likes.length);
-  const socket = useRef<any>();
   const changeLikePost = (type: number) => {
     handleLikePost();
     if (liked === false) {
@@ -78,10 +130,6 @@ const Post = (props: Props) => {
     }
     setLikePost(liked ? likePost - 1 : likePost + 1);
   };
-  const [comment, setComment] = useState("");
-  const [commentByPost, setCommentByPost] = useState(post.comments);
-  const [showDelete, setShowDelete] = useState(false);
-
   const submitCommentPost = () => {
     if (comment !== "") {
       let test = [...commentByPost];
@@ -97,16 +145,6 @@ const Post = (props: Props) => {
       setComment("");
       setCommentByPost(test);
     }
-  };
-  const [visible, setVisible] = useState(3);
-  const [sumComment, setSumComment] = useState(() => {
-    const initSumComment = post.comments.length - visible;
-    return initSumComment;
-  });
-
-  const handleSumComment = () => {
-    setVisible(visible + 4);
-    setSumComment(post.comments.length - (visible + 4));
   };
 
   return (
@@ -360,7 +398,7 @@ const Post = (props: Props) => {
       </TitleStyled>
     </Card>
   );
-};
+}
 
 const UserLinkStyle = styled(NavLink)`
   text-decoration: none;

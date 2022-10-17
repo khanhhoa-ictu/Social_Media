@@ -9,7 +9,7 @@ import logoIcon from '../../assets/image/logo-icon.png'
 import logo from '../../assets/image/logo.png'
 import { UserType } from '../../type/userType'
 import ToastAlert from '../alert/ToastAlert'
-import PostModal from '../post/modal/PostModal'
+import PostModal from '../Modal/PostModal'
 import close from './../../assets/icon/close.png'
 import avatar from './../../assets/image/no-avatar.png'
 

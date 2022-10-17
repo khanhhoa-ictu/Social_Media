@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import PostPage from "../../page/post/PostPage";
+import Post from "./Post";
 import { PostType } from "../../type/postType";
 import { UserType } from "../../type/userType";
 interface Props {
@@ -22,7 +22,7 @@ const NewFeed = (props: Props) => {
       {!isEmpty(newsFeed) ? (
         newsFeed.map((post, index) => (
           <div key={index}>
-            <PostPage
+            <Post
               post={post}
               user={user}
               CommentPost={CommentPost}

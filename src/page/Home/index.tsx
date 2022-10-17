@@ -10,7 +10,7 @@ import { getEmail } from "../../config/locastorga.config";
 import Home from "./HomeComponent";
 import { RootState } from "../../reducer";
 import { PostType } from "../../type/postType";
-import PostDetailPage from ".././post/PostDetailPage";
+import PostDetailPage from "./../../conponents/PostDetail";
 import { io } from "socket.io-client";
 
 function HomePage() {

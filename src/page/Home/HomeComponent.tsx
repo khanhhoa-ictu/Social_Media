@@ -1,17 +1,16 @@
-import React, { useMemo } from "react";
-import styled from "styled-components";
-import { UserType } from "../../type/userType";
-import { FollowingsType } from "../../type/folloingType";
-import Navigation from "./../../conponents/navbar/Navigation";
-import FollowersSuggestion from "./../../conponents/FollowersSuggestion";
-import { PostType } from "../../type/postType";
-import { NavLink } from "react-router-dom";
 import { isEmpty } from "lodash";
-import NewsFeed from "../../conponents/NewFeed";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { setComment } from "../../action/post.action";
 import { getCommentByIDPost, submitComment } from "../../api/comment.api";
 import { CommentType } from "../../type/commentType";
-import { setComment } from "../../action/post.action";
-import { useDispatch } from "react-redux";
+import { FollowingsType } from "../../type/folloingType";
+import { PostType } from "../../type/postType";
+import { UserType } from "../../type/userType";
+import FollowersSuggestion from "./../../conponents/FollowersSuggestion";
+import Navigation from "./../../conponents/navbar/Navigation";
+import NewsFeed from "./NewsFeed";
 
 interface Props {
   logout: () => void;

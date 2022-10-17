@@ -12,7 +12,7 @@ import HeaderProfile from "../../conponents/profile-user/HeaderProfile";
 import { RootState } from "../../reducer";
 import { PostType } from "../../type/postType";
 import { UserType } from "../../type/userType";
-import PostDetailPage from "./../post/PostDetailPage";
+import PostDetailPage from "./../../conponents/PostDetail";
 interface RouteParams {
   name: string;
 }
