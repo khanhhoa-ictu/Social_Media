@@ -210,33 +210,7 @@ const PostDetail = (props: PostDetailProps) => {
                                 />
                             </ModalBody>
                         </div>
-                        {/* <CommentDiv className="px-2">
-                            <div className="d-flex align-items-center my-2">
-                                {
-                                    postDetail.userPost.profilePicture === ''
-                                        ? <AvatarStyled src={avatar} alt="avatar" />
-                                        : <AvatarStyled src={postDetail.userPost.profilePicture} alt="avatar" />
-                                }
-                                <div className='mx-3 d-flex align-items-center'>
-                                    <TitleStyled className='font-14 mb-0' tag="h6">
-                                        {postDetail.userPost.name}
-                                    </TitleStyled>
-                                    <TitleStyled className="font-14 text-muted mx-2 pt-1" >
-                                        {postDetail.post.desc}
-                                    </TitleStyled>
-                                </div>
-                            </div>
-                            {
-                                commentByPost.map((comment: CommentType, key: number) => {
-                                    return <Comment
-                                        key={key}
-                                        profilePicture={comment.profilePicture}
-                                        name={comment.name}
-                                        comment={comment.comment}
-                                    />
-                                })
-                            }
-                        </CommentDiv> */}
+                        
                     </div>
                     <TitleStyled className="pt-3 border-top">
                         <div className="px-3">

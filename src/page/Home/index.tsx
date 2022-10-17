@@ -10,7 +10,7 @@ import { getEmail } from "../../config/locastorga.config";
 import Home from "./HomeComponent";
 import { RootState } from "../../reducer";
 import { PostType } from "../../type/postType";
-import PostDetailPage from "./../../conponents/PostDetail";
+import PostDetail from "./../../conponents/PostDetail";
 import { io } from "socket.io-client";
 
 function HomePage() {
@@ -112,11 +112,7 @@ function HomePage() {
           newsFeed={newsFeed}
         />
       ) : null}
-      <Route
-        exact
-        path="/post/:id"
-        render={() => <PostDetailPage user={user} />}
-      />
+      <Route exact path="/post/:id" render={() => <PostDetail user={user} />} />
     </AppStyle>
   );
 }
