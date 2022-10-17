@@ -5,7 +5,7 @@ import { Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, Navb
 import styled from 'styled-components'
 import { createPost } from '../../api/post.api'
 import { searchUser } from '../../api/user.api'
-import logoicon from '../../assets/image/logo-icon.png'
+import logoIcon from '../../assets/image/logo-icon.png'
 import logo from '../../assets/image/logo.png'
 import { UserType } from '../../type/userType'
 import ToastAlert from '../alert/ToastAlert'
@@ -99,7 +99,7 @@ function Navigation(props: Props) {
                         <LogoImageStyled src={logo} alt="logo" />
                     </NavbarBrand>
                     <NavbarBrand href="/" className="d-block d-sm-none">
-                        <LogoImageStyled src={logoicon} alt="logo" />
+                        <LogoImageStyled src={logoIcon} alt="logo" />
                     </NavbarBrand>
                     <div>
                         <div className="position-relative">
