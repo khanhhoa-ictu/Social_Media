@@ -301,7 +301,7 @@ const ModalStyled = styled(Modal)`
             width: 100%;
         }
         img{
-            object-fit: cover;
+            object-fit: contain;
         }
     }
     .modal-content{
