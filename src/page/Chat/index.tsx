@@ -1,3 +1,4 @@
+import EmojiPicker from "emoji-picker-react";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "reactstrap";
@@ -6,6 +7,7 @@ import styled from "styled-components";
 import { getConversations } from "../../api/conversation.api";
 import { createMessages, getMessages } from "../../api/message.api";
 import { getUser } from "../../api/user.api";
+import { useOnClickOutside } from "../../common";
 import { getEmail } from "../../config/locastorga.config";
 import { RootState } from "../../reducer";
 import { CurrentChat, NewCommentType } from "../../type/commentType";
@@ -27,6 +29,7 @@ const InboxPage = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState<any>();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [showEmoji, setShowEmoji] = useState(false);
   const socket = useRef<any>();
   let user = useSelector((state: RootState) => state.UserReducer.user.user);
   useEffect(() => {
@@ -103,7 +106,13 @@ const InboxPage = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+  const toggleContainer = useRef<any>();
 
+  useOnClickOutside(toggleContainer, () => setShowEmoji(false));
+  const onClick = (e: any) => {
+    const newComment = newMessage + e.emoji;
+    setNewMessage(newComment);
+  };
   return (
     <div>
       {user._id !== "" && (
@@ -155,18 +164,32 @@ const InboxPage = () => {
                         </div>
 
                         <BoxInput className="mt-auto d-flex align-items-center mx-4 border">
-                          <ButtonSvg
-                            aria-label="Biểu tượng cảm xúc"
-                            className="_8-yf5 "
-                            color="#262626"
-                            fill="#262626"
-                            height="24"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="24"
-                          >
-                            <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
-                          </ButtonSvg>
+                          <Emoji ref={toggleContainer}>
+                            <div onClick={() => setShowEmoji(!showEmoji)}>
+                              <ButtonSvg
+                                aria-label="Biểu tượng cảm xúc"
+                                className="_8-yf5 "
+                                color="#262626"
+                                fill="#262626"
+                                height="24"
+                                role="img"
+                                viewBox="0 0 24 24"
+                                width="24"
+                              >
+                                <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
+                              </ButtonSvg>
+                            </div>
+
+                            {showEmoji && (
+                              <div className="show-Emoji">
+                                <EmojiPicker
+                                  onEmojiClick={onClick}
+                                  autoFocusSearch={false}
+                                />
+                              </div>
+                            )}
+                          </Emoji>
+
                           <CommentInput
                             type="text"
                             className="shadow-none font-14"
@@ -231,5 +254,14 @@ const CommentInput = styled(Input)`
 const BoxInput = styled.div`
   padding: 5px 15px;
   border-radius: 28px;
+`;
+const Emoji = styled.div`
+  position: relative;
+  .show-Emoji {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    z-index: 1;
+  }
 `;
 export default InboxPage;

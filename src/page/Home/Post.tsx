@@ -1,3 +1,4 @@
+import EmojiPicker from "emoji-picker-react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -17,6 +18,7 @@ import { format } from "timeago.js";
 import { setIsLoading } from "../../action/post.action";
 import { deletePost, handleLike, updatePost } from "../../api/post.api";
 import { getUserPost } from "../../api/user.api";
+import { useOnClickOutside } from "../../common";
 import DeleteAlert from "../../conponents/alert/DeleteAlert";
 import PostModal from "../../conponents/Modal/PostModal";
 import { RootState } from "../../reducer";
@@ -53,6 +55,7 @@ function Post(props: Props) {
   const [showDelete, setShowDelete] = useState(false);
   const [commentByPost, setCommentByPost] = useState(post.comments);
   const [comment, setComment] = useState("");
+  const [showEmoji, setShowEmoji] = useState(false);
   const [sumComment, setSumComment] = useState(() => {
     const initSumComment = post.comments.length - visible;
     return initSumComment;
@@ -146,6 +149,13 @@ function Post(props: Props) {
       setCommentByPost(test);
     }
   };
+  const onClick = (e: any) => {
+    const newComment = comment + e.emoji;
+    setComment(newComment);
+  };
+  const toggleContainer = useRef<any>();
+
+  useOnClickOutside(toggleContainer, () => setShowEmoji(false));
 
   return (
     <Card className="mb-4">
@@ -367,18 +377,29 @@ function Post(props: Props) {
         </div>
         <hr className="my-2" />
         <span className="d-block d-flex align-items-center px-3">
-          <svg
-            aria-label="Biểu tượng cảm xúc"
-            className="_8-yf5 cursor-pointer"
-            color="#262626"
-            fill="#262626"
-            height="24"
-            role="img"
-            viewBox="0 0 24 24"
-            width="24"
-          >
-            <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
-          </svg>
+          <Emoji ref={toggleContainer}>
+            <div onClick={() => setShowEmoji(!showEmoji)}>
+              <svg
+                aria-label="Biểu tượng cảm xúc"
+                className="_8-yf5 cursor-pointer"
+                color="#262626"
+                fill="#262626"
+                height="24"
+                role="img"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
+              </svg>
+            </div>
+
+            {showEmoji && (
+              <div className="show-Emoji">
+                <EmojiPicker onEmojiClick={onClick} autoFocusSearch={false} />
+              </div>
+            )}
+          </Emoji>
+
           <CommentInput
             value={comment}
             type="text"
@@ -447,6 +468,16 @@ const ButtonPostStyled = styled.button`
 const CommentInput = styled(Input)`
   border: none;
   outline: none;
+`;
+
+const Emoji = styled.div`
+  position: relative;
+  .show-Emoji {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    z-index: 1;
+  }
 `;
 
 export default Post;
