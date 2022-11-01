@@ -9,7 +9,6 @@ import {
   getUser,
 } from "../../api/user.api";
 import { getEmail } from "../../config/locastorga.config";
-import ModalFollowing from "../../conponents/account-setting/ModalFollowing";
 import Navigation from "../../conponents/navbar/Navigation";
 import ContentProfile from "./ContentProfile";
 import HeaderProfile from "./HeaderProfile";

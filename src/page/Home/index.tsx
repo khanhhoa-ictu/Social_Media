@@ -82,7 +82,6 @@ function HomePage() {
   const handleScroll = (event: any) => {
     const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
     if (scrollHeight - scrollTop === clientHeight) {
-      console.log("next");
       setPage((prev) => prev + 1);
     }
   };
@@ -102,16 +101,15 @@ function HomePage() {
   }, [page, user]);
   return (
     <AppStyle onScroll={handleScroll}>
-      {user ? (
-        <Home
-          socket={socket}
-          logout={logout}
-          user={user}
-          following={following}
-          handleFollow={handleFollow}
-          newsFeed={newsFeed}
-        />
-      ) : null}
+      <Home
+        socket={socket}
+        logout={logout}
+        user={user}
+        following={following}
+        handleFollow={handleFollow}
+        newsFeed={newsFeed}
+      />
+
       <Route exact path="/post/:id" render={() => <PostDetail user={user} />} />
     </AppStyle>
   );

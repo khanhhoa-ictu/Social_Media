@@ -24,7 +24,6 @@ interface Props {
 function HomeComponent(props: Props) {
   const { logout, user, following, handleFollow, newsFeed, socket } = props;
   const dispatch = useDispatch();
-
   const CommentPost = (
     profilePicture: string,
     userId: string,
