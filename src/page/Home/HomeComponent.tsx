@@ -20,7 +20,7 @@ interface Props {
   newsFeed: PostType[];
   socket: any;
 }
-
+// test 2
 function HomeComponent(props: Props) {
   const { logout, user, following, handleFollow, newsFeed, socket } = props;
   const dispatch = useDispatch();
